@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>China em Casa — Achadinhos</title>
+<meta name="description" content="Achadinhos baratos pra casa, presentes e ofertas. Links de afiliado #publi">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
+<style>
+  :root {
+    --bg: #fbf6ee;
+    --card: #ffffff;
+    --text: #2a1d17;
+    --muted: #7a6a60;
+    --red: #c8102e;
+    --gold: #e0a526;
+    --ml: #ffe600;
+    --ml-text: #2d3277;
+    --shopee: #ee4d2d;
+    --line: #eadfce;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1b1412;
+      --card: #261d1a;
+      --text: #f6ece4;
+      --muted: #b9a89c;
+      --line: #3a2e29;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.4;
+  }
+  .wrap { max-width: 520px; margin: 0 auto; padding: 24px 16px 40px; }
+  header { text-align: center; margin-bottom: 20px; }
+  .logo {
+    width: 84px; height: 84px; margin: 0 auto 10px;
+    border-radius: 50%; background: var(--red); color: #fff;
+    display: grid; place-items: center; font-size: 40px;
+    box-shadow: 0 0 0 4px var(--gold);
+  }
+  h1 { margin: 0; font-size: 1.6rem; color: var(--red); }
+  .bio { margin: 6px 0 0; color: var(--muted); }
+  .aviso {
+    margin: 14px 0 0; padding: 10px 12px; border-radius: 10px;
+    background: var(--card); border: 1px dashed var(--line);
+    font-size: .85rem; color: var(--muted);
+  }
+  .busca {
+    width: 100%; margin: 18px 0 6px; padding: 12px 14px;
+    border-radius: 12px; border: 1px solid var(--line);
+    background: var(--card); color: var(--text); font-size: 1rem;
+  }
+  h2 { font-size: 1.05rem; margin: 22px 0 10px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 14px; margin-bottom: 12px;
+  }
+  .card h3 { margin: 0 0 4px; font-size: 1rem; }
+  .card p { margin: 0 0 10px; color: var(--muted); font-size: .9rem; }
+  .novo {
+    display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 99px;
+    background: var(--gold); color: #2a1d17; font-size: .7rem; font-weight: 700;
+    vertical-align: middle;
+  }
+  .botoes { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn {
+    flex: 1 1 140px; text-align: center; text-decoration: none; font-weight: 700;
+    padding: 11px 10px; border-radius: 10px; font-size: .95rem;
+  }
+  .btn.ml { background: var(--ml); color: var(--ml-text); }
+  .btn.shopee { background: var(--shopee); color: #fff; }
+  .vazio { color: var(--muted); text-align: center; display: none; }
+  footer { text-align: center; color: var(--muted); font-size: .8rem; margin-top: 28px; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">🛒</div>
+    <h1>China em Casa</h1>
+    <p class="bio">Achadinhos baratos pra casa, presentes e ofertas</p>
+    <p class="aviso">#publi — Os botões são links de afiliado do Mercado Livre e da Shopee: posso ganhar uma comissão, sem custo extra pra você. Preço e estoque podem mudar; confira no site da loja.</p>
+  </header>
+
+  <input class="busca" id="busca" type="search" placeholder="Procurar achadinho…" aria-label="Procurar achadinho">
+
+  <main id="lista"></main>
+  <p class="vazio" id="vazio">Nada encontrado com esse nome.</p>
+
+  <footer>
+    Siga: <a href="https://www.tiktok.com/@china.em.casa">TikTok</a> ·
+    <a href="https://br.pinterest.com/chinaemcasa">Pinterest</a>
+  </footer>
+</div>
+
+<script>
+  // Para adicionar produto: copie um bloco { ... }, troque os dados e salve.
+  // Deixe ml ou shopee vazio ("") se o produto não estiver naquela loja.
+  const produtos = [
+    {
+      secao: "🎄 Decoração de Natal",
+      nome: "Cortina de LED com 300 luzinhas",
+      texto: "3x3 m, branco quente, liga no USB e vem com controle remoto. Fica linda na sala ou no quarto.",
+      ml: "https://meli.la/1T7s6cP",
+      shopee: "https://s.shopee.com.br/8fTKtSKEqk",
+      novo: true
+    }
+  ];
+
+  const lista = document.getElementById("lista");
+  const vazio = document.getElementById("vazio");
+
+  function desenhar(filtro) {
+    const termo = (filtro || "").toLowerCase();
+    lista.innerHTML = "";
+    let total = 0;
+    const secoes = [...new Set(produtos.map(p => p.secao))];
+    for (const secao of secoes) {
+      const itens = produtos.filter(p => p.secao === secao &&
+        (p.nome + " " + p.texto).toLowerCase().includes(termo));
+      if (!itens.length) continue;
+      const h2 = document.createElement("h2");
+      h2.textContent = secao;
+      lista.appendChild(h2);
+      for (const p of itens) {
+        total++;
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML =
+          "<h3></h3><p></p><div class='botoes'></div>";
+        card.querySelector("h3").textContent = p.nome;
+        if (p.novo) card.querySelector("h3").insertAdjacentHTML("beforeend", "<span class='novo'>NOVO</span>");
+        card.querySelector("p").textContent = p.texto;
+        const botoes = card.querySelector(".botoes");
+        if (p.ml) botoes.insertAdjacentHTML("beforeend",
+          `<a class="btn ml" href="${p.ml}" target="_blank" rel="noopener sponsored">Ver no Mercado Livre</a>`);
+        if (p.shopee) botoes.insertAdjacentHTML("beforeend",
+          `<a class="btn shopee" href="${p.shopee}" target="_blank" rel="noopener sponsored">Ver na Shopee</a>`);
+        lista.appendChild(card);
+      }
+    }
+    vazio.style.display = total ? "none" : "block";
+  }
+
+  document.getElementById("busca").addEventListener("input", e => desenhar(e.target.value));
+  desenhar();
+</script>
+</body>
+</html>
