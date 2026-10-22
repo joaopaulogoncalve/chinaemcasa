@@ -39,12 +39,14 @@
   .wrap { max-width: 520px; margin: 0 auto; padding: 24px 16px 40px; }
   header { text-align: center; margin-bottom: 20px; }
   .logo {
-    width: 84px; height: 84px; margin: 0 auto 10px;
-    border-radius: 50%; background: var(--red); color: #fff;
-    display: grid; place-items: center; font-size: 40px;
-    box-shadow: 0 0 0 4px var(--gold);
+    display: block; width: 210px; max-width: 70%; height: auto;
+    margin: 0 auto 6px; border-radius: 20px;
   }
-  h1 { margin: 0; font-size: 1.6rem; color: var(--red); }
+  /* O nome já está escrito no logo: o título fica só para leitores de tela */
+  h1 {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+  }
   .bio { margin: 6px 0 0; color: var(--muted); }
   .aviso {
     margin: 14px 0 0; padding: 10px 12px; border-radius: 10px;
@@ -105,7 +107,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">🛒</div>
+    <img class="logo" src="logo.png" alt="Logo China em Casa" width="704" height="606">
     <h1>China em Casa</h1>
     <p class="bio">Achadinhos baratos pra casa, presentes e ofertas</p>
     <p class="aviso">#publi — Os botões são links de afiliado do Mercado Livre e da Shopee: posso ganhar uma comissão, sem custo extra pra você. Preço e estoque podem mudar; confira no site da loja.</p>
