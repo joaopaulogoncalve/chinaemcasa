@@ -83,12 +83,33 @@
   .btn.ml { background: var(--ml); color: var(--ml-text); }
   .btn.shopee { background: var(--shopee); color: #fff; }
   .vazio { color: var(--muted); text-align: center; display: none; }
+  /* Sacolas: desenho da sacola na cor da estampa (sem usar fotos do vendedor) */
+  .sacola { width: 96px; aspect-ratio: 3 / 4; border-radius: 10px; display: grid; place-items: center; background: var(--line); }
+  .sacola svg { width: 70px; height: auto; }
+  .etiqueta {
+    display: inline-block; margin: 0 0 8px; padding: 2px 8px; border-radius: 99px;
+    background: var(--line); color: var(--text); font-size: .75rem; font-weight: 700;
+  }
+  #sacolas { scroll-margin-top: 12px; }
+
+  /* Faixa fixa no rodapé levando às sacolas */
+  .faixa {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 9;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+    background: var(--red); color: #fff; text-decoration: none;
+    font-weight: 800; font-size: 1.05rem; box-shadow: 0 -4px 16px rgba(0,0,0,.2);
+  }
+  .faixa small { display: block; font-weight: 600; font-size: .8rem; opacity: .9; }
+  .faixa .seta { font-size: 1.4rem; }
+  body { padding-bottom: 84px; }
+
   footer { text-align: center; color: var(--muted); font-size: .8rem; margin-top: 28px; }
   footer a { color: inherit; }
 
   /* Gatinho da sorte que dá boas-vindas no canto */
   .boasvindas {
-    position: fixed; right: 12px; bottom: 12px; z-index: 10;
+    position: fixed; right: 12px; bottom: 88px; z-index: 10;
     display: flex; align-items: flex-end; gap: 6px;
     transform: translateY(140%); transition: transform .6s ease;
     cursor: pointer;
@@ -128,6 +149,12 @@
     <a href="https://br.pinterest.com/chinaemcasa">Pinterest</a>
   </footer>
 </div>
+
+<a class="faixa" href="#sacolas">
+  <span>🎁</span>
+  <span>Sacolas térmicas para cesta e kit de Natal<small>Conservam quente ou frio · kits de 5, 10 e 100</small></span>
+  <span class="seta">›</span>
+</a>
 
 <div class="boasvindas" id="boasvindas" role="status" aria-label="Seja bem-vindo!">
   <div class="balao">Seja bem-vindo! 👋</div>
@@ -191,8 +218,69 @@
       data: "2026-10-23",
       ml: "https://meli.la/1GbERNw",
       shopee: ""
+    },
+
+    // Sacolas térmicas Neobag (sem data = ficam no fim, na seção das sacolas).
+    // sacola: [cor do fundo, cor das alças, cor do detalhe] — desenho, não foto do vendedor.
+    {
+      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
+      nome: "Kit 10 sacolas térmicas — Vinho com laço",
+      etiqueta: "Grande 30x42x28 · 10 un.",
+      texto: "Conserva quente ou frio até 5 h, cabem 24 latas. Ótima pra levar a ceia ou montar cesta.",
+      sacola: ["#6d1a24", "#d8232a", "#d8232a"],
+      ml: "https://meli.la/2njyNrB", shopee: ""
+    },
+    {
+      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
+      nome: "Kit 10 sacolas térmicas — Papai Noel",
+      etiqueta: "Grande 30x42x28 · 10 un.",
+      texto: "Estampa do Papai Noel sorrindo, fundo verde. Conserva quente ou frio por horas.",
+      sacola: ["#2f4a35", "#2b2f2c", "#ffffff"],
+      ml: "https://meli.la/2ZPoK8q", shopee: ""
+    },
+    {
+      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
+      nome: "Kit 10 sacolas térmicas — Azul com rena",
+      etiqueta: "Grande 30x42 · 10 un.",
+      texto: "Rena, árvore de Natal e neve. Conserva quente ou frio até 5 h.",
+      sacola: ["#7cc3ec", "#2f8fd6", "#ffffff"],
+      ml: "https://meli.la/2i9R4yj", shopee: ""
+    },
+    {
+      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
+      nome: "Kit 10 sacolas térmicas — Dourada",
+      etiqueta: "Grande 30x42x28 · 10 un.",
+      texto: "Dourada com bolinhas de Natal, visual de luxo. Cabem 24 latas.",
+      sacola: ["#d9b44a", "#d8232a", "#6d1a24"],
+      ml: "https://meli.la/1YjhCXt", shopee: ""
+    },
+    {
+      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
+      nome: "Kit 5 sacolas térmicas pequenas — Dourada",
+      etiqueta: "Pequena 30x36x20 · 5 un.",
+      texto: "Cabem 2 vinhos + abridor: presente de Natal pronto.",
+      sacola: ["#d9b44a", "#d8232a", "#6d1a24"],
+      ml: "https://meli.la/1oAxBkX", shopee: ""
+    },
+    {
+      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
+      nome: "Kit 100 sacolas térmicas — Azul com rena",
+      etiqueta: "🏢 Para empresas · Grande · 100 un.",
+      texto: "Brinde de fim de ano para empresa, condomínio ou igreja.",
+      sacola: ["#7cc3ec", "#2f8fd6", "#ffffff"],
+      ml: "https://meli.la/2M9vsqw", shopee: ""
     }
   ];
+
+  function desenhoSacola([fundo, alca, detalhe]) {
+    return `<svg viewBox="0 0 60 80" aria-hidden="true">
+      <path d="M20 22 V12 a10 10 0 0 1 20 0 V22" fill="none" stroke="${alca}" stroke-width="4" stroke-linecap="round"/>
+      <rect x="6" y="20" width="48" height="56" rx="3" fill="${fundo}"/>
+      <rect x="6" y="20" width="48" height="6" fill="rgba(0,0,0,.15)"/>
+      <rect x="6" y="50" width="48" height="4" fill="${detalhe}" opacity=".9"/>
+      <path d="M40 46 l6 6 -6 6 M52 46 l-6 6 6 6" fill="none" stroke="${detalhe}" stroke-width="3"/>
+    </svg>`;
+  }
 
   const hoje = new Date();
   const ehNovo = p => p.data && (hoje - new Date(p.data + "T12:00:00")) / 86400000 <= 7;
@@ -212,14 +300,18 @@
       if (!itens.length) continue;
       const h2 = document.createElement("h2");
       h2.textContent = secao;
+      if (secao.includes("Sacolas")) h2.id = "sacolas";
       lista.appendChild(h2);
       for (const p of itens) {
         total++;
         const card = document.createElement("article");
-        card.className = p.foto ? "card com-foto" : "card";
+        card.className = p.foto || p.sacola ? "card com-foto" : "card";
         card.innerHTML =
           (p.foto ? "<img class='foto' loading='lazy' alt=''>" : "") +
-          "<div><h3></h3><p></p><div class='botoes'></div></div>";
+          (p.sacola ? `<div class="sacola">${desenhoSacola(p.sacola)}</div>` : "") +
+          "<div><h3></h3>" + (p.etiqueta ? "<span class='etiqueta'></span>" : "") +
+          "<p></p><div class='botoes'></div></div>";
+        if (p.etiqueta) card.querySelector(".etiqueta").textContent = p.etiqueta;
         if (p.foto) { const f = card.querySelector(".foto"); f.src = p.foto; f.alt = p.nome; }
         card.querySelector("h3").textContent = p.nome;
         if (ehNovo(p)) card.querySelector("h3").insertAdjacentHTML("beforeend", "<span class='novo'>NOVO</span>");
