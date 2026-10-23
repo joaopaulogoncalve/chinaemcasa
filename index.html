@@ -86,6 +86,14 @@
   /* Sacolas: desenho da sacola na cor da estampa (sem usar fotos do vendedor) */
   .sacola { width: 96px; aspect-ratio: 3 / 4; border-radius: 10px; display: grid; place-items: center; background: var(--line); }
   .sacola svg { width: 70px; height: auto; }
+  .icone {
+    width: 96px; aspect-ratio: 3 / 4; border-radius: 10px; background: var(--line);
+    display: grid; place-items: center; font-size: 44px;
+  }
+  .kit-resumo {
+    margin: -4px 0 12px; padding: 10px 12px; border-radius: 10px;
+    background: var(--card); border: 2px solid var(--gold); font-size: .9rem;
+  }
   .etiqueta {
     display: inline-block; margin: 0 0 8px; padding: 2px 8px; border-radius: 99px;
     background: var(--line); color: var(--text); font-size: .75rem; font-weight: 700;
@@ -218,6 +226,7 @@
   // data = dia em que o vídeo foi postado (AAAA-MM-DD): o mais novo aparece primeiro
   // e ganha a etiqueta NOVO por 7 dias. foto = arquivo na pasta img/.
   // Deixe ml ou shopee vazio ("") se o produto não estiver naquela loja.
+  const SECAO_KIT = "🎄 Monte sua árvore de Natal";
   const produtos = [
     {
       secao: "🎄 Decoração de Natal",
@@ -236,6 +245,43 @@
       data: "2026-10-23",
       ml: "https://meli.la/1GbERNw",
       shopee: ""
+    },
+
+    // Monte sua árvore: kit = ordem de montagem; etiqueta = quantas usar na árvore de 2,10 m
+    {
+      secao: SECAO_KIT, kit: 1, icone: "🌲",
+      nome: "1. Árvore pinheiro 2,10 m · 1200 galhos",
+      etiqueta: "Usar 1 · tem outras alturas no link",
+      texto: "1º mais vendido, nota 4,9. Vem com a base de metal. Sem luzes e sem enfeites.",
+      ml: "https://meli.la/1eBxGNW", shopee: ""
+    },
+    {
+      secao: SECAO_KIT, kit: 2, icone: "💡",
+      nome: "2. Pisca-pisca 100 LEDs branco quente",
+      etiqueta: "Usar 3 na árvore de 2,10 m",
+      texto: "Fio verde, 9,5 m, 8 funções. Não é bivolt: escolha 127 V ou 220 V. Uso interno.",
+      ml: "https://meli.la/1E4GZ3Z", shopee: ""
+    },
+    {
+      secao: SECAO_KIT, kit: 3, icone: "🔴",
+      nome: "3. Kit 42 enfeites de árvore",
+      etiqueta: "Usar 2 na árvore de 2,10 m",
+      texto: "Bolinhas, sinos, tambores, pinhas, bengalas, Papai Noel e laços. Vermelho, dourado ou prateado.",
+      ml: "https://meli.la/28Ho7uh", shopee: ""
+    },
+    {
+      secao: SECAO_KIT, kit: 4, icone: "⭐",
+      nome: "4. Estrela ponteira glitter 20 cm",
+      etiqueta: "Usar 1",
+      texto: "Encaixa no topo com espiral. Vermelha, dourada ou prateada.",
+      ml: "https://meli.la/2iMyJuK", shopee: ""
+    },
+    {
+      secao: SECAO_KIT, kit: 5, icone: "🤍",
+      nome: "5. Saia de árvore pelúcia 120 cm",
+      etiqueta: "Usar 1 · 10 estampas no link",
+      texto: "Esconde o pé de metal da árvore. Branca de pelúcia (modelo 10) ou estampada.",
+      ml: "https://meli.la/1RCCm4o", shopee: ""
     },
 
     // Sacolas térmicas Neobag (sem data = ficam no fim, na seção das sacolas).
@@ -302,7 +348,9 @@
 
   const hoje = new Date();
   const ehNovo = p => p.data && (hoje - new Date(p.data + "T12:00:00")) / 86400000 <= 7;
-  produtos.sort((a, b) => (b.data || "").localeCompare(a.data || ""));
+  // "Monte sua árvore" fica sempre no topo, na ordem de montagem; o resto, mais novo primeiro
+  produtos.sort((a, b) => (b.kit ? 1 : 0) - (a.kit ? 1 : 0) || (a.kit || 0) - (b.kit || 0) ||
+    (b.data || "").localeCompare(a.data || ""));
 
   // Carrossel do rodapé: um cartãozinho por sacola, desliza sozinho e para quando a pessoa toca
   const trilho = document.getElementById("trilho");
@@ -339,12 +387,19 @@
       h2.textContent = secao;
       if (secao.includes("Sacolas")) h2.id = "sacolas";
       lista.appendChild(h2);
+      if (secao === SECAO_KIT && !termo) {
+        const r = document.createElement("p");
+        r.className = "kit-resumo";
+        r.innerHTML = "Tudo pra árvore de <b>2,10 m</b>: a partir de <b>~R$ 555</b> somando as peças (preços de 23/10 — mudam, confira em cada link). Árvore, luzes e enfeites são vendidos separados.";
+        lista.appendChild(r);
+      }
       for (const p of itens) {
         total++;
         const card = document.createElement("article");
-        card.className = p.foto || p.sacola ? "card com-foto" : "card";
+        card.className = p.foto || p.sacola || p.icone ? "card com-foto" : "card";
         card.innerHTML =
           (p.foto ? "<img class='foto' loading='lazy' alt=''>" : "") +
+          (p.icone ? `<div class="icone" aria-hidden="true">${p.icone}</div>` : "") +
           (p.sacola ? `<div class="sacola">${desenhoSacola(p.sacola)}</div>` : "") +
           "<div><h3></h3>" + (p.etiqueta ? "<span class='etiqueta'></span>" : "") +
           "<p></p><div class='botoes'></div></div>";
