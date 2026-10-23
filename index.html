@@ -92,24 +92,43 @@
   }
   #sacolas { scroll-margin-top: 12px; }
 
-  /* Faixa fixa no rodapé levando às sacolas */
+  /* Carrossel fixo no rodapé com as sacolas térmicas */
   .faixa {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 9;
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
-    background: var(--red); color: #fff; text-decoration: none;
-    font-weight: 800; font-size: 1.05rem; box-shadow: 0 -4px 16px rgba(0,0,0,.2);
+    background: var(--red); color: #fff;
+    padding: 8px 0 calc(10px + env(safe-area-inset-bottom));
+    box-shadow: 0 -4px 16px rgba(0,0,0,.25);
   }
-  .faixa small { display: block; font-weight: 600; font-size: .8rem; opacity: .9; }
-  .faixa .seta { font-size: 1.4rem; }
-  body { padding-bottom: 84px; }
+  .faixa-titulo { text-align: center; font-weight: 800; font-size: 1rem; margin: 0 16px 6px; }
+  .faixa-titulo small { font-weight: 600; opacity: .9; }
+  .trilho {
+    display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 0 16px; scrollbar-width: none; scroll-behavior: smooth;
+  }
+  .trilho::-webkit-scrollbar { display: none; }
+  .mini {
+    flex: 0 0 auto; width: 248px; scroll-snap-align: center;
+    display: grid; grid-template-columns: 52px 1fr; gap: 8px; align-items: center;
+    background: var(--card); color: var(--text); border-radius: 12px; padding: 8px;
+    text-decoration: none;
+  }
+  .mini .sacola { width: 52px; border-radius: 8px; }
+  .mini .sacola svg { width: 38px; }
+  .mini b { display: block; font-size: .85rem; line-height: 1.2; }
+  .mini span { display: block; font-size: .72rem; color: var(--muted); margin: 2px 0 4px; }
+  .mini em {
+    display: inline-block; font-style: normal; font-weight: 800; font-size: .75rem;
+    background: var(--ml); color: var(--ml-text); padding: 3px 8px; border-radius: 6px;
+  }
+  @media (min-width: 900px) { .trilho { justify-content: center; } }
+  body { padding-bottom: 150px; }
 
   footer { text-align: center; color: var(--muted); font-size: .8rem; margin-top: 28px; }
   footer a { color: inherit; }
 
   /* Gatinho da sorte que dá boas-vindas no canto */
   .boasvindas {
-    position: fixed; right: 12px; bottom: 96px; z-index: 10;
+    position: fixed; right: 12px; bottom: 156px; z-index: 10;
     display: flex; align-items: flex-end; gap: 6px;
     transform: translateY(140%); transition: transform .6s ease;
     cursor: pointer;
@@ -150,11 +169,10 @@
   </footer>
 </div>
 
-<a class="faixa" href="#sacolas">
-  <span>🎁</span>
-  <span>Sacolas térmicas de Natal<small>Pra cesta e kit · quente ou frio · 5, 10 e 100 un.</small></span>
-  <span class="seta">›</span>
-</a>
+<div class="faixa" aria-label="Sacolas térmicas de Natal">
+  <p class="faixa-titulo">🎁 Sacolas térmicas de Natal <small>· pra cesta e kit · deslize ›</small></p>
+  <div class="trilho" id="trilho"></div>
+</div>
 
 <div class="boasvindas" id="boasvindas" role="status" aria-label="Seja bem-vindo!">
   <div class="balao">Seja bem-vindo! 👋</div>
@@ -286,6 +304,24 @@
   const ehNovo = p => p.data && (hoje - new Date(p.data + "T12:00:00")) / 86400000 <= 7;
   produtos.sort((a, b) => (b.data || "").localeCompare(a.data || ""));
 
+  // Carrossel do rodapé: um cartãozinho por sacola, desliza sozinho e para quando a pessoa toca
+  const trilho = document.getElementById("trilho");
+  for (const p of produtos.filter(p => p.sacola)) {
+    const a = document.createElement("a");
+    a.className = "mini"; a.href = p.ml; a.target = "_blank"; a.rel = "noopener sponsored";
+    a.innerHTML = `<div class="sacola">${desenhoSacola(p.sacola)}</div><div><b></b><span></span><em>Ver no Mercado Livre</em></div>`;
+    a.querySelector("b").textContent = p.nome.replace("sacolas térmicas — ", "");
+    a.querySelector("span").textContent = p.etiqueta;
+    trilho.appendChild(a);
+  }
+  let parado = false;
+  ["pointerdown", "touchstart", "wheel"].forEach(ev => trilho.addEventListener(ev, () => { parado = true; }, { passive: true }));
+  setInterval(() => {
+    if (parado || document.hidden || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const fim = trilho.scrollLeft + trilho.clientWidth >= trilho.scrollWidth - 4;
+    trilho.scrollTo({ left: fim ? 0 : trilho.scrollLeft + 258 });
+  }, 3000);
+
   const lista = document.getElementById("lista");
   const vazio = document.getElementById("vazio");
 
@@ -293,9 +329,10 @@
     const termo = (filtro || "").toLowerCase();
     lista.innerHTML = "";
     let total = 0;
-    const secoes = [...new Set(produtos.map(p => p.secao))];
+    const daLista = produtos.filter(p => !p.sacola); // sacolas ficam só no carrossel do rodapé
+    const secoes = [...new Set(daLista.map(p => p.secao))];
     for (const secao of secoes) {
-      const itens = produtos.filter(p => p.secao === secao &&
+      const itens = daLista.filter(p => p.secao === secao &&
         (p.nome + " " + p.texto).toLowerCase().includes(termo));
       if (!itens.length) continue;
       const h2 = document.createElement("h2");
