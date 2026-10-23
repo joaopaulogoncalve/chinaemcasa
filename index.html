@@ -63,6 +63,11 @@
     background: var(--card); border: 1px solid var(--line);
     border-radius: 14px; padding: 14px; margin-bottom: 12px;
   }
+  .card.com-foto { display: grid; grid-template-columns: 96px 1fr; gap: 12px; }
+  .foto {
+    width: 96px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 10px;
+    background: var(--line); align-self: start;
+  }
   .card h3 { margin: 0 0 4px; font-size: 1rem; }
   .card p { margin: 0 0 10px; color: var(--muted); font-size: .9rem; }
   .novo {
@@ -165,25 +170,33 @@
   gato.addEventListener("click", esconder);
 
   // Para adicionar produto: copie um bloco { ... }, troque os dados e salve.
+  // data = dia em que o vídeo foi postado (AAAA-MM-DD): o mais novo aparece primeiro
+  // e ganha a etiqueta NOVO por 7 dias. foto = arquivo na pasta img/.
   // Deixe ml ou shopee vazio ("") se o produto não estiver naquela loja.
   const produtos = [
     {
       secao: "🎄 Decoração de Natal",
       nome: "Cortina de LED com 300 luzinhas",
       texto: "3x3 m, branco quente, liga no USB e vem com controle remoto. Fica linda na sala ou no quarto.",
+      foto: "img/cortina-led.jpg",
+      data: "2026-10-22",
       ml: "https://meli.la/1T7s6cP",
-      shopee: "https://s.shopee.com.br/8fTKtSKEqk",
-      novo: true
+      shopee: "https://s.shopee.com.br/8fTKtSKEqk"
     },
     {
       secao: "🎄 Decoração de Natal",
       nome: "Projetor de Natal com 16 desenhos",
       texto: "Apaga a luz e a parede se enche de Papai Noel, boneco de neve e flocos coloridos. Pequenininho e bivolt.",
+      foto: "img/projetor-natal.jpg",
+      data: "2026-10-23",
       ml: "https://meli.la/1GbERNw",
-      shopee: "",
-      novo: true
+      shopee: ""
     }
   ];
+
+  const hoje = new Date();
+  const ehNovo = p => p.data && (hoje - new Date(p.data + "T12:00:00")) / 86400000 <= 7;
+  produtos.sort((a, b) => (b.data || "").localeCompare(a.data || ""));
 
   const lista = document.getElementById("lista");
   const vazio = document.getElementById("vazio");
@@ -203,11 +216,13 @@
       for (const p of itens) {
         total++;
         const card = document.createElement("article");
-        card.className = "card";
+        card.className = p.foto ? "card com-foto" : "card";
         card.innerHTML =
-          "<h3></h3><p></p><div class='botoes'></div>";
+          (p.foto ? "<img class='foto' loading='lazy' alt=''>" : "") +
+          "<div><h3></h3><p></p><div class='botoes'></div></div>";
+        if (p.foto) { const f = card.querySelector(".foto"); f.src = p.foto; f.alt = p.nome; }
         card.querySelector("h3").textContent = p.nome;
-        if (p.novo) card.querySelector("h3").insertAdjacentHTML("beforeend", "<span class='novo'>NOVO</span>");
+        if (ehNovo(p)) card.querySelector("h3").insertAdjacentHTML("beforeend", "<span class='novo'>NOVO</span>");
         card.querySelector("p").textContent = p.texto;
         const botoes = card.querySelector(".botoes");
         if (p.ml) botoes.insertAdjacentHTML("beforeend",
