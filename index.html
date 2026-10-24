@@ -119,7 +119,10 @@
   footer.siga a { color: inherit; }
 
   /* Barras finas com carrossel (todas iguais à das sacolas, cada uma de uma cor) */
-  @media (min-width: 1000px) { #lista { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; } .barra { min-width: 0; } }
+  /* Uma barra embaixo da outra; só as duas árvores ficam lado a lado na tela grande */
+  .lado { display: grid; gap: 0 14px; }
+  @media (min-width: 900px) { .lado { grid-template-columns: 1fr 1fr; } }
+  .lado .barra { min-width: 0; }
   .barra { border-radius: 14px; padding: 8px 0 10px; margin: 10px 0; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.12); }
   .barra .titulo { font-weight: 800; margin: 0 12px 6px; font-size: .98rem; }
   .barra .trilho { padding: 0 12px; }
@@ -336,8 +339,9 @@
     const promo = idsPromo.map(id => porId[id]).filter(p => p && casa(p, termo));
     const bf = document.body.classList.contains("bf");
     let html = barra("c-promo", bf ? "🖤 Ofertas da Black Friday ›" : `🔥 Promoções do dia · ${fmtDia(diaPromo || HOJE)} ›`, promo, diaPromo === HOJE);
-    html += barra("c-barata", "💰 Monte sua árvore mais barata · ~R$ 135 ›", de("arvore-barata"));
-    html += barra("c-rapida", "⚡ Monte sua árvore · chega rápido (FULL) ›", de("arvore-rapida"));
+    const arvores = barra("c-barata", "💰 Monte sua árvore mais barata · ~R$ 135 ›", de("arvore-barata")) +
+      barra("c-rapida", "⚡ Monte sua árvore · chega rápido (FULL) ›", de("arvore-rapida"));
+    if (arvores) html += `<div class="lado">${arvores}</div>`;
     if (HOJE <= FIM_OFERTAS_1111) html += barra("c-ofertas", "🏷️ Ofertas 11/11 · Mercado Livre ›", de("ofertas"));
     html += barra("c-presentes", "🎁 Presentes de Natal ›", de("presentes"));
     html += barra("c-decoracao", "✨ Decoração de Natal ›", de("decoracao"));
