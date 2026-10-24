@@ -121,6 +121,7 @@
     text-decoration: none;
   }
   .mini .sacola { width: 52px; border-radius: 8px; }
+  .mini-foto { width: 52px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 8px; }
   .mini .sacola svg { width: 38px; }
   .mini b { display: block; font-size: .85rem; line-height: 1.2; }
   .mini span { display: block; font-size: .72rem; color: var(--muted); margin: 2px 0 4px; }
@@ -247,6 +248,28 @@
       shopee: ""
     },
 
+    {
+      secao: "🎄 Decoração de Natal",
+      nome: "Guirlanda de porta 30 cm · nevada com pinhas",
+      texto: "Já vem toda decorada: é só pendurar. Escolha a cor Nevada no anúncio. Sem luzes.",
+      foto: "img/guirlanda.jpg", data: "2026-10-26",
+      ml: "https://meli.la/1oxp3zS", shopee: ""
+    },
+    {
+      secao: "🎁 Presentes de Natal",
+      nome: "Kit pijama família Natal · pai, mãe e filho",
+      texto: "3 peças, manga curta + short. Você informa os tamanhos no chat depois da compra (na dúvida, um acima).",
+      foto: "img/pijama.jpg", data: "2026-10-29",
+      ml: "https://meli.la/1vHvcA8", shopee: ""
+    },
+    {
+      secao: "🎁 Presentes de Natal",
+      nome: "Caneca 3D de Natal · 4 modelos",
+      texto: "Cerâmica, vai no micro-ondas e na lava-louças. Boneco de neve ou Papai Noel: escolha no anúncio.",
+      foto: "img/caneca.jpg", data: "2026-10-30",
+      ml: "https://meli.la/1HuPXC1", shopee: ""
+    },
+
     // Monte sua árvore: kit = ordem de montagem; etiqueta = quantas usar na árvore de 2,10 m
     {
       secao: SECAO_KIT, kit: 1, icone: "🌲",
@@ -267,6 +290,7 @@
       nome: "3. Kit 42 enfeites de árvore",
       etiqueta: "Usar 2 na árvore de 2,10 m",
       texto: "Bolinhas, sinos, tambores, pinhas, bengalas, Papai Noel e laços. Vermelho, dourado ou prateado.",
+      foto: "img/enfeites42.jpg",
       ml: "https://meli.la/28Ho7uh", shopee: ""
     },
     {
@@ -279,7 +303,7 @@
     {
       secao: SECAO_KIT, kit: 4, icone: "⭐",
       nome: "4. Estrela ponteira glitter 20 cm",
-      etiqueta: "Usar 1",
+      etiqueta: "Usar 1 · não precisa se pegar o kit 100",
       texto: "Encaixa no topo com espiral. Vermelha, dourada ou prateada.",
       ml: "https://meli.la/2iMyJuK", shopee: ""
     },
@@ -306,6 +330,7 @@
       etiqueta: "Grande 30x42x28 · 10 un.",
       texto: "Conserva quente ou frio até 5 h, cabem 24 latas. Ótima pra levar a ceia ou montar cesta.",
       sacola: ["#6d1a24", "#d8232a", "#d8232a"],
+      foto: "img/sacola-vinho.jpg",
       ml: "https://meli.la/2njyNrB", shopee: ""
     },
     {
@@ -314,6 +339,7 @@
       etiqueta: "Grande 30x42x28 · 10 un.",
       texto: "Estampa do Papai Noel sorrindo, fundo verde. Conserva quente ou frio por horas.",
       sacola: ["#2f4a35", "#2b2f2c", "#ffffff"],
+      foto: "img/sacola-noel.jpg",
       ml: "https://meli.la/2ZPoK8q", shopee: ""
     },
     {
@@ -322,6 +348,7 @@
       etiqueta: "Grande 30x42 · 10 un.",
       texto: "Rena, árvore de Natal e neve. Conserva quente ou frio até 5 h.",
       sacola: ["#7cc3ec", "#2f8fd6", "#ffffff"],
+      foto: "img/sacola-azul.jpg",
       ml: "https://meli.la/2i9R4yj", shopee: ""
     },
     {
@@ -330,7 +357,17 @@
       etiqueta: "Grande 30x42x28 · 10 un.",
       texto: "Dourada com bolinhas de Natal, visual de luxo. Cabem 24 latas.",
       sacola: ["#d9b44a", "#d8232a", "#6d1a24"],
+      foto: "img/sacola-dourada.jpg",
       ml: "https://meli.la/1YjhCXt", shopee: ""
+    },
+    {
+      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
+      nome: "Kit 10 sacolas térmicas pequenas — Papai Noel",
+      etiqueta: "Pequena 30x36x20 · 10 un.",
+      texto: "Tamanho presente: cabem 2 garrafas + abridor, ou panetone e bombom.",
+      sacola: ["#2f4a35", "#d8232a", "#ffffff"],
+      foto: "img/sacola-noel-pequena.jpg",
+      ml: "https://meli.la/1poFz8Z", shopee: ""
     },
     {
       secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
@@ -338,6 +375,7 @@
       etiqueta: "Pequena 30x36x20 · 5 un.",
       texto: "Cabem 2 vinhos + abridor: presente de Natal pronto.",
       sacola: ["#d9b44a", "#d8232a", "#6d1a24"],
+      foto: "img/sacola-dourada.jpg",
       ml: "https://meli.la/1oAxBkX", shopee: ""
     },
     {
@@ -346,6 +384,7 @@
       etiqueta: "🏢 Para empresas · Grande · 100 un.",
       texto: "Brinde de fim de ano para empresa, condomínio ou igreja.",
       sacola: ["#7cc3ec", "#2f8fd6", "#ffffff"],
+      foto: "img/sacolas-empresa.jpg",
       ml: "https://meli.la/2M9vsqw", shopee: ""
     }
   ];
@@ -371,7 +410,7 @@
   for (const p of produtos.filter(p => p.sacola)) {
     const a = document.createElement("a");
     a.className = "mini"; a.href = p.ml; a.target = "_blank"; a.rel = "noopener sponsored";
-    a.innerHTML = `<div class="sacola">${desenhoSacola(p.sacola)}</div><div><b></b><span></span><em>Ver no Mercado Livre</em></div>`;
+    a.innerHTML = (p.foto ? `<img class="mini-foto" src="${p.foto}" alt="" loading="lazy">` : `<div class="sacola">${desenhoSacola(p.sacola)}</div>`) + `<div><b></b><span></span><em>Ver no Mercado Livre</em></div>`;
     a.querySelector("b").textContent = p.nome.replace("sacolas térmicas — ", "");
     a.querySelector("span").textContent = p.etiqueta;
     trilho.appendChild(a);
@@ -404,7 +443,7 @@
       if (secao === SECAO_KIT && !termo) {
         const r = document.createElement("p");
         r.className = "kit-resumo";
-        r.innerHTML = "Tudo pra árvore de <b>2,10 m</b>: a partir de <b>~R$ 555</b> somando as peças (preços de 23/10 — mudam, confira em cada link). Árvore, luzes e enfeites são vendidos separados.";
+        r.innerHTML = "Tudo pra árvore de <b>2,10 m</b>: a partir de <b>~R$ 535</b> somando as peças (preços de 24/10 — mudam, confira em cada link). Árvore, luzes e enfeites são vendidos separados.";
         lista.appendChild(r);
       }
       for (const p of itens) {
