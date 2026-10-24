@@ -135,6 +135,9 @@
   body.bf .barra { background: linear-gradient(90deg, #000, #5b1bd1); }
   .mini .ic { width: 64px; aspect-ratio: 3/4; border-radius: 8px; display: grid; place-items: center; font-style: normal; font-size: 30px; background: linear-gradient(135deg, #fff3d6, #ffe0e0); }
   body.bf .mini .ic { background: #2a1a40; }
+  .mini .selo { width: 64px; aspect-ratio: 3/4; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-style: normal; color: #fff; background: linear-gradient(160deg, #ffcc00, #ff3d00 55%, #c8102e); box-shadow: inset 0 0 0 2px rgba(255,255,255,.5); }
+  .mini .selo b { font-size: 1.05rem; font-weight: 900; letter-spacing: -.5px; }
+  .mini .selo small { font-size: .6rem; font-weight: 800; text-transform: uppercase; opacity: .95; }
   .mini .botoes { gap: 4px; }
   .mini .btn { padding: 4px 8px; font-size: .74rem; flex: 0 1 auto; border-radius: 6px; }
 
@@ -202,47 +205,23 @@
   // secao: promo é automático; as outras: "arvore-barata", "arvore-rapida", "presentes", "decoracao", "sacolas".
   // Deixe ml/shopee vazio ("") se não tiver. links: botões especiais (ex.: 110 V / 220 V).
   const produtos = [
-    // --- Ofertas 11/11 (aparece até 2026-11-11) ---
-    { id: "of1", secao: "ofertas", nome: "Air Fryer Oven Philco 16 L digital", icone: "🍟", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1r9Dr3Z" },
-    { id: "of2", secao: "ofertas", nome: "Liquidificador Philco 1200 W 3 L", icone: "🥤", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1cNeaiq" },
-    { id: "of3", secao: "ofertas", nome: "Conjunto de panelas Brinox 8 peças cerâmica", icone: "🍳", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1QJT4Hp" },
-    { id: "of4", secao: "ofertas", nome: "Fone Bluetooth AIWA com cancelamento de ruído", icone: "🎧", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2g2YBvD" },
-    { id: "of5", secao: "ofertas", nome: "Câmera Wi-Fi Intelbras 360°", icone: "📷", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1wsVXPF" },
-    { id: "of6", secao: "ofertas", nome: "Patinete elétrico infantil 3 rodas", icone: "🛴", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1WqZhKP" },
-    { id: "of7", secao: "ofertas", nome: "Smart TV TCL 55\" QD-Mini LED 4K", icone: "📺", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1UMrNiA" },
-    { id: "of8", secao: "ofertas", nome: "Celular Samsung Galaxy A17 5G 128 GB", icone: "📱", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2iNCeNC" },
-    { id: "of9", secao: "ofertas", nome: "PlayStation 5 Slim Digital + 2 jogos", icone: "🎮", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2RMfQky" },
-    { id: "of10", secao: "ofertas", nome: "Lavadora de alta pressão WAP 1400 W", icone: "💦", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2rSb8wG" },
-    { id: "of11", secao: "ofertas", nome: "Jogo de ferramentas Vonder 110 peças", icone: "🧰", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2Zf3T5q" },
-    { id: "of12", secao: "ofertas", nome: "Perfume Kaiak Ultra Natura 100 ml", icone: "🧴", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1xsYvZk" },
-    { id: "of13", secao: "ofertas", nome: "Perfume Natura Ilía Ser 50 ml", icone: "🌸", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/31mjkiP" },
-    { id: "of14", secao: "ofertas", nome: "Relógio feminino Garoa rose gold", icone: "⌚", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2sK6K3m" },
-    { id: "of15", secao: "ofertas", nome: "Relógio masculino Garoa + carteira", icone: "⌚", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1X7R5yi" },
-    { id: "of16", secao: "ofertas", nome: "Cadeira de escritório ergonômica LuvinCo", icone: "🪑", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1nWyEG8" },
-    { id: "of17", secao: "ofertas", nome: "Purificador de água gelada Electrolux", icone: "💧", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/28spKT7" },
-    { id: "of18", secao: "ofertas", nome: "Body splash Natura Luna 200 ml", icone: "✨", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2joriJk" },
-    { id: "of19", secao: "ofertas", nome: "Cadeira de refeição Burigotto Poke", icone: "👶", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2yYMX1n" },
-    { id: "of20", secao: "ofertas", nome: "Air Fryer Oven Britânia 11 L", icone: "🍗", etiqueta: "Oferta Mercado Livre",
-      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2QVRk38" },
+    // --- Ofertas 11/11 (some depois de 11/11). selo = desconto visto em 24/10; comissão conferida em 24/10 ---
+    { id: "of1", secao: "ofertas", nome: "Body splash Natura Luna 200 ml", selo: "-40%", categoria: "Presente", etiqueta: "-40% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2joriJk" }, // 22%
+    { id: "of2", secao: "ofertas", nome: "Perfume Kaiak Ultra Natura 100 ml", selo: "-40%", categoria: "Presente", etiqueta: "-40% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1xsYvZk" }, // 20%
+    { id: "of3", secao: "ofertas", nome: "Perfume Natura Ilía Ser 50 ml", selo: "-45%", categoria: "Presente", etiqueta: "-45% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/31mjkiP" }, // 20%
+    { id: "of4", secao: "ofertas", nome: "Relógio feminino Garoa rose gold", selo: "-25%", categoria: "Presente", etiqueta: "-25% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2sK6K3m" }, // 12%
+    { id: "of5", secao: "ofertas", nome: "Relógio masculino Garoa + carteira", selo: "-25%", categoria: "Presente", etiqueta: "-25% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1X7R5yi" }, // 12%
+    { id: "of6", secao: "ofertas", nome: "Patinete elétrico infantil 3 rodas", selo: "-26%", categoria: "Criança", etiqueta: "-26% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1WqZhKP" }, // 12%
+    { id: "of7", secao: "ofertas", nome: "Cadeira de escritório ergonômica LuvinCo", selo: "-36%", categoria: "Casa", etiqueta: "-36% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1nWyEG8" }, // 12%
+    { id: "of8", secao: "ofertas", nome: "Jogo de ferramentas Vonder 110 peças", selo: "-20%", categoria: "Presente", etiqueta: "-20% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2Zf3T5q" }, // 12%
 
     // --- Decoração ---
     { id: "cortina", secao: "decoracao", nome: "Cortina de LED com 300 luzinhas", foto: "img/cortina-led.jpg",
@@ -324,7 +303,8 @@
     return lista.map(b => `<a class="btn ${b.cls || "ml"}" href="${esc(b.url)}" target="_blank" rel="noopener sponsored">${esc(b.rotulo)}</a>`).join("");
   }
   function mini(p, novo) {
-    const img = p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">` : `<i class="ic" aria-hidden="true">${p.icone || "🎄"}</i>`;
+    const img = p.selo ? `<i class="selo" aria-hidden="true"><b>${esc(p.selo)}</b><small>${esc(p.categoria || "OFERTA")}</small></i>`
+      : p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">` : `<i class="ic" aria-hidden="true">${p.icone || "🎄"}</i>`;
     return `<div class="mini">${img}<div><b>${esc(p.nome)}${novo ? '<span class="novo">HOJE</span>' : ""}</b>
       <span>${esc(p.etiqueta || p.texto)}</span><div class="botoes">${botoesDe(p, true)}</div></div></div>`;
   }
