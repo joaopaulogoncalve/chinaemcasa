@@ -56,9 +56,9 @@
 
   .topo {
     background: linear-gradient(160deg, var(--topo1), var(--topo2)); color: #fff; text-align: center;
-    padding: 6px 16px 22px; position: relative; z-index: 2;
+    padding: 4px 16px 12px; position: relative; z-index: 2;
   }
-  .topo .logo { width: 150px; max-width: 45%; height: auto; border-radius: 22px; background: #fff; padding: 6px; }
+  .topo .logo { width: 96px; max-width: 45%; height: auto; border-radius: 22px; background: #fff; padding: 6px; }
   .topo h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .topo .bio { margin: 8px 0 0; font-weight: 600; }
   .arvorezinhas { font-size: 22px; letter-spacing: 6px; margin-top: 6px; }
@@ -72,7 +72,7 @@
     background: var(--card); border: 1px dashed var(--linha); font-size: .82rem; color: var(--muted); text-align: center;
   }
   .busca {
-    display: block; width: 100%; max-width: 640px; margin: 14px auto 4px; padding: 12px 14px;
+    display: block; width: 100%; max-width: 640px; margin: 10px auto 2px; padding: 12px 14px;
     border-radius: 12px; border: 1px solid var(--linha); background: var(--card); color: var(--texto); font-size: 1rem;
   }
 
@@ -118,23 +118,32 @@
   footer.siga { text-align: center; color: var(--muted); font-size: .8rem; margin: 22px 0; }
   footer.siga a { color: inherit; }
 
+  /* Barras finas com carrossel (todas iguais à das sacolas, cada uma de uma cor) */
+  .barra { border-radius: 14px; padding: 8px 0 10px; margin: 10px 0; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+  .barra .titulo { font-weight: 800; margin: 0 12px 6px; font-size: .98rem; }
+  .barra .trilho { padding: 0 12px; }
+  .c-promo { background: linear-gradient(90deg, #c8102e, #ff6a00); }
+  .c-barata { background: linear-gradient(90deg, #0f7a3a, #2ecc71); }
+  .c-rapida { background: linear-gradient(90deg, #0f4d2a, #e0a526); }
+  .c-ofertas { background: linear-gradient(90deg, #ee0979, #ff6a00); }
+  .c-presentes { background: linear-gradient(90deg, #1d4e89, #8e44ad); }
+  .c-decoracao { background: linear-gradient(90deg, #6d1a4a, #d4145a); }
+  body.bf .barra { background: linear-gradient(90deg, #000, #5b1bd1); }
+  .mini .ic { width: 64px; aspect-ratio: 3/4; border-radius: 8px; display: grid; place-items: center; font-style: normal; font-size: 30px; background: linear-gradient(135deg, #fff3d6, #ffe0e0); }
+  body.bf .mini .ic { background: #2a1a40; }
+  .mini .botoes { gap: 4px; }
+  .mini .btn { padding: 4px 8px; font-size: .74rem; flex: 0 1 auto; border-radius: 6px; }
+
   /* Rodapé fixo das sacolas */
   .rodape { position: fixed; left: 0; right: 0; bottom: 0; z-index: 9; background: var(--rodape); color: #fff; padding: 8px 0 calc(10px + env(safe-area-inset-bottom)); box-shadow: 0 -4px 16px rgba(0,0,0,.25); }
   .rodape .titulo { text-align: center; font-weight: 800; margin: 0 16px 6px; }
   .rodape .trilho { padding: 0 16px; }
-  .mini { flex: 0 0 auto; width: 270px; scroll-snap-align: center; display: grid; grid-template-columns: 64px 1fr; gap: 10px; align-items: center; background: var(--card); color: var(--texto); border-radius: 12px; padding: 8px; text-decoration: none; }
+  .mini { flex: 0 0 auto; width: 262px; scroll-snap-align: center; display: grid; grid-template-columns: 64px 1fr; gap: 10px; align-items: center; background: var(--card); color: var(--texto); border-radius: 12px; padding: 8px; text-decoration: none; }
   .mini img { width: 64px; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px; }
   .mini b { display: block; font-size: .86rem; line-height: 1.2; }
   .mini span { display: block; font-size: .72rem; color: var(--muted); margin: 2px 0 4px; }
   .mini em { display: inline-block; font-style: normal; font-weight: 800; font-size: .75rem; background: var(--ml); color: var(--ml-texto); padding: 3px 8px; border-radius: 6px; }
 
-  /* Gatinho da sorte */
-  .boasvindas { position: fixed; right: 12px; bottom: 166px; z-index: 10; display: flex; align-items: flex-end; gap: 6px; transform: translateY(160%); transition: transform .6s ease; cursor: pointer; }
-  .boasvindas.aparece { transform: translateY(0); }
-  .balao { background: var(--card); color: var(--texto); border: 2px solid var(--dourado); border-radius: 14px 14px 4px 14px; padding: 8px 12px; margin-bottom: 52px; font-weight: 700; font-size: .9rem; white-space: nowrap; }
-  .gato { width: 86px; height: 96px; }
-  .pata { transform-origin: 66px 46px; animation: acena .9s ease-in-out infinite; }
-  @keyframes acena { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-22deg); } }
   @media (prefers-reduced-motion: reduce) { .pisca i, .neve span, .pata { animation: none; } .boasvindas { transition: none; } }
 </style>
 </head>
@@ -162,29 +171,7 @@
   <div class="trilho" id="trilho-sacolas"></div>
 </div>
 
-<div class="boasvindas" id="boasvindas" role="status" aria-label="Seja bem-vindo!">
-  <div class="balao">Seja bem-vindo! 👋</div>
-  <svg class="gato" viewBox="0 0 86 96" aria-hidden="true">
-    <ellipse cx="43" cy="74" rx="28" ry="21" fill="#fff" stroke="#2a1d17" stroke-width="2"/>
-    <path d="M17 26 L22 6 L33 18 Z" fill="#fff" stroke="#2a1d17" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M69 26 L64 6 L53 18 Z" fill="#fff" stroke="#2a1d17" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M22 11 L25 20 L30 17 Z M64 11 L61 20 L56 17 Z" fill="#f4a3a3"/>
-    <ellipse cx="43" cy="34" rx="27" ry="22" fill="#fff" stroke="#2a1d17" stroke-width="2"/>
-    <path d="M30 32 q4 -4 8 0 M48 32 q4 -4 8 0" fill="none" stroke="#2a1d17" stroke-width="2.2" stroke-linecap="round"/>
-    <circle cx="43" cy="38" r="2" fill="#e57373"/>
-    <path d="M38 42 q5 4 10 0" fill="none" stroke="#2a1d17" stroke-width="1.8" stroke-linecap="round"/>
-    <ellipse cx="27" cy="40" rx="4" ry="2.5" fill="#f8c1c1"/><ellipse cx="59" cy="40" rx="4" ry="2.5" fill="#f8c1c1"/>
-    <path d="M22 52 q21 9 42 0" fill="none" stroke="#c8102e" stroke-width="5" stroke-linecap="round"/>
-    <circle cx="43" cy="60" r="5" fill="#e0a526" stroke="#2a1d17" stroke-width="1.5"/>
-    <ellipse cx="30" cy="78" rx="9" ry="8" fill="#fff" stroke="#2a1d17" stroke-width="2"/>
-    <circle cx="30" cy="70" r="7" fill="#e0a526" stroke="#2a1d17" stroke-width="1.5"/>
-    <g class="pata">
-      <path d="M60 50 q12 -6 12 -22" fill="none" stroke="#2a1d17" stroke-width="12" stroke-linecap="round"/>
-      <path d="M60 50 q12 -6 12 -22" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
-      <circle cx="72" cy="24" r="8" fill="#fff" stroke="#2a1d17" stroke-width="2"/><circle cx="72" cy="26" r="3" fill="#f4a3a3"/>
-    </g>
-  </svg>
-</div>
+
 
 <script>
   // ===== DATA DE HOJE E TEMA =====
@@ -328,68 +315,53 @@
 
   // ===== DESENHO =====
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  function botoesDe(p) {
-    const lista = p.links || [p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml }, p.shopee && { rotulo: "Ver na Shopee", url: p.shopee, cls: "shopee" }].filter(Boolean);
+  function botoesDe(p, curto) {
+    const lista = p.links || [p.ml && { rotulo: curto ? "Ver no ML" : "Ver no Mercado Livre", url: p.ml }, p.shopee && { rotulo: "Ver na Shopee", url: p.shopee, cls: "shopee" }].filter(Boolean);
     return lista.map(b => `<a class="btn ${b.cls || "ml"}" href="${esc(b.url)}" target="_blank" rel="noopener sponsored">${esc(b.rotulo)}</a>`).join("");
   }
-  function cartao(p, novo) {
-    return `<article class="cartao">
-      <div class="img">${p.foto ? `<img src="${esc(p.foto)}" alt="${esc(p.nome)}" loading="lazy">` : `<span aria-hidden="true">${p.icone || "🎄"}</span>`}</div>
-      <div class="corpo">
-        <h4>${esc(p.nome)}${novo ? '<span class="novo">HOJE</span>' : ""}</h4>
-        ${p.etiqueta ? `<span class="etiqueta">${esc(p.etiqueta)}</span>` : ""}
-        <p>${esc(p.texto)}</p>
-        <div class="botoes">${botoesDe(p)}</div>
-      </div></article>`;
+  function mini(p, novo) {
+    const img = p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">` : `<i class="ic" aria-hidden="true">${p.icone || "🎄"}</i>`;
+    return `<div class="mini">${img}<div><b>${esc(p.nome)}${novo ? '<span class="novo">HOJE</span>' : ""}</b>
+      <span>${esc(p.etiqueta || p.texto)}</span><div class="botoes">${botoesDe(p, true)}</div></div></div>`;
   }
   const casa = (p, termo) => !termo || (p.nome + " " + p.texto + " " + (p.etiqueta || "")).toLowerCase().includes(termo);
-  function faixa(classe, titulo, sub, itens, novo) {
-    if (!itens.length) return "";
-    return `<section class="faixa-secao ${classe}"><h2>${titulo}</h2>${sub ? `<p class="sub">${sub}</p>` : ""}
-      <div class="trilho">${itens.map(p => cartao(p, novo)).join("")}</div></section>`;
-  }
+  const barra = (cor, titulo, itens, novo) => !itens.length ? "" :
+    `<section class="barra ${cor}"><p class="titulo">${titulo}</p><div class="trilho">${itens.map(p => mini(p, novo)).join("")}</div></section>`;
 
   const lista = document.getElementById("lista"), vazio = document.getElementById("vazio");
   function desenhar(filtro) {
     const termo = (filtro || "").toLowerCase().trim();
-    const de = s => produtos.filter(p => p.secao === s && casa(p, termo));
+    const de = sec => produtos.filter(p => p.secao === sec && casa(p, termo));
     const promo = idsPromo.map(id => porId[id]).filter(p => p && casa(p, termo));
-    const barata = de("arvore-barata"), rapida = de("arvore-rapida");
-    let html = "";
-    html += faixa("promo", document.body.classList.contains("bf") ? "🖤 Ofertas da Black Friday" : `🔥 Promoções do dia · ${fmtDia(diaPromo || HOJE)}`,
-      "Os achadinhos dos vídeos de hoje. Preço muda: confira no link.", promo, diaPromo === HOJE);
-    if (barata.length || rapida.length) {
-      html += `<section class="faixa-secao arvore"><h2>🎄 Monte sua árvore de Natal</h2>
-        <p class="sub">Escolha: gastar menos ou receber rapidinho. Preços de 24/10 — confira em cada link.</p>
-        <div class="metades">
-          ${barata.length ? `<div class="metade"><h3>💰 Mais barata · ~R$ 135</h3><p class="sub">Árvore 1,50 m com tudo num pedido só.</p>
-            <div class="trilho">${barata.map(p => cartao(p)).join("")}</div></div>` : ""}
-          ${rapida.length ? `<div class="metade"><h3>⚡ Chega mais rápido · FULL</h3><p class="sub">Árvore 2,10 m peça por peça, tudo com entrega FULL (~R$ 560).</p>
-            <div class="trilho">${rapida.map(p => cartao(p)).join("")}</div></div>` : ""}
-        </div></section>`;
-    }
-    if (HOJE <= FIM_OFERTAS_1111) html += faixa("ofertas", "🏷️ Ofertas 11/11 · Mercado Livre", "Selecionadas da página de ofertas do ML. Desconto e preço mudam: confira no link.", de("ofertas"));
-    html += faixa("presentes", "🎁 Presentes de Natal", "", de("presentes"));
-    html += faixa("decoracao", "✨ Decoração de Natal", "", de("decoracao"));
+    const bf = document.body.classList.contains("bf");
+    let html = barra("c-promo", bf ? "🖤 Ofertas da Black Friday ›" : `🔥 Promoções do dia · ${fmtDia(diaPromo || HOJE)} ›`, promo, diaPromo === HOJE);
+    html += barra("c-barata", "💰 Monte sua árvore mais barata · ~R$ 135 ›", de("arvore-barata"));
+    html += barra("c-rapida", "⚡ Monte sua árvore · chega rápido (FULL) ›", de("arvore-rapida"));
+    if (HOJE <= FIM_OFERTAS_1111) html += barra("c-ofertas", "🏷️ Ofertas 11/11 · Mercado Livre ›", de("ofertas"));
+    html += barra("c-presentes", "🎁 Presentes de Natal ›", de("presentes"));
+    html += barra("c-decoracao", "✨ Decoração de Natal ›", de("decoracao"));
     lista.innerHTML = html;
     vazio.style.display = html ? "none" : "block";
+    lista.querySelectorAll(".trilho").forEach(animar);
   }
-  document.getElementById("busca").addEventListener("input", e => desenhar(e.target.value));
-  desenhar();
 
-  // Rodapé: sacolas, deslizando sozinho (para quando a pessoa toca)
-  const trilhoSac = document.getElementById("trilho-sacolas");
-  trilhoSac.innerHTML = produtos.filter(p => p.secao === "sacolas").map(p =>
-    `<a class="mini" href="${esc(p.ml)}" target="_blank" rel="noopener sponsored"><img src="${esc(p.foto)}" alt="" loading="lazy">
-      <div><b>${esc(p.nome)}</b><span>${esc(p.etiqueta)}</span><em>Ver no Mercado Livre</em></div></a>`).join("");
-  let parado = false;
-  ["pointerdown", "touchstart", "wheel"].forEach(ev => trilhoSac.addEventListener(ev, () => { parado = true; }, { passive: true }));
+  document.getElementById("busca").addEventListener("input", e => desenhar(e.target.value));
+
+  // Rodapé: sacolas. Todas as barras deslizam sozinhas e param quando a pessoa toca.
   const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  setInterval(() => {
-    if (parado || document.hidden || semMovimento) return;
-    const fim = trilhoSac.scrollLeft + trilhoSac.clientWidth >= trilhoSac.scrollWidth - 4;
-    trilhoSac.scrollTo({ left: fim ? 0 : trilhoSac.scrollLeft + 280, behavior: "smooth" });
-  }, 3000);
+  function animar(tr) {
+    if (tr.dataset.anima) return; tr.dataset.anima = 1;
+    let parado = false;
+    ["pointerdown", "touchstart", "wheel"].forEach(ev => tr.addEventListener(ev, () => { parado = true; }, { passive: true }));
+    setInterval(() => {
+      if (parado || document.hidden || semMovimento || tr.scrollWidth <= tr.clientWidth + 4) return;
+      const fim = tr.scrollLeft + tr.clientWidth >= tr.scrollWidth - 4;
+      tr.scrollTo({ left: fim ? 0 : tr.scrollLeft + 272, behavior: "smooth" });
+    }, 3200 + Math.random() * 1200);
+  }
+  const trilhoSac = document.getElementById("trilho-sacolas");
+  trilhoSac.innerHTML = produtos.filter(p => p.secao === "sacolas").map(p => mini(p)).join("");
+  animar(trilhoSac);
 
   // Pisca-pisca do topo e neve
   const cores = document.body.classList.contains("bf") ? ["#9b4dff", "#ffffff", "#d0b3ff"] : ["#ff3b3b", "#ffd23b", "#3bd16f", "#3bb8ff", "#ff7ad9"];
@@ -414,11 +386,7 @@
     }
   }
 
-  // Gatinho aparece, acena e some
-  const gato = document.getElementById("boasvindas");
-  setTimeout(() => gato.classList.add("aparece"), 1000);
-  setTimeout(() => gato.classList.remove("aparece"), 7000);
-  gato.addEventListener("click", () => gato.classList.remove("aparece"));
+  desenhar();
 </script>
 </body>
 </html>
