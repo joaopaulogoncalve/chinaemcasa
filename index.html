@@ -86,12 +86,26 @@
   /* Sacolas: desenho da sacola na cor da estampa (sem usar fotos do vendedor) */
   .sacola { width: 96px; aspect-ratio: 3 / 4; border-radius: 10px; display: grid; place-items: center; background: var(--line); }
   .sacola svg { width: 70px; height: auto; }
+  .wrap { max-width: 1120px; }
+  header, .busca, .vazio { max-width: 520px; margin-left: auto; margin-right: auto; }
+  .busca { display: block; }
+  .faixa-lista {
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding-bottom: 8px; margin: 0 -16px; padding-left: 16px; padding-right: 16px;
+  }
+  .faixa-lista .card { flex: 0 0 300px; scroll-snap-align: start; margin-bottom: 0; }
+  .kits { display: grid; gap: 14px; }
+  @media (min-width: 760px) { .kits { grid-template-columns: 1fr 1fr; } }
+  .kit-col { border-radius: 16px; padding: 12px; border: 2px solid var(--line); }
+  .kit-col.economico { border-color: #2e9e5b; }
+  .kit-col.completo { border-color: var(--gold); }
+  .kit-titulo { margin: 2px 0 6px; font-size: 1.05rem; }
   .icone {
     width: 96px; aspect-ratio: 3 / 4; border-radius: 10px; background: var(--line);
     display: grid; place-items: center; font-size: 44px;
   }
   .kit-resumo {
-    margin: -4px 0 12px; padding: 10px 12px; border-radius: 10px;
+    margin: 0 0 12px; padding: 10px 12px; border-radius: 10px;
     background: var(--card); border: 2px solid var(--gold); font-size: .9rem;
   }
   .etiqueta {
@@ -228,6 +242,12 @@
   // e ganha a etiqueta NOVO por 7 dias. foto = arquivo na pasta img/.
   // Deixe ml ou shopee vazio ("") se o produto não estiver naquela loja.
   const SECAO_KIT = "🎄 Monte sua árvore de Natal";
+  const GRUPOS_KIT = [
+    { id: "economico", titulo: "💰 Econômica · árvore 1,50 m",
+      resumo: "Árvore + enfeites + pisca + estrela <b>num pedido só</b>: a partir de <b>~R$ 135</b> (+ saia opcional). Preços de 24/10 — confira no link." },
+    { id: "completo", titulo: "🌟 Completa · árvore 2,10 m",
+      resumo: "Peça por peça, mais cheia e maior: a partir de <b>~R$ 535</b> somando tudo. Preços de 24/10 — confira em cada link." }
+  ];
   const produtos = [
     {
       secao: "🎄 Decoração de Natal",
@@ -268,6 +288,32 @@
       texto: "Cerâmica, vai no micro-ondas e na lava-louças. Boneco de neve ou Papai Noel: escolha no anúncio.",
       foto: "img/caneca.jpg", data: "2026-10-30",
       ml: "https://meli.la/1HuPXC1", shopee: ""
+    },
+
+    // Kit econômico
+    {
+      secao: SECAO_KIT, grupo: "economico", kit: 0.1, icone: "🎄",
+      nome: "Árvore 1,50 m completa: + enfeites + pisca + estrela",
+      etiqueta: "Tudo num pedido · FULL",
+      texto: "400 galhos, mais de 60 enfeites, pisca 100 LEDs branco (4 m) e estrela. Pé de plástico. O pisca não é bivolt: escolha a sua tomada.",
+      links: [
+        { rotulo: "Comprar 110 V", url: "https://meli.la/1bbUm2C" },
+        { rotulo: "Comprar 220 V", url: "https://meli.la/1Yk3cXo" }
+      ]
+    },
+    {
+      secao: SECAO_KIT, grupo: "economico", kit: 0.2, icone: "🤍",
+      nome: "+ Saia de pelúcia (opcional)",
+      etiqueta: "Esconde o pé da árvore",
+      texto: "Branca de pelúcia 120 cm ou 10 estampas.",
+      ml: "https://meli.la/1RCCm4o", shopee: ""
+    },
+    {
+      secao: SECAO_KIT, grupo: "economico", kit: 0.3, icone: "💡",
+      nome: "+ Mais um pisca-pisca (opcional)",
+      etiqueta: "Pra árvore ficar mais acesa",
+      texto: "100 LEDs branco quente, 9,5 m. Escolha 127 V ou 220 V.",
+      ml: "https://meli.la/1E4GZ3Z", shopee: ""
     },
 
     // Monte sua árvore: kit = ordem de montagem; etiqueta = quantas usar na árvore de 2,10 m
@@ -426,6 +472,34 @@
   const lista = document.getElementById("lista");
   const vazio = document.getElementById("vazio");
 
+  function criarCard(p) {
+    const card = document.createElement("article");
+    card.className = p.foto || p.sacola || p.icone ? "card com-foto" : "card";
+    card.innerHTML =
+      (p.foto ? "<img class='foto' loading='lazy' alt=''>" : "") +
+      (p.icone ? `<div class="icone" aria-hidden="true">${p.icone}</div>` : "") +
+      (p.sacola ? `<div class="sacola">${desenhoSacola(p.sacola)}</div>` : "") +
+      "<div><h3></h3>" + (p.etiqueta ? "<span class='etiqueta'></span>" : "") +
+      "<p></p><div class='botoes'></div></div>";
+    if (p.etiqueta) card.querySelector(".etiqueta").textContent = p.etiqueta;
+    if (p.foto) { const f = card.querySelector(".foto"); f.src = p.foto; f.alt = p.nome; }
+    card.querySelector("h3").textContent = p.nome;
+    if (ehNovo(p)) card.querySelector("h3").insertAdjacentHTML("beforeend", "<span class='novo'>NOVO</span>");
+    card.querySelector("p").textContent = p.texto;
+    const botoes = card.querySelector(".botoes");
+    const lista = p.links || [
+      p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml, cls: "ml" },
+      p.shopee && { rotulo: "Ver na Shopee", url: p.shopee, cls: "shopee" }
+    ].filter(Boolean);
+    for (const b of lista) {
+      const a = document.createElement("a");
+      a.className = "btn " + (b.cls || "ml"); a.href = b.url; a.target = "_blank"; a.rel = "noopener sponsored";
+      a.textContent = b.rotulo; botoes.appendChild(a);
+    }
+    return card;
+  }
+
+  // Cada seção vira uma faixa que desliza pro lado; o "Monte sua árvore" vira 2 colunas
   function desenhar(filtro) {
     const termo = (filtro || "").toLowerCase();
     lista.innerHTML = "";
@@ -436,38 +510,29 @@
       const itens = daLista.filter(p => p.secao === secao &&
         (p.nome + " " + p.texto).toLowerCase().includes(termo));
       if (!itens.length) continue;
+      total += itens.length;
       const h2 = document.createElement("h2");
       h2.textContent = secao;
-      if (secao.includes("Sacolas")) h2.id = "sacolas";
       lista.appendChild(h2);
-      if (secao === SECAO_KIT && !termo) {
-        const r = document.createElement("p");
-        r.className = "kit-resumo";
-        r.innerHTML = "Tudo pra árvore de <b>2,10 m</b>: a partir de <b>~R$ 535</b> somando as peças (preços de 24/10 — mudam, confira em cada link). Árvore, luzes e enfeites são vendidos separados.";
-        lista.appendChild(r);
+      if (secao === SECAO_KIT) {
+        const kits = document.createElement("div");
+        kits.className = "kits";
+        for (const g of GRUPOS_KIT) {
+          const doGrupo = itens.filter(p => (p.grupo || "completo") === g.id);
+          if (!doGrupo.length) continue;
+          const col = document.createElement("section");
+          col.className = "kit-col " + g.id;
+          col.innerHTML = `<h3 class="kit-titulo">${g.titulo}</h3><p class="kit-resumo">${g.resumo}</p>`;
+          for (const p of doGrupo) col.appendChild(criarCard(p));
+          kits.appendChild(col);
+        }
+        lista.appendChild(kits);
+        continue;
       }
-      for (const p of itens) {
-        total++;
-        const card = document.createElement("article");
-        card.className = p.foto || p.sacola || p.icone ? "card com-foto" : "card";
-        card.innerHTML =
-          (p.foto ? "<img class='foto' loading='lazy' alt=''>" : "") +
-          (p.icone ? `<div class="icone" aria-hidden="true">${p.icone}</div>` : "") +
-          (p.sacola ? `<div class="sacola">${desenhoSacola(p.sacola)}</div>` : "") +
-          "<div><h3></h3>" + (p.etiqueta ? "<span class='etiqueta'></span>" : "") +
-          "<p></p><div class='botoes'></div></div>";
-        if (p.etiqueta) card.querySelector(".etiqueta").textContent = p.etiqueta;
-        if (p.foto) { const f = card.querySelector(".foto"); f.src = p.foto; f.alt = p.nome; }
-        card.querySelector("h3").textContent = p.nome;
-        if (ehNovo(p)) card.querySelector("h3").insertAdjacentHTML("beforeend", "<span class='novo'>NOVO</span>");
-        card.querySelector("p").textContent = p.texto;
-        const botoes = card.querySelector(".botoes");
-        if (p.ml) botoes.insertAdjacentHTML("beforeend",
-          `<a class="btn ml" href="${p.ml}" target="_blank" rel="noopener sponsored">Ver no Mercado Livre</a>`);
-        if (p.shopee) botoes.insertAdjacentHTML("beforeend",
-          `<a class="btn shopee" href="${p.shopee}" target="_blank" rel="noopener sponsored">Ver na Shopee</a>`);
-        lista.appendChild(card);
-      }
+      const faixa = document.createElement("div");
+      faixa.className = "faixa-lista";
+      for (const p of itens) faixa.appendChild(criarCard(p));
+      lista.appendChild(faixa);
     }
     vazio.style.display = total ? "none" : "block";
   }
