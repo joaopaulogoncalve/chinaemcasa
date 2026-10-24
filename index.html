@@ -5,540 +5,372 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>China em Casa — Achadinhos</title>
 <meta name="description" content="Achadinhos baratos pra casa, presentes e ofertas. Links de afiliado #publi">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
 <style>
+  /* Tema Natal (padrão). O tema Black Friday troca só estas cores. */
   :root {
-    --bg: #fbf6ee;
-    --card: #ffffff;
-    --text: #2a1d17;
-    --muted: #7a6a60;
-    --red: #c8102e;
-    --gold: #e0a526;
-    --ml: #ffe600;
-    --ml-text: #2d3277;
-    --shopee: #ee4d2d;
-    --line: #eadfce;
+    --fundo: #fdf6ec; --texto: #2a1d17; --muted: #6e5d52; --card: #ffffff;
+    --vermelho: #c8102e; --verde: #145a32; --dourado: #e0a526; --linha: #eadfce;
+    --ml: #ffe600; --ml-texto: #2d3277; --shopee: #ee4d2d;
+    --topo1: #0f4d2a; --topo2: #c8102e;
+    --promo: linear-gradient(135deg, #c8102e, #e0a526);
+    --arvore: linear-gradient(135deg, #0f4d2a, #2e9e5b);
+    --presentes: linear-gradient(135deg, #1d4e89, #5b8fd6);
+    --decoracao: linear-gradient(135deg, #6d1a4a, #b8327a);
+    --rodape: #c8102e;
+    --luzes: #ff3b3b, #ffd23b, #3bd16f, #3bb8ff, #ff7ad9;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1b1412;
-      --card: #261d1a;
-      --text: #f6ece4;
-      --muted: #b9a89c;
-      --line: #3a2e29;
-    }
+  body.bf {
+    --fundo: #0b0712; --texto: #f2ecff; --muted: #b9a9d9; --card: #1a1226;
+    --vermelho: #9b4dff; --verde: #6b2cff; --dourado: #d0b3ff; --linha: #33244d;
+    --topo1: #000; --topo2: #5b1bd1;
+    --promo: linear-gradient(135deg, #000, #6b2cff);
+    --arvore: linear-gradient(135deg, #12091f, #4a1d96);
+    --presentes: linear-gradient(135deg, #12091f, #7a2cff);
+    --decoracao: linear-gradient(135deg, #12091f, #b02cff);
+    --rodape: #1a0d33;
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.4;
+    margin: 0; background: var(--fundo); color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.4;
+    padding-bottom: 170px; overflow-x: hidden;
   }
-  .wrap { max-width: 520px; margin: 0 auto; padding: 24px 16px 40px; }
-  header { text-align: center; margin-bottom: 20px; }
-  .logo {
-    display: block; width: 210px; max-width: 70%; height: auto;
-    margin: 0 auto 6px; border-radius: 20px;
+
+  /* Pisca-pisca no topo da página */
+  .pisca { display: flex; justify-content: space-around; height: 34px; position: relative; overflow: hidden; }
+  .pisca::before { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 2px; background: #1b3a26; border-radius: 2px; }
+  .pisca i {
+    width: 12px; height: 18px; margin-top: 8px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: var(--cor); box-shadow: 0 0 12px 3px var(--cor); animation: brilha 1.6s infinite alternate;
   }
-  /* O nome já está escrito no logo: o título fica só para leitores de tela */
-  h1 {
-    position: absolute; width: 1px; height: 1px; overflow: hidden;
-    clip: rect(0 0 0 0); white-space: nowrap;
+  @keyframes brilha { from { opacity: 1; } to { opacity: .25; box-shadow: none; } }
+
+  /* Neve caindo */
+  .neve { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+  .neve span { position: absolute; top: -10px; color: #fff; text-shadow: 0 0 3px #9cc; animation: cai linear infinite; }
+  body:not(.bf) .neve span { color: #d6e7f5; }
+  @keyframes cai { to { transform: translateY(110vh) rotate(360deg); } }
+
+  .topo {
+    background: linear-gradient(160deg, var(--topo1), var(--topo2)); color: #fff; text-align: center;
+    padding: 6px 16px 22px; position: relative; z-index: 2;
   }
-  .bio { margin: 6px 0 0; color: var(--muted); }
+  .topo .logo { width: 150px; max-width: 45%; height: auto; border-radius: 22px; background: #fff; padding: 6px; }
+  .topo h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .topo .bio { margin: 8px 0 0; font-weight: 600; }
+  .arvorezinhas { font-size: 22px; letter-spacing: 6px; margin-top: 6px; }
+  .bf-faixa { display: none; margin: 10px auto 0; padding: 8px 14px; border-radius: 999px; background: #000; border: 2px solid #9b4dff; font-weight: 900; letter-spacing: 1px; width: fit-content; }
+  body.bf .bf-faixa { display: block; }
+  body.bf .arvorezinhas { display: none; }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 2; }
   .aviso {
-    margin: 14px 0 0; padding: 10px 12px; border-radius: 10px;
-    background: var(--card); border: 1px dashed var(--line);
-    font-size: .85rem; color: var(--muted);
+    max-width: 640px; margin: 14px auto 0; padding: 10px 12px; border-radius: 10px;
+    background: var(--card); border: 1px dashed var(--linha); font-size: .82rem; color: var(--muted); text-align: center;
   }
   .busca {
-    width: 100%; margin: 18px 0 6px; padding: 12px 14px;
-    border-radius: 12px; border: 1px solid var(--line);
-    background: var(--card); color: var(--text); font-size: 1rem;
+    display: block; width: 100%; max-width: 640px; margin: 14px auto 4px; padding: 12px 14px;
+    border-radius: 12px; border: 1px solid var(--linha); background: var(--card); color: var(--texto); font-size: 1rem;
   }
-  h2 { font-size: 1.05rem; margin: 22px 0 10px; }
-  .card {
-    background: var(--card); border: 1px solid var(--line);
-    border-radius: 14px; padding: 14px; margin-bottom: 12px;
+
+  /* Faixas coloridas (seções) */
+  .faixa-secao { border-radius: 20px; padding: 14px 0 16px; margin: 18px 0; color: #fff; box-shadow: 0 6px 18px rgba(0,0,0,.12); }
+  .faixa-secao h2 { margin: 0 16px 4px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+  .faixa-secao .sub { margin: 0 16px 10px; font-size: .88rem; opacity: .95; }
+  .faixa-secao.promo { background: var(--promo); }
+  .faixa-secao.arvore { background: var(--arvore); }
+  .faixa-secao.presentes { background: var(--presentes); }
+  .faixa-secao.decoracao { background: var(--decoracao); }
+  .metades { display: grid; gap: 12px; padding: 0 12px; }
+  @media (min-width: 900px) { .metades { grid-template-columns: 1fr 1fr; } }
+  .metade { background: rgba(255,255,255,.12); border-radius: 16px; padding: 10px 0 12px; min-width: 0; }
+  .metade h3 { margin: 0 12px 2px; font-size: 1.05rem; }
+  .metade .sub { margin: 0 12px 8px; }
+
+  .trilho {
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 4px 16px 8px; scrollbar-width: thin;
   }
-  .card.com-foto { display: grid; grid-template-columns: 96px 1fr; gap: 12px; }
-  .foto {
-    width: 96px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 10px;
-    background: var(--line); align-self: start;
+  .metade .trilho { padding-left: 12px; padding-right: 12px; }
+  .cartao {
+    flex: 0 0 236px; scroll-snap-align: start; background: var(--card); color: var(--texto);
+    border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0,0,0,.18);
   }
-  .card h3 { margin: 0 0 4px; font-size: 1rem; }
-  .card p { margin: 0 0 10px; color: var(--muted); font-size: .9rem; }
-  .novo {
-    display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 99px;
-    background: var(--gold); color: #2a1d17; font-size: .7rem; font-weight: 700;
-    vertical-align: middle;
-  }
-  .botoes { display: flex; gap: 8px; flex-wrap: wrap; }
-  .btn {
-    flex: 1 1 140px; text-align: center; text-decoration: none; font-weight: 700;
-    padding: 11px 10px; border-radius: 10px; font-size: .95rem;
-  }
-  .btn.ml { background: var(--ml); color: var(--ml-text); }
+  .cartao .img { height: 170px; background: linear-gradient(135deg, #fff3d6, #ffe0e0); display: grid; place-items: center; font-size: 64px; }
+  body.bf .cartao .img { background: linear-gradient(135deg, #2a1a40, #12091f); }
+  .cartao .img img { width: 100%; height: 100%; object-fit: cover; }
+  .cartao .corpo { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .cartao h4 { margin: 0; font-size: .98rem; line-height: 1.25; }
+  .cartao p { margin: 0; font-size: .84rem; color: var(--muted); flex: 1; }
+  .etiqueta { align-self: flex-start; padding: 2px 8px; border-radius: 99px; background: var(--linha); font-size: .72rem; font-weight: 700; }
+  .novo { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 99px; background: var(--dourado); color: #2a1d17; font-size: .68rem; font-weight: 800; vertical-align: middle; }
+  .botoes { display: flex; gap: 6px; flex-wrap: wrap; }
+  .btn { flex: 1 1 90px; text-align: center; text-decoration: none; font-weight: 800; padding: 9px 8px; border-radius: 10px; font-size: .88rem; }
+  .btn.ml { background: var(--ml); color: var(--ml-texto); }
   .btn.shopee { background: var(--shopee); color: #fff; }
   .vazio { color: var(--muted); text-align: center; display: none; }
-  /* Sacolas: desenho da sacola na cor da estampa (sem usar fotos do vendedor) */
-  .sacola { width: 96px; aspect-ratio: 3 / 4; border-radius: 10px; display: grid; place-items: center; background: var(--line); }
-  .sacola svg { width: 70px; height: auto; }
-  .wrap { max-width: 1120px; }
-  header, .busca, .vazio { max-width: 520px; margin-left: auto; margin-right: auto; }
-  .busca { display: block; }
-  .faixa-lista {
-    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
-    padding-bottom: 8px; margin: 0 -16px; padding-left: 16px; padding-right: 16px;
-  }
-  .faixa-lista .card { flex: 0 0 300px; scroll-snap-align: start; margin-bottom: 0; }
-  .kits { display: grid; gap: 14px; }
-  @media (min-width: 760px) { .kits { grid-template-columns: 1fr 1fr; } }
-  .kit-col { border-radius: 16px; padding: 12px; border: 2px solid var(--line); }
-  .kit-col.economico { border-color: #2e9e5b; }
-  .kit-col.completo { border-color: var(--gold); }
-  .kit-titulo { margin: 2px 0 6px; font-size: 1.05rem; }
-  .icone {
-    width: 96px; aspect-ratio: 3 / 4; border-radius: 10px; background: var(--line);
-    display: grid; place-items: center; font-size: 44px;
-  }
-  .kit-resumo {
-    margin: 0 0 12px; padding: 10px 12px; border-radius: 10px;
-    background: var(--card); border: 2px solid var(--gold); font-size: .9rem;
-  }
-  .etiqueta {
-    display: inline-block; margin: 0 0 8px; padding: 2px 8px; border-radius: 99px;
-    background: var(--line); color: var(--text); font-size: .75rem; font-weight: 700;
-  }
-  #sacolas { scroll-margin-top: 12px; }
+  footer.siga { text-align: center; color: var(--muted); font-size: .8rem; margin: 22px 0; }
+  footer.siga a { color: inherit; }
 
-  /* Carrossel fixo no rodapé com as sacolas térmicas */
-  .faixa {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 9;
-    background: var(--red); color: #fff;
-    padding: 8px 0 calc(10px + env(safe-area-inset-bottom));
-    box-shadow: 0 -4px 16px rgba(0,0,0,.25);
-  }
-  .faixa-titulo { text-align: center; font-weight: 800; font-size: 1rem; margin: 0 16px 6px; }
-  .faixa-titulo small { font-weight: 600; opacity: .9; }
-  .trilho {
-    display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory;
-    padding: 0 16px; scrollbar-width: none; scroll-behavior: smooth;
-  }
-  .trilho::-webkit-scrollbar { display: none; }
-  .mini {
-    flex: 0 0 auto; width: 248px; scroll-snap-align: center;
-    display: grid; grid-template-columns: 52px 1fr; gap: 8px; align-items: center;
-    background: var(--card); color: var(--text); border-radius: 12px; padding: 8px;
-    text-decoration: none;
-  }
-  .mini .sacola { width: 52px; border-radius: 8px; }
-  .mini-foto { width: 52px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 8px; }
-  .mini .sacola svg { width: 38px; }
-  .mini b { display: block; font-size: .85rem; line-height: 1.2; }
+  /* Rodapé fixo das sacolas */
+  .rodape { position: fixed; left: 0; right: 0; bottom: 0; z-index: 9; background: var(--rodape); color: #fff; padding: 8px 0 calc(10px + env(safe-area-inset-bottom)); box-shadow: 0 -4px 16px rgba(0,0,0,.25); }
+  .rodape .titulo { text-align: center; font-weight: 800; margin: 0 16px 6px; }
+  .rodape .trilho { padding: 0 16px; }
+  .mini { flex: 0 0 auto; width: 270px; scroll-snap-align: center; display: grid; grid-template-columns: 64px 1fr; gap: 10px; align-items: center; background: var(--card); color: var(--texto); border-radius: 12px; padding: 8px; text-decoration: none; }
+  .mini img { width: 64px; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px; }
+  .mini b { display: block; font-size: .86rem; line-height: 1.2; }
   .mini span { display: block; font-size: .72rem; color: var(--muted); margin: 2px 0 4px; }
-  .mini em {
-    display: inline-block; font-style: normal; font-weight: 800; font-size: .75rem;
-    background: var(--ml); color: var(--ml-text); padding: 3px 8px; border-radius: 6px;
-  }
-  @media (min-width: 900px) { .trilho { justify-content: center; } }
-  body { padding-bottom: 150px; }
+  .mini em { display: inline-block; font-style: normal; font-weight: 800; font-size: .75rem; background: var(--ml); color: var(--ml-texto); padding: 3px 8px; border-radius: 6px; }
 
-  footer { text-align: center; color: var(--muted); font-size: .8rem; margin-top: 28px; }
-  footer a { color: inherit; }
-
-  /* Gatinho da sorte que dá boas-vindas no canto */
-  .boasvindas {
-    position: fixed; right: 12px; bottom: 156px; z-index: 10;
-    display: flex; align-items: flex-end; gap: 6px;
-    transform: translateY(140%); transition: transform .6s ease;
-    cursor: pointer;
-  }
+  /* Gatinho da sorte */
+  .boasvindas { position: fixed; right: 12px; bottom: 166px; z-index: 10; display: flex; align-items: flex-end; gap: 6px; transform: translateY(160%); transition: transform .6s ease; cursor: pointer; }
   .boasvindas.aparece { transform: translateY(0); }
-  .balao {
-    background: var(--card); color: var(--text); border: 2px solid var(--gold);
-    border-radius: 14px 14px 4px 14px; padding: 8px 12px; margin-bottom: 52px;
-    font-weight: 700; font-size: .9rem; box-shadow: 0 4px 14px rgba(0,0,0,.15);
-    white-space: nowrap;
-  }
+  .balao { background: var(--card); color: var(--texto); border: 2px solid var(--dourado); border-radius: 14px 14px 4px 14px; padding: 8px 12px; margin-bottom: 52px; font-weight: 700; font-size: .9rem; white-space: nowrap; }
   .gato { width: 86px; height: 96px; }
   .pata { transform-origin: 66px 46px; animation: acena .9s ease-in-out infinite; }
-  @keyframes acena { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-22deg); } }
-  @media (prefers-reduced-motion: reduce) {
-    .boasvindas { transition: none; }
-    .pata { animation: none; }
-  }
+  @keyframes acena { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-22deg); } }
+  @media (prefers-reduced-motion: reduce) { .pisca i, .neve span, .pata { animation: none; } .boasvindas { transition: none; } }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <img class="logo" src="logo.png" alt="Logo China em Casa" width="704" height="606">
-    <h1>China em Casa</h1>
-    <p class="bio">Achadinhos baratos pra casa, presentes e ofertas</p>
-    <p class="aviso">#publi — Os botões são links de afiliado do Mercado Livre e da Shopee: posso ganhar uma comissão, sem custo extra pra você. Preço e estoque podem mudar; confira no site da loja.</p>
-  </header>
-
-  <input class="busca" id="busca" type="search" placeholder="Procurar achadinho…" aria-label="Procurar achadinho">
-
-  <main id="lista"></main>
-  <p class="vazio" id="vazio">Nada encontrado com esse nome.</p>
-
-  <footer>
-    Siga: <a href="https://www.tiktok.com/@china.em.casa">TikTok</a> ·
-    <a href="https://br.pinterest.com/chinaemcasa">Pinterest</a>
-  </footer>
+<div class="neve" id="neve" aria-hidden="true"></div>
+<div class="topo">
+  <div class="pisca" id="pisca" aria-hidden="true"></div>
+  <img class="logo" src="logo.png" alt="Logo China em Casa" width="704" height="606">
+  <h1>China em Casa</h1>
+  <p class="bio">Achadinhos baratos pra casa, presentes e ofertas</p>
+  <div class="arvorezinhas" aria-hidden="true">🎄✨🎁✨🎄</div>
+  <div class="bf-faixa">🖤 BLACK FRIDAY · ofertas da live</div>
 </div>
 
-<div class="faixa" aria-label="Sacolas térmicas de Natal">
-  <p class="faixa-titulo">🎁 Sacolas térmicas pra cesta de Natal ›</p>
-  <div class="trilho" id="trilho"></div>
+<div class="wrap">
+  <p class="aviso">#publi — Os botões são links de afiliado do Mercado Livre e da Shopee: posso ganhar uma comissão, sem custo extra pra você. Preço e estoque podem mudar; confira no site da loja.</p>
+  <input class="busca" id="busca" type="search" placeholder="Procurar achadinho…" aria-label="Procurar achadinho">
+  <main id="lista"></main>
+  <p class="vazio" id="vazio">Nada encontrado com esse nome.</p>
+  <footer class="siga">Siga: <a href="https://www.tiktok.com/@china.em.casa">TikTok</a> · <a href="https://br.pinterest.com/chinaemcasa">Pinterest</a></footer>
+</div>
+
+<div class="rodape" aria-label="Sacolas térmicas de Natal">
+  <p class="titulo">🎁 Sacolas térmicas pra cesta de Natal ›</p>
+  <div class="trilho" id="trilho-sacolas"></div>
 </div>
 
 <div class="boasvindas" id="boasvindas" role="status" aria-label="Seja bem-vindo!">
   <div class="balao">Seja bem-vindo! 👋</div>
   <svg class="gato" viewBox="0 0 86 96" aria-hidden="true">
-    <!-- corpo -->
     <ellipse cx="43" cy="74" rx="28" ry="21" fill="#fff" stroke="#2a1d17" stroke-width="2"/>
-    <!-- cabeça e orelhas -->
     <path d="M17 26 L22 6 L33 18 Z" fill="#fff" stroke="#2a1d17" stroke-width="2" stroke-linejoin="round"/>
     <path d="M69 26 L64 6 L53 18 Z" fill="#fff" stroke="#2a1d17" stroke-width="2" stroke-linejoin="round"/>
     <path d="M22 11 L25 20 L30 17 Z M64 11 L61 20 L56 17 Z" fill="#f4a3a3"/>
     <ellipse cx="43" cy="34" rx="27" ry="22" fill="#fff" stroke="#2a1d17" stroke-width="2"/>
-    <!-- rosto -->
     <path d="M30 32 q4 -4 8 0 M48 32 q4 -4 8 0" fill="none" stroke="#2a1d17" stroke-width="2.2" stroke-linecap="round"/>
     <circle cx="43" cy="38" r="2" fill="#e57373"/>
     <path d="M38 42 q5 4 10 0" fill="none" stroke="#2a1d17" stroke-width="1.8" stroke-linecap="round"/>
-    <ellipse cx="27" cy="40" rx="4" ry="2.5" fill="#f8c1c1"/>
-    <ellipse cx="59" cy="40" rx="4" ry="2.5" fill="#f8c1c1"/>
-    <!-- coleira e sininho -->
+    <ellipse cx="27" cy="40" rx="4" ry="2.5" fill="#f8c1c1"/><ellipse cx="59" cy="40" rx="4" ry="2.5" fill="#f8c1c1"/>
     <path d="M22 52 q21 9 42 0" fill="none" stroke="#c8102e" stroke-width="5" stroke-linecap="round"/>
     <circle cx="43" cy="60" r="5" fill="#e0a526" stroke="#2a1d17" stroke-width="1.5"/>
-    <!-- pata parada segurando moeda -->
     <ellipse cx="30" cy="78" rx="9" ry="8" fill="#fff" stroke="#2a1d17" stroke-width="2"/>
     <circle cx="30" cy="70" r="7" fill="#e0a526" stroke="#2a1d17" stroke-width="1.5"/>
-    <!-- pata que acena -->
     <g class="pata">
       <path d="M60 50 q12 -6 12 -22" fill="none" stroke="#2a1d17" stroke-width="12" stroke-linecap="round"/>
       <path d="M60 50 q12 -6 12 -22" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
-      <circle cx="72" cy="24" r="8" fill="#fff" stroke="#2a1d17" stroke-width="2"/>
-      <circle cx="72" cy="26" r="3" fill="#f4a3a3"/>
+      <circle cx="72" cy="24" r="8" fill="#fff" stroke="#2a1d17" stroke-width="2"/><circle cx="72" cy="26" r="3" fill="#f4a3a3"/>
     </g>
   </svg>
 </div>
 
 <script>
-  // Gatinho aparece 1 s depois de abrir, acena e some sozinho (ou ao tocar nele).
-  const gato = document.getElementById("boasvindas");
-  const esconder = () => gato.classList.remove("aparece");
-  setTimeout(() => gato.classList.add("aparece"), 1000);
-  setTimeout(esconder, 7000);
-  gato.addEventListener("click", esconder);
+  // ===== DATA DE HOJE E TEMA =====
+  // Teste: ?dia=2026-10-26 simula outro dia; ?tema=bf mostra o tema Black Friday.
+  const params = new URLSearchParams(location.search);
+  const HOJE = params.get("dia") || new Date().toLocaleDateString("sv-SE", { timeZone: "America/Sao_Paulo" });
+  const DIA_BLACK_FRIDAY = "2026-11-27";
+  if (params.get("tema") === "bf" || HOJE === DIA_BLACK_FRIDAY) document.body.classList.add("bf");
 
-  // Para adicionar produto: copie um bloco { ... }, troque os dados e salve.
-  // data = dia em que o vídeo foi postado (AAAA-MM-DD): o mais novo aparece primeiro
-  // e ganha a etiqueta NOVO por 7 dias. foto = arquivo na pasta img/.
-  // Deixe ml ou shopee vazio ("") se o produto não estiver naquela loja.
-  const SECAO_KIT = "🎄 Monte sua árvore de Natal";
-  const GRUPOS_KIT = [
-    { id: "economico", titulo: "💰 Econômica · árvore 1,50 m",
-      resumo: "Árvore + enfeites + pisca + estrela <b>num pedido só</b>: a partir de <b>~R$ 135</b> (+ saia opcional). Preços de 24/10 — confira no link." },
-    { id: "completo", titulo: "🌟 Completa · árvore 2,10 m",
-      resumo: "Peça por peça, mais cheia e maior: a partir de <b>~R$ 535</b> somando tudo. Preços de 24/10 — confira em cada link." }
-  ];
+  // ===== AGENDA DOS VÍDEOS → "Promoções do dia" =====
+  // Dia de postagem → produtos (id) daquele dia. Sem vídeo no dia, mostra o último dia com vídeo.
+  const AGENDA = {
+    "2026-10-22": ["cortina"],
+    "2026-10-23": ["projetor"],
+    "2026-10-26": ["guirlanda", "projetor"],
+    "2026-10-27": ["sacola-vinho", "pijama"],
+    "2026-10-28": ["sacola-noel", "sacola-azul", "sacola-dourada", "caneca"],
+    "2026-10-29": ["sacola-noel-pequena", "kit42"],
+    "2026-10-30": ["arvore-economica", "cortina"]
+  };
+
+  // ===== PRODUTOS =====
+  // secao: promo é automático; as outras: "arvore-barata", "arvore-rapida", "presentes", "decoracao", "sacolas".
+  // Deixe ml/shopee vazio ("") se não tiver. links: botões especiais (ex.: 110 V / 220 V).
   const produtos = [
-    {
-      secao: "🎄 Decoração de Natal",
-      nome: "Cortina de LED com 300 luzinhas",
-      texto: "3x3 m, branco quente, liga no USB e vem com controle remoto. Fica linda na sala ou no quarto.",
-      foto: "img/cortina-led.jpg",
-      data: "2026-10-22",
-      ml: "https://meli.la/1T7s6cP",
-      shopee: "https://s.shopee.com.br/8fTKtSKEqk"
-    },
-    {
-      secao: "🎄 Decoração de Natal",
-      nome: "Projetor de Natal com 16 desenhos",
-      texto: "Apaga a luz e a parede se enche de Papai Noel, boneco de neve e flocos coloridos. Pequenininho e bivolt.",
-      foto: "img/projetor-natal.jpg",
-      data: "2026-10-23",
-      ml: "https://meli.la/1GbERNw",
-      shopee: ""
-    },
+    // --- Decoração ---
+    { id: "cortina", secao: "decoracao", nome: "Cortina de LED com 300 luzinhas", foto: "img/cortina-led.jpg",
+      texto: "3x3 m, branco quente, liga no USB e vem com controle remoto.",
+      ml: "https://meli.la/1T7s6cP", shopee: "https://s.shopee.com.br/8fTKtSKEqk" },
+    { id: "projetor", secao: "decoracao", nome: "Projetor de Natal com 16 desenhos", foto: "img/projetor-natal.jpg",
+      texto: "Apaga a luz e a parede se enche de desenhos de Natal. Pequenininho e bivolt.",
+      ml: "https://meli.la/1GbERNw" },
+    { id: "guirlanda", secao: "decoracao", nome: "Guirlanda de porta 30 cm nevada", foto: "img/guirlanda.jpg",
+      texto: "Já vem decorada com pinhas: é só pendurar. Escolha a cor Nevada. Sem luzes.",
+      ml: "https://meli.la/1oxp3zS" },
+    { id: "festao", secao: "decoracao", nome: "Festão aramado 2,70 m · 300 galhos", icone: "🌿",
+      texto: "Pra escada, porta, janela ou pra deixar a árvore mais cheia.",
+      ml: "https://meli.la/2FDYdyd" },
 
-    {
-      secao: "🎄 Decoração de Natal",
-      nome: "Guirlanda de porta 30 cm · nevada com pinhas",
-      texto: "Já vem toda decorada: é só pendurar. Escolha a cor Nevada no anúncio. Sem luzes.",
-      foto: "img/guirlanda.jpg", data: "2026-10-26",
-      ml: "https://meli.la/1oxp3zS", shopee: ""
-    },
-    {
-      secao: "🎁 Presentes de Natal",
-      nome: "Kit pijama família Natal · pai, mãe e filho",
-      texto: "3 peças, manga curta + short. Você informa os tamanhos no chat depois da compra (na dúvida, um acima).",
-      foto: "img/pijama.jpg", data: "2026-10-29",
-      ml: "https://meli.la/1vHvcA8", shopee: ""
-    },
-    {
-      secao: "🎁 Presentes de Natal",
-      nome: "Caneca 3D de Natal · 4 modelos",
-      texto: "Cerâmica, vai no micro-ondas e na lava-louças. Boneco de neve ou Papai Noel: escolha no anúncio.",
-      foto: "img/caneca.jpg", data: "2026-10-30",
-      ml: "https://meli.la/1HuPXC1", shopee: ""
-    },
+    // --- Presentes ---
+    { id: "pijama", secao: "presentes", nome: "Kit pijama família · pai, mãe e filho", foto: "img/pijama.jpg",
+      texto: "3 peças, manga curta + short. Tamanhos no chat depois da compra (na dúvida, um acima).",
+      ml: "https://meli.la/1vHvcA8" },
+    { id: "caneca", secao: "presentes", nome: "Caneca 3D de Natal · 4 modelos", foto: "img/caneca.jpg",
+      texto: "Cerâmica, micro-ondas e lava-louças. Amigo secreto até R$ 40.",
+      ml: "https://meli.la/1HuPXC1" },
 
-    // Kit econômico
-    {
-      secao: SECAO_KIT, grupo: "economico", kit: 0.1, icone: "🎄",
-      nome: "Árvore 1,50 m completa: + enfeites + pisca + estrela",
+    // --- Monte sua árvore: mais barata ---
+    { id: "arvore-economica", secao: "arvore-barata", nome: "Árvore 1,50 m + enfeites + pisca + estrela", icone: "🎄",
       etiqueta: "Tudo num pedido · FULL",
-      texto: "400 galhos, mais de 60 enfeites, pisca 100 LEDs branco (4 m) e estrela. Pé de plástico. O pisca não é bivolt: escolha a sua tomada.",
-      links: [
-        { rotulo: "Comprar 110 V", url: "https://meli.la/1bbUm2C" },
-        { rotulo: "Comprar 220 V", url: "https://meli.la/1Yk3cXo" }
-      ]
-    },
-    {
-      secao: SECAO_KIT, grupo: "economico", kit: 0.2, icone: "🤍",
-      nome: "+ Saia de pelúcia (opcional)",
-      etiqueta: "Esconde o pé da árvore",
-      texto: "Branca de pelúcia 120 cm ou 10 estampas.",
-      ml: "https://meli.la/1RCCm4o", shopee: ""
-    },
-    {
-      secao: SECAO_KIT, grupo: "economico", kit: 0.3, icone: "💡",
-      nome: "+ Mais um pisca-pisca (opcional)",
-      etiqueta: "Pra árvore ficar mais acesa",
-      texto: "100 LEDs branco quente, 9,5 m. Escolha 127 V ou 220 V.",
-      ml: "https://meli.la/1E4GZ3Z", shopee: ""
-    },
+      texto: "400 galhos, mais de 60 enfeites, pisca 100 LEDs (4 m) e estrela. Pé de plástico. Escolha a sua tomada:",
+      links: [{ rotulo: "110 V", url: "https://meli.la/1bbUm2C" }, { rotulo: "220 V", url: "https://meli.la/1Yk3cXo" }] },
+    { id: "saia", secao: "arvore-barata", nome: "+ Saia de pelúcia 120 cm", icone: "🤍", etiqueta: "Opcional",
+      texto: "Esconde o pé da árvore. Branca ou 10 estampas.", ml: "https://meli.la/1RCCm4o" },
+    { id: "pisca-extra", secao: "arvore-barata", nome: "+ Mais um pisca-pisca", icone: "💡", etiqueta: "Opcional",
+      texto: "100 LEDs branco quente, 9,5 m. Não é bivolt: escolha 127 V ou 220 V.", ml: "https://meli.la/1E4GZ3Z" },
 
-    // Monte sua árvore: kit = ordem de montagem; etiqueta = quantas usar na árvore de 2,10 m
-    {
-      secao: SECAO_KIT, kit: 1, icone: "🌲",
-      nome: "1. Árvore pinheiro 2,10 m · 1200 galhos",
-      etiqueta: "Usar 1 · tem outras alturas no link",
-      texto: "1º mais vendido, nota 4,9. Vem com a base de metal. Sem luzes e sem enfeites.",
-      ml: "https://meli.la/1eBxGNW", shopee: ""
-    },
-    {
-      secao: SECAO_KIT, kit: 2, icone: "💡",
-      nome: "2. Pisca-pisca 100 LEDs branco quente",
-      etiqueta: "Usar 3 na árvore de 2,10 m",
-      texto: "Fio verde, 9,5 m, 8 funções. Não é bivolt: escolha 127 V ou 220 V. Uso interno.",
-      ml: "https://meli.la/1E4GZ3Z", shopee: ""
-    },
-    {
-      secao: SECAO_KIT, kit: 3, icone: "🔴",
-      nome: "3. Kit 42 enfeites de árvore",
-      etiqueta: "Usar 2 na árvore de 2,10 m",
-      texto: "Bolinhas, sinos, tambores, pinhas, bengalas, Papai Noel e laços. Vermelho, dourado ou prateado.",
-      foto: "img/enfeites42.jpg",
-      ml: "https://meli.la/28Ho7uh", shopee: ""
-    },
-    {
-      secao: SECAO_KIT, kit: 3.5, icone: "🎁",
-      nome: "Ou: kit 100 bolas + estrela num pedido só",
-      etiqueta: "⭐ Mais prático · 101 peças · 1 frete",
-      texto: "Bolas lisas, foscas e glitter + estrela ponteira, tudo vermelho. Substitui os 2 kits de 42 e a estrela.",
-      ml: "https://meli.la/2Hdxu9f", shopee: ""
-    },
-    {
-      secao: SECAO_KIT, kit: 4, icone: "⭐",
-      nome: "4. Estrela ponteira glitter 20 cm",
-      etiqueta: "Usar 1 · não precisa se pegar o kit 100",
-      texto: "Encaixa no topo com espiral. Vermelha, dourada ou prateada.",
-      ml: "https://meli.la/2iMyJuK", shopee: ""
-    },
-    {
-      secao: SECAO_KIT, kit: 5, icone: "🤍",
-      nome: "5. Saia de árvore pelúcia 120 cm",
-      etiqueta: "Usar 1 · 10 estampas no link",
-      texto: "Esconde o pé de metal da árvore. Branca de pelúcia (modelo 10) ou estampada.",
-      ml: "https://meli.la/1RCCm4o", shopee: ""
-    },
-    {
-      secao: SECAO_KIT, kit: 6, icone: "🌿",
-      nome: "6. Festão aramado 2,70 m · 300 galhos (opcional)",
-      etiqueta: "Opcional · deixa a árvore mais cheia",
-      texto: "Enrola nos galhos pra dar volume, ou decora escada, porta e janela. Vem compactado: é só abrir os galhos.",
-      ml: "https://meli.la/2FDYdyd", shopee: ""
-    },
+    // --- Monte sua árvore: chega mais rápido (tudo FULL) ---
+    { id: "arvore-210", secao: "arvore-rapida", nome: "1. Árvore pinheiro 2,10 m · 1200 galhos", icone: "🌲",
+      etiqueta: "Usar 1 · FULL", texto: "1º mais vendido, nota 4,9. Base de metal. Sem luzes e sem enfeites.",
+      ml: "https://meli.la/1eBxGNW" },
+    { id: "pisca", secao: "arvore-rapida", nome: "2. Pisca-pisca 100 LEDs", icone: "💡",
+      etiqueta: "Usar 3 · FULL", texto: "Branco quente, fio verde, 9,5 m. Escolha 127 V ou 220 V. Uso interno.",
+      ml: "https://meli.la/1E4GZ3Z" },
+    { id: "kit100", secao: "arvore-rapida", nome: "3. Kit 100 bolas + estrela", icone: "🎁",
+      etiqueta: "Usar 1 · FULL · já vem a estrela", texto: "101 peças vermelhas: bolas lisas, foscas e glitter + estrela ponteira.",
+      ml: "https://meli.la/2Hdxu9f" },
+    { id: "kit42", secao: "arvore-rapida", nome: "Ou: kit 42 enfeites variados", foto: "img/enfeites42.jpg",
+      etiqueta: "Usar 2 · FULL", texto: "Bolinha, sino, tambor, pinha, bengala, Papai Noel e laço.",
+      ml: "https://meli.la/28Ho7uh" },
+    { id: "saia-210", secao: "arvore-rapida", nome: "4. Saia de pelúcia 120 cm", icone: "🤍",
+      etiqueta: "Usar 1 · FULL", texto: "Esconde o pé de metal. Branca ou estampada.", ml: "https://meli.la/1RCCm4o" },
+    { id: "festao-arvore", secao: "arvore-rapida", nome: "5. Festão 2,70 m (opcional)", icone: "🌿",
+      etiqueta: "FULL", texto: "Enrola nos galhos pra árvore ficar mais cheia.", ml: "https://meli.la/2FDYdyd" },
 
-    // Sacolas térmicas Neobag (sem data = ficam no fim, na seção das sacolas).
-    // sacola: [cor do fundo, cor das alças, cor do detalhe] — desenho, não foto do vendedor.
-    {
-      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
-      nome: "Kit 10 sacolas térmicas — Vinho com laço",
-      etiqueta: "Grande 30x42x28 · 10 un.",
-      texto: "Conserva quente ou frio até 5 h, cabem 24 latas. Ótima pra levar a ceia ou montar cesta.",
-      sacola: ["#6d1a24", "#d8232a", "#d8232a"],
-      foto: "img/sacola-vinho.jpg",
-      ml: "https://meli.la/2njyNrB", shopee: ""
-    },
-    {
-      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
-      nome: "Kit 10 sacolas térmicas — Papai Noel",
-      etiqueta: "Grande 30x42x28 · 10 un.",
-      texto: "Estampa do Papai Noel sorrindo, fundo verde. Conserva quente ou frio por horas.",
-      sacola: ["#2f4a35", "#2b2f2c", "#ffffff"],
-      foto: "img/sacola-noel.jpg",
-      ml: "https://meli.la/2ZPoK8q", shopee: ""
-    },
-    {
-      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
-      nome: "Kit 10 sacolas térmicas — Azul com rena",
-      etiqueta: "Grande 30x42 · 10 un.",
-      texto: "Rena, árvore de Natal e neve. Conserva quente ou frio até 5 h.",
-      sacola: ["#7cc3ec", "#2f8fd6", "#ffffff"],
-      foto: "img/sacola-azul.jpg",
-      ml: "https://meli.la/2i9R4yj", shopee: ""
-    },
-    {
-      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
-      nome: "Kit 10 sacolas térmicas — Dourada",
-      etiqueta: "Grande 30x42x28 · 10 un.",
-      texto: "Dourada com bolinhas de Natal, visual de luxo. Cabem 24 latas.",
-      sacola: ["#d9b44a", "#d8232a", "#6d1a24"],
-      foto: "img/sacola-dourada.jpg",
-      ml: "https://meli.la/1YjhCXt", shopee: ""
-    },
-    {
-      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
-      nome: "Kit 10 sacolas térmicas pequenas — Papai Noel",
-      etiqueta: "Pequena 30x36x20 · 10 un.",
-      texto: "Tamanho presente: cabem 2 garrafas + abridor, ou panetone e bombom.",
-      sacola: ["#2f4a35", "#d8232a", "#ffffff"],
-      foto: "img/sacola-noel-pequena.jpg",
-      ml: "https://meli.la/1poFz8Z", shopee: ""
-    },
-    {
-      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
-      nome: "Kit 5 sacolas térmicas pequenas — Dourada",
-      etiqueta: "Pequena 30x36x20 · 5 un.",
-      texto: "Cabem 2 vinhos + abridor: presente de Natal pronto.",
-      sacola: ["#d9b44a", "#d8232a", "#6d1a24"],
-      foto: "img/sacola-dourada.jpg",
-      ml: "https://meli.la/1oAxBkX", shopee: ""
-    },
-    {
-      secao: "🎁 Sacolas térmicas para cesta e kit de Natal",
-      nome: "Kit 100 sacolas térmicas — Azul com rena",
-      etiqueta: "🏢 Para empresas · Grande · 100 un.",
-      texto: "Brinde de fim de ano para empresa, condomínio ou igreja.",
-      sacola: ["#7cc3ec", "#2f8fd6", "#ffffff"],
-      foto: "img/sacolas-empresa.jpg",
-      ml: "https://meli.la/2M9vsqw", shopee: ""
-    }
+    // --- Sacolas (rodapé) ---
+    { id: "sacola-vinho", secao: "sacolas", nome: "Kit 10 Vinho com laço", etiqueta: "Grande 30x42x28 · 10 un.", foto: "img/sacola-vinho.jpg",
+      texto: "Sacola térmica de Natal: conserva quente ou frio até 5 h.", ml: "https://meli.la/2njyNrB" },
+    { id: "sacola-noel", secao: "sacolas", nome: "Kit 10 Papai Noel", etiqueta: "Grande 30x42x28 · 10 un.", foto: "img/sacola-noel.jpg",
+      texto: "Sacola térmica de Natal com Papai Noel.", ml: "https://meli.la/2ZPoK8q" },
+    { id: "sacola-azul", secao: "sacolas", nome: "Kit 10 Azul com rena", etiqueta: "Grande 30x42 · 10 un.", foto: "img/sacola-azul.jpg",
+      texto: "Sacola térmica de Natal com rena e árvore.", ml: "https://meli.la/2i9R4yj" },
+    { id: "sacola-dourada", secao: "sacolas", nome: "Kit 10 Dourada", etiqueta: "Grande 30x42x28 · 10 un.", foto: "img/sacola-dourada.jpg",
+      texto: "Sacola térmica de Natal dourada.", ml: "https://meli.la/1YjhCXt" },
+    { id: "sacola-noel-pequena", secao: "sacolas", nome: "Kit 10 pequenas Papai Noel", etiqueta: "Pequena 30x36x20 · 10 un.", foto: "img/sacola-noel-pequena.jpg",
+      texto: "Tamanho presente: 2 garrafas + abridor, ou panetone.", ml: "https://meli.la/1poFz8Z" },
+    { id: "sacola-dourada-pequena", secao: "sacolas", nome: "Kit 5 pequenas Dourada", etiqueta: "Pequena 30x36x20 · 5 un.", foto: "img/sacola-dourada.jpg",
+      texto: "Tamanho presente.", ml: "https://meli.la/1oAxBkX" },
+    { id: "sacolas-100", secao: "sacolas", nome: "Kit 100 · para empresas", etiqueta: "Grande · 100 un.", foto: "img/sacolas-empresa.jpg",
+      texto: "Brinde de fim de ano para empresa, condomínio ou igreja.", ml: "https://meli.la/2M9vsqw" }
   ];
 
-  function desenhoSacola([fundo, alca, detalhe]) {
-    return `<svg viewBox="0 0 60 80" aria-hidden="true">
-      <path d="M20 22 V12 a10 10 0 0 1 20 0 V22" fill="none" stroke="${alca}" stroke-width="4" stroke-linecap="round"/>
-      <rect x="6" y="20" width="48" height="56" rx="3" fill="${fundo}"/>
-      <rect x="6" y="20" width="48" height="6" fill="rgba(0,0,0,.15)"/>
-      <rect x="6" y="50" width="48" height="4" fill="${detalhe}" opacity=".9"/>
-      <path d="M40 46 l6 6 -6 6 M52 46 l-6 6 6 6" fill="none" stroke="${detalhe}" stroke-width="3"/>
-    </svg>`;
+  const porId = Object.fromEntries(produtos.map(p => [p.id, p]));
+  const diasComVideo = Object.keys(AGENDA).filter(d => d <= HOJE).sort();
+  const diaPromo = AGENDA[HOJE] ? HOJE : diasComVideo[diasComVideo.length - 1];
+  const idsPromo = AGENDA[diaPromo] || [];
+  const fmtDia = d => d.split("-").reverse().slice(0, 2).join("/");
+
+  // ===== DESENHO =====
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  function botoesDe(p) {
+    const lista = p.links || [p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml }, p.shopee && { rotulo: "Ver na Shopee", url: p.shopee, cls: "shopee" }].filter(Boolean);
+    return lista.map(b => `<a class="btn ${b.cls || "ml"}" href="${esc(b.url)}" target="_blank" rel="noopener sponsored">${esc(b.rotulo)}</a>`).join("");
+  }
+  function cartao(p, novo) {
+    return `<article class="cartao">
+      <div class="img">${p.foto ? `<img src="${esc(p.foto)}" alt="${esc(p.nome)}" loading="lazy">` : `<span aria-hidden="true">${p.icone || "🎄"}</span>`}</div>
+      <div class="corpo">
+        <h4>${esc(p.nome)}${novo ? '<span class="novo">HOJE</span>' : ""}</h4>
+        ${p.etiqueta ? `<span class="etiqueta">${esc(p.etiqueta)}</span>` : ""}
+        <p>${esc(p.texto)}</p>
+        <div class="botoes">${botoesDe(p)}</div>
+      </div></article>`;
+  }
+  const casa = (p, termo) => !termo || (p.nome + " " + p.texto + " " + (p.etiqueta || "")).toLowerCase().includes(termo);
+  function faixa(classe, titulo, sub, itens, novo) {
+    if (!itens.length) return "";
+    return `<section class="faixa-secao ${classe}"><h2>${titulo}</h2>${sub ? `<p class="sub">${sub}</p>` : ""}
+      <div class="trilho">${itens.map(p => cartao(p, novo)).join("")}</div></section>`;
   }
 
-  const hoje = new Date();
-  const ehNovo = p => p.data && (hoje - new Date(p.data + "T12:00:00")) / 86400000 <= 7;
-  // "Monte sua árvore" fica sempre no topo, na ordem de montagem; o resto, mais novo primeiro
-  produtos.sort((a, b) => (b.kit ? 1 : 0) - (a.kit ? 1 : 0) || (a.kit || 0) - (b.kit || 0) ||
-    (b.data || "").localeCompare(a.data || ""));
-
-  // Carrossel do rodapé: um cartãozinho por sacola, desliza sozinho e para quando a pessoa toca
-  const trilho = document.getElementById("trilho");
-  for (const p of produtos.filter(p => p.sacola)) {
-    const a = document.createElement("a");
-    a.className = "mini"; a.href = p.ml; a.target = "_blank"; a.rel = "noopener sponsored";
-    a.innerHTML = (p.foto ? `<img class="mini-foto" src="${p.foto}" alt="" loading="lazy">` : `<div class="sacola">${desenhoSacola(p.sacola)}</div>`) + `<div><b></b><span></span><em>Ver no Mercado Livre</em></div>`;
-    a.querySelector("b").textContent = p.nome.replace("sacolas térmicas — ", "");
-    a.querySelector("span").textContent = p.etiqueta;
-    trilho.appendChild(a);
-  }
-  let parado = false;
-  ["pointerdown", "touchstart", "wheel"].forEach(ev => trilho.addEventListener(ev, () => { parado = true; }, { passive: true }));
-  setInterval(() => {
-    if (parado || document.hidden || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const fim = trilho.scrollLeft + trilho.clientWidth >= trilho.scrollWidth - 4;
-    trilho.scrollTo({ left: fim ? 0 : trilho.scrollLeft + 258 });
-  }, 3000);
-
-  const lista = document.getElementById("lista");
-  const vazio = document.getElementById("vazio");
-
-  function criarCard(p) {
-    const card = document.createElement("article");
-    card.className = p.foto || p.sacola || p.icone ? "card com-foto" : "card";
-    card.innerHTML =
-      (p.foto ? "<img class='foto' loading='lazy' alt=''>" : "") +
-      (p.icone && !p.foto ? `<div class="icone" aria-hidden="true">${p.icone}</div>` : "") +
-      (p.sacola ?`<div class="sacola">${desenhoSacola(p.sacola)}</div>` : "") +
-      "<div><h3></h3>" + (p.etiqueta ? "<span class='etiqueta'></span>" : "") +
-      "<p></p><div class='botoes'></div></div>";
-    if (p.etiqueta) card.querySelector(".etiqueta").textContent = p.etiqueta;
-    if (p.foto) { const f = card.querySelector(".foto"); f.src = p.foto; f.alt = p.nome; }
-    card.querySelector("h3").textContent = p.nome;
-    if (ehNovo(p)) card.querySelector("h3").insertAdjacentHTML("beforeend", "<span class='novo'>NOVO</span>");
-    card.querySelector("p").textContent = p.texto;
-    const botoes = card.querySelector(".botoes");
-    const lista = p.links || [
-      p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml, cls: "ml" },
-      p.shopee && { rotulo: "Ver na Shopee", url: p.shopee, cls: "shopee" }
-    ].filter(Boolean);
-    for (const b of lista) {
-      const a = document.createElement("a");
-      a.className = "btn " + (b.cls || "ml"); a.href = b.url; a.target = "_blank"; a.rel = "noopener sponsored";
-      a.textContent = b.rotulo; botoes.appendChild(a);
-    }
-    return card;
-  }
-
-  // Cada seção vira uma faixa que desliza pro lado; o "Monte sua árvore" vira 2 colunas
+  const lista = document.getElementById("lista"), vazio = document.getElementById("vazio");
   function desenhar(filtro) {
-    const termo = (filtro || "").toLowerCase();
-    lista.innerHTML = "";
-    let total = 0;
-    const daLista = produtos.filter(p => !p.sacola); // sacolas ficam só no carrossel do rodapé
-    const secoes = [...new Set(daLista.map(p => p.secao))];
-    for (const secao of secoes) {
-      const itens = daLista.filter(p => p.secao === secao &&
-        (p.nome + " " + p.texto).toLowerCase().includes(termo));
-      if (!itens.length) continue;
-      total += itens.length;
-      const h2 = document.createElement("h2");
-      h2.textContent = secao;
-      lista.appendChild(h2);
-      if (secao === SECAO_KIT) {
-        const kits = document.createElement("div");
-        kits.className = "kits";
-        for (const g of GRUPOS_KIT) {
-          const doGrupo = itens.filter(p => (p.grupo || "completo") === g.id);
-          if (!doGrupo.length) continue;
-          const col = document.createElement("section");
-          col.className = "kit-col " + g.id;
-          col.innerHTML = `<h3 class="kit-titulo">${g.titulo}</h3><p class="kit-resumo">${g.resumo}</p>`;
-          for (const p of doGrupo) col.appendChild(criarCard(p));
-          kits.appendChild(col);
-        }
-        lista.appendChild(kits);
-        continue;
-      }
-      const faixa = document.createElement("div");
-      faixa.className = "faixa-lista";
-      for (const p of itens) faixa.appendChild(criarCard(p));
-      lista.appendChild(faixa);
+    const termo = (filtro || "").toLowerCase().trim();
+    const de = s => produtos.filter(p => p.secao === s && casa(p, termo));
+    const promo = idsPromo.map(id => porId[id]).filter(p => p && casa(p, termo));
+    const barata = de("arvore-barata"), rapida = de("arvore-rapida");
+    let html = "";
+    html += faixa("promo", document.body.classList.contains("bf") ? "🖤 Ofertas da Black Friday" : `🔥 Promoções do dia · ${fmtDia(diaPromo || HOJE)}`,
+      "Os achadinhos dos vídeos de hoje. Preço muda: confira no link.", promo, diaPromo === HOJE);
+    if (barata.length || rapida.length) {
+      html += `<section class="faixa-secao arvore"><h2>🎄 Monte sua árvore de Natal</h2>
+        <p class="sub">Escolha: gastar menos ou receber rapidinho. Preços de 24/10 — confira em cada link.</p>
+        <div class="metades">
+          ${barata.length ? `<div class="metade"><h3>💰 Mais barata · ~R$ 135</h3><p class="sub">Árvore 1,50 m com tudo num pedido só.</p>
+            <div class="trilho">${barata.map(p => cartao(p)).join("")}</div></div>` : ""}
+          ${rapida.length ? `<div class="metade"><h3>⚡ Chega mais rápido · FULL</h3><p class="sub">Árvore 2,10 m peça por peça, tudo com entrega FULL (~R$ 560).</p>
+            <div class="trilho">${rapida.map(p => cartao(p)).join("")}</div></div>` : ""}
+        </div></section>`;
     }
-    vazio.style.display = total ? "none" : "block";
+    html += faixa("presentes", "🎁 Presentes de Natal", "", de("presentes"));
+    html += faixa("decoracao", "✨ Decoração de Natal", "", de("decoracao"));
+    lista.innerHTML = html;
+    vazio.style.display = html ? "none" : "block";
   }
-
   document.getElementById("busca").addEventListener("input", e => desenhar(e.target.value));
   desenhar();
+
+  // Rodapé: sacolas, deslizando sozinho (para quando a pessoa toca)
+  const trilhoSac = document.getElementById("trilho-sacolas");
+  trilhoSac.innerHTML = produtos.filter(p => p.secao === "sacolas").map(p =>
+    `<a class="mini" href="${esc(p.ml)}" target="_blank" rel="noopener sponsored"><img src="${esc(p.foto)}" alt="" loading="lazy">
+      <div><b>${esc(p.nome)}</b><span>${esc(p.etiqueta)}</span><em>Ver no Mercado Livre</em></div></a>`).join("");
+  let parado = false;
+  ["pointerdown", "touchstart", "wheel"].forEach(ev => trilhoSac.addEventListener(ev, () => { parado = true; }, { passive: true }));
+  const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  setInterval(() => {
+    if (parado || document.hidden || semMovimento) return;
+    const fim = trilhoSac.scrollLeft + trilhoSac.clientWidth >= trilhoSac.scrollWidth - 4;
+    trilhoSac.scrollTo({ left: fim ? 0 : trilhoSac.scrollLeft + 280, behavior: "smooth" });
+  }, 3000);
+
+  // Pisca-pisca do topo e neve
+  const cores = document.body.classList.contains("bf") ? ["#9b4dff", "#ffffff", "#d0b3ff"] : ["#ff3b3b", "#ffd23b", "#3bd16f", "#3bb8ff", "#ff7ad9"];
+  const pisca = document.getElementById("pisca");
+  for (let i = 0; i < 26; i++) {
+    const b = document.createElement("i");
+    b.style.setProperty("--cor", cores[i % cores.length]);
+    b.style.animationDelay = (i % 4) * 0.4 + "s";
+    pisca.appendChild(b);
+  }
+  if (!semMovimento) {
+    const neve = document.getElementById("neve");
+    for (let i = 0; i < 28; i++) {
+      const s = document.createElement("span");
+      s.textContent = i % 3 ? "•" : "❄";
+      s.style.left = Math.random() * 100 + "vw";
+      s.style.fontSize = 8 + Math.random() * 12 + "px";
+      s.style.opacity = .4 + Math.random() * .5;
+      s.style.animationDuration = 8 + Math.random() * 10 + "s";
+      s.style.animationDelay = -Math.random() * 15 + "s";
+      neve.appendChild(s);
+    }
+  }
+
+  // Gatinho aparece, acena e some
+  const gato = document.getElementById("boasvindas");
+  setTimeout(() => gato.classList.add("aparece"), 1000);
+  setTimeout(() => gato.classList.remove("aparece"), 7000);
+  gato.addEventListener("click", () => gato.classList.remove("aparece"));
 </script>
 </body>
 </html>
