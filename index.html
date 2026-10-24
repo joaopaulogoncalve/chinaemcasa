@@ -130,6 +130,9 @@
   .c-barata { background: linear-gradient(90deg, #0f7a3a, #2ecc71); }
   .c-rapida { background: linear-gradient(90deg, #0f4d2a, #e0a526); }
   .c-ofertas { background: linear-gradient(90deg, #ee0979, #ff6a00); }
+  .c-bf { background: linear-gradient(90deg, #000, #5b1bd1); }
+  .c-cesta { background: linear-gradient(90deg, #8a1538, #e0a526); }
+  .c-enfeites { background: linear-gradient(90deg, #b3001b, #ff4d6d); }
   .c-presentes { background: linear-gradient(90deg, #1d4e89, #8e44ad); }
   .c-decoracao { background: linear-gradient(90deg, #6d1a4a, #d4145a); }
   body.bf .barra { background: linear-gradient(90deg, #000, #5b1bd1); }
@@ -187,6 +190,7 @@
   const HOJE = params.get("dia") || new Date().toLocaleDateString("sv-SE", { timeZone: "America/Sao_Paulo" });
   const DIA_BLACK_FRIDAY = "2026-11-27";
   const FIM_OFERTAS_1111 = "2026-11-11";
+  const FIM_BLACK_FRIDAY = "2026-11-30";
   if (params.get("tema") === "bf" || HOJE === DIA_BLACK_FRIDAY) document.body.classList.add("bf");
 
   // ===== AGENDA DOS VÍDEOS → "Promoções do dia" =====
@@ -222,6 +226,27 @@
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1nWyEG8" }, // 12%
     { id: "of8", secao: "ofertas", nome: "Jogo de ferramentas Vonder 110 peças", selo: "-20%", categoria: "Presente", etiqueta: "-20% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2Zf3T5q" }, // 12%
+
+    // --- Esquenta Black Friday (até 30/11). selo = desconto visto em 24/10; comissão conferida em 24/10 ---
+    { id: "bf1", secao: "blackfriday", nome: "Deo colônia Natura Hoje masculino 100 ml", selo: "-50%", categoria: "Presente", etiqueta: "-50% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/29peutA" }, // 20%
+    { id: "bf2", secao: "blackfriday", nome: "Tênis Puma Flyer Runner", selo: "-45%", categoria: "Presente", etiqueta: "-45% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1G2AhVB" }, // 20%
+    { id: "bf3", secao: "blackfriday", nome: "Cama elástica infantil 1,40 m", selo: "-62%", categoria: "Criança", etiqueta: "-62% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2HBvZMP" }, // 20%
+    { id: "bf4", secao: "blackfriday", nome: "Loção hidratante CeraVe 473 ml", selo: "-30%", categoria: "Cuidado", etiqueta: "-30% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2Mbq8Mi" }, // 16%
+    { id: "bf5", secao: "blackfriday", nome: "Creme Cicaplast La Roche-Posay 40 ml", selo: "-34%", categoria: "Cuidado", etiqueta: "-34% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2YrGFk6" }, // 16%
+    { id: "bf6", secao: "blackfriday", nome: "Kit 6 pares de meias Puma", selo: "-66%", categoria: "Presente", etiqueta: "-66% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2getX77" }, // 16%
+    { id: "bf7", secao: "blackfriday", nome: "Máscara Kérastase Résistance 200 ml", selo: "-42%", categoria: "Cuidado", etiqueta: "-42% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1AxREgQ" }, // 16%
+    { id: "bf8", secao: "blackfriday", nome: "Kit 10 potes herméticos de vidro", selo: "-51%", categoria: "Casa", etiqueta: "-51% em 24/10 · confira o preço de hoje",
+      texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2TQBAoP" }, // 12%
+
+    { id: "estrela", secao: "decoracao", nome: "Estrela ponteira glitter 20 cm", icone: "⭐", etiqueta: "Vermelha, dourada ou prateada",
+      texto: "Topo da árvore com encaixe em espiral.", ml: "https://meli.la/2iMyJuK" },
 
     // --- Decoração ---
     { id: "cortina", secao: "decoracao", nome: "Cortina de LED com 300 luzinhas", foto: "img/cortina-led.jpg",
@@ -291,9 +316,14 @@
   ];
 
   const porId = Object.fromEntries(produtos.map(p => [p.id, p]));
+  // Promoções do dia = vídeos de hoje + de ontem (o TikTok roda cada vídeo ~24–48 h).
+  // Depois disso o produto sai daqui e fica só na seção dele lá embaixo.
   const diasComVideo = Object.keys(AGENDA).filter(d => d <= HOJE).sort();
-  const diaPromo = AGENDA[HOJE] ? HOJE : diasComVideo[diasComVideo.length - 1];
-  const idsPromo = AGENDA[diaPromo] || [];
+  const ontem = new Date(new Date(HOJE + "T12:00:00").getTime() - 864e5).toLocaleDateString("sv-SE");
+  let diasPromo = diasComVideo.filter(d => d >= ontem);
+  if (!diasPromo.length && diasComVideo.length) diasPromo = [diasComVideo[diasComVideo.length - 1]];
+  const diaPromo = diasPromo[diasPromo.length - 1];
+  const idsPromo = [...new Set(diasPromo.slice().reverse().flatMap(d => AGENDA[d]))];
   const fmtDia = d => d.split("-").reverse().slice(0, 2).join("/");
 
   // ===== DESENHO =====
@@ -318,12 +348,16 @@
     const de = sec => produtos.filter(p => p.secao === sec && casa(p, termo));
     const promo = idsPromo.map(id => porId[id]).filter(p => p && casa(p, termo));
     const bf = document.body.classList.contains("bf");
-    let html = barra("c-promo", bf ? "🖤 Ofertas da Black Friday ›" : `🔥 Promoções do dia · ${fmtDia(diaPromo || HOJE)} ›`, promo, diaPromo === HOJE);
+    let html = barra("c-promo", `🔥 Promoções do dia · ${fmtDia(diaPromo || HOJE)} ›`, promo, diaPromo === HOJE);
     const arvores = barra("c-barata", "💰 Monte sua árvore mais barata · ~R$ 135 ›", de("arvore-barata")) +
       barra("c-rapida", "⚡ Monte sua árvore · chega rápido (FULL) ›", de("arvore-rapida"));
     if (arvores) html += `<div class="lado">${arvores}</div>`;
     if (HOJE <= FIM_OFERTAS_1111) html += barra("c-ofertas", "🏷️ Ofertas 11/11 · Mercado Livre ›", de("ofertas"));
+    if (HOJE <= FIM_BLACK_FRIDAY && !bf) html += barra("c-bf", "🖤 Esquenta Black Friday · Mercado Livre ›", de("blackfriday"));
+    if (bf) html = barra("c-bf", "🖤 Ofertas da Black Friday ›", de("blackfriday")) + html;
     html += barra("c-presentes", "🎁 Presentes de Natal ›", de("presentes"));
+    html += barra("c-cesta", "🧺 Cesta e kit de Natal · sacolas térmicas ›", de("sacolas"));
+    html += barra("c-enfeites", "🔴 Enfeites e luzes de árvore ›", ["kit100", "kit42", "pisca", "saia", "festao"].map(id => porId[id]).filter(p => p && casa(p, termo)));
     html += barra("c-decoracao", "✨ Decoração de Natal ›", de("decoracao"));
     lista.innerHTML = html;
     vazio.style.display = html ? "none" : "block";
