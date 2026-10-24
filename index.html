@@ -477,8 +477,8 @@
     card.className = p.foto || p.sacola || p.icone ? "card com-foto" : "card";
     card.innerHTML =
       (p.foto ? "<img class='foto' loading='lazy' alt=''>" : "") +
-      (p.icone ? `<div class="icone" aria-hidden="true">${p.icone}</div>` : "") +
-      (p.sacola ? `<div class="sacola">${desenhoSacola(p.sacola)}</div>` : "") +
+      (p.icone && !p.foto ? `<div class="icone" aria-hidden="true">${p.icone}</div>` : "") +
+      (p.sacola ?`<div class="sacola">${desenhoSacola(p.sacola)}</div>` : "") +
       "<div><h3></h3>" + (p.etiqueta ? "<span class='etiqueta'></span>" : "") +
       "<p></p><div class='botoes'></div></div>";
     if (p.etiqueta) card.querySelector(".etiqueta").textContent = p.etiqueta;
