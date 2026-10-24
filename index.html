@@ -100,7 +100,8 @@
   }
   .cartao .img { height: 170px; background: linear-gradient(135deg, #fff3d6, #ffe0e0); display: grid; place-items: center; font-size: 64px; }
   body.bf .cartao .img { background: linear-gradient(135deg, #2a1a40, #12091f); }
-  .cartao .img img { width: 100%; height: 100%; object-fit: cover; }
+  .cartao .img { position: relative; overflow: hidden; flex: 0 0 170px; }
+  .cartao .img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .cartao .corpo { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .cartao h4 { margin: 0; font-size: .98rem; line-height: 1.25; }
   .cartao p { margin: 0; font-size: .84rem; color: var(--muted); flex: 1; }
