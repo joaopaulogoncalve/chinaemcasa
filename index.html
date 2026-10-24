@@ -68,8 +68,8 @@
 
   .wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 2; }
   .aviso {
-    max-width: 640px; margin: 14px auto 0; padding: 10px 12px; border-radius: 10px;
-    background: var(--card); border: 1px dashed var(--linha); font-size: .82rem; color: var(--muted); text-align: center;
+    max-width: 900px; margin: 8px auto 0; padding: 6px 10px; border-radius: 10px;
+    background: var(--card); border: 1px dashed var(--linha); font-size: .74rem; color: var(--muted); text-align: center;
   }
   .busca {
     display: block; width: 100%; max-width: 640px; margin: 10px auto 2px; padding: 12px 14px;
@@ -119,6 +119,7 @@
   footer.siga a { color: inherit; }
 
   /* Barras finas com carrossel (todas iguais à das sacolas, cada uma de uma cor) */
+  @media (min-width: 1000px) { #lista { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; } .barra { min-width: 0; } }
   .barra { border-radius: 14px; padding: 8px 0 10px; margin: 10px 0; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.12); }
   .barra .titulo { font-weight: 800; margin: 0 12px 6px; font-size: .98rem; }
   .barra .trilho { padding: 0 12px; }
@@ -154,7 +155,7 @@
   <img class="logo" src="logo.png" alt="Logo China em Casa" width="704" height="606">
   <h1>China em Casa</h1>
   <p class="bio">Achadinhos baratos pra casa, presentes e ofertas</p>
-  <div class="arvorezinhas" aria-hidden="true">🎄✨🎁✨🎄</div>
+  
   <div class="bf-faixa">🖤 BLACK FRIDAY · ofertas da live</div>
 </div>
 
