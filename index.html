@@ -15,6 +15,7 @@
     --topo1: #0f4d2a; --topo2: #c8102e;
     --promo: linear-gradient(135deg, #c8102e, #e0a526);
     --arvore: linear-gradient(135deg, #0f4d2a, #2e9e5b);
+    --ofertas: linear-gradient(135deg, #ff6a00, #ee0979);
     --presentes: linear-gradient(135deg, #1d4e89, #5b8fd6);
     --decoracao: linear-gradient(135deg, #6d1a4a, #b8327a);
     --rodape: #c8102e;
@@ -26,6 +27,7 @@
     --topo1: #000; --topo2: #5b1bd1;
     --promo: linear-gradient(135deg, #000, #6b2cff);
     --arvore: linear-gradient(135deg, #12091f, #4a1d96);
+    --ofertas: linear-gradient(135deg, #000, #9b4dff);
     --presentes: linear-gradient(135deg, #12091f, #7a2cff);
     --decoracao: linear-gradient(135deg, #12091f, #b02cff);
     --rodape: #1a0d33;
@@ -80,6 +82,7 @@
   .faixa-secao .sub { margin: 0 16px 10px; font-size: .88rem; opacity: .95; }
   .faixa-secao.promo { background: var(--promo); }
   .faixa-secao.arvore { background: var(--arvore); }
+  .faixa-secao.ofertas { background: var(--ofertas); }
   .faixa-secao.presentes { background: var(--presentes); }
   .faixa-secao.decoracao { background: var(--decoracao); }
   .metades { display: grid; gap: 12px; padding: 0 12px; }
@@ -147,7 +150,7 @@
 </div>
 
 <div class="wrap">
-  <p class="aviso">#publi — Os botões são links de afiliado do Mercado Livre e da Shopee: posso ganhar uma comissão, sem custo extra pra você. Preço e estoque podem mudar; confira no site da loja.</p>
+  <p class="aviso">#publi — Os botões são links de afiliado do Mercado Livre: posso ganhar uma comissão, sem custo extra pra você. Preço e estoque podem mudar; confira no site da loja.</p>
   <input class="busca" id="busca" type="search" placeholder="Procurar achadinho…" aria-label="Procurar achadinho">
   <main id="lista"></main>
   <p class="vazio" id="vazio">Nada encontrado com esse nome.</p>
@@ -189,6 +192,7 @@
   const params = new URLSearchParams(location.search);
   const HOJE = params.get("dia") || new Date().toLocaleDateString("sv-SE", { timeZone: "America/Sao_Paulo" });
   const DIA_BLACK_FRIDAY = "2026-11-27";
+  const FIM_OFERTAS_1111 = "2026-11-11";
   if (params.get("tema") === "bf" || HOJE === DIA_BLACK_FRIDAY) document.body.classList.add("bf");
 
   // ===== AGENDA DOS VÍDEOS → "Promoções do dia" =====
@@ -207,10 +211,52 @@
   // secao: promo é automático; as outras: "arvore-barata", "arvore-rapida", "presentes", "decoracao", "sacolas".
   // Deixe ml/shopee vazio ("") se não tiver. links: botões especiais (ex.: 110 V / 220 V).
   const produtos = [
+    // --- Ofertas 11/11 (aparece até 2026-11-11) ---
+    { id: "of1", secao: "ofertas", nome: "Air Fryer Oven Philco 16 L digital", icone: "🍟", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1r9Dr3Z" },
+    { id: "of2", secao: "ofertas", nome: "Liquidificador Philco 1200 W 3 L", icone: "🥤", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1cNeaiq" },
+    { id: "of3", secao: "ofertas", nome: "Conjunto de panelas Brinox 8 peças cerâmica", icone: "🍳", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1QJT4Hp" },
+    { id: "of4", secao: "ofertas", nome: "Fone Bluetooth AIWA com cancelamento de ruído", icone: "🎧", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2g2YBvD" },
+    { id: "of5", secao: "ofertas", nome: "Câmera Wi-Fi Intelbras 360°", icone: "📷", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1wsVXPF" },
+    { id: "of6", secao: "ofertas", nome: "Patinete elétrico infantil 3 rodas", icone: "🛴", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1WqZhKP" },
+    { id: "of7", secao: "ofertas", nome: "Smart TV TCL 55\" QD-Mini LED 4K", icone: "📺", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1UMrNiA" },
+    { id: "of8", secao: "ofertas", nome: "Celular Samsung Galaxy A17 5G 128 GB", icone: "📱", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2iNCeNC" },
+    { id: "of9", secao: "ofertas", nome: "PlayStation 5 Slim Digital + 2 jogos", icone: "🎮", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2RMfQky" },
+    { id: "of10", secao: "ofertas", nome: "Lavadora de alta pressão WAP 1400 W", icone: "💦", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2rSb8wG" },
+    { id: "of11", secao: "ofertas", nome: "Jogo de ferramentas Vonder 110 peças", icone: "🧰", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2Zf3T5q" },
+    { id: "of12", secao: "ofertas", nome: "Perfume Kaiak Ultra Natura 100 ml", icone: "🧴", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1xsYvZk" },
+    { id: "of13", secao: "ofertas", nome: "Perfume Natura Ilía Ser 50 ml", icone: "🌸", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/31mjkiP" },
+    { id: "of14", secao: "ofertas", nome: "Relógio feminino Garoa rose gold", icone: "⌚", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2sK6K3m" },
+    { id: "of15", secao: "ofertas", nome: "Relógio masculino Garoa + carteira", icone: "⌚", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1X7R5yi" },
+    { id: "of16", secao: "ofertas", nome: "Cadeira de escritório ergonômica LuvinCo", icone: "🪑", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/1nWyEG8" },
+    { id: "of17", secao: "ofertas", nome: "Purificador de água gelada Electrolux", icone: "💧", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/28spKT7" },
+    { id: "of18", secao: "ofertas", nome: "Body splash Natura Luna 200 ml", icone: "✨", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2joriJk" },
+    { id: "of19", secao: "ofertas", nome: "Cadeira de refeição Burigotto Poke", icone: "👶", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2yYMX1n" },
+    { id: "of20", secao: "ofertas", nome: "Air Fryer Oven Britânia 11 L", icone: "🍗", etiqueta: "Oferta Mercado Livre",
+      texto: "Preço de oferta por tempo limitado: confira o valor de hoje no link.", ml: "https://meli.la/2QVRk38" },
+
     // --- Decoração ---
     { id: "cortina", secao: "decoracao", nome: "Cortina de LED com 300 luzinhas", foto: "img/cortina-led.jpg",
       texto: "3x3 m, branco quente, liga no USB e vem com controle remoto.",
-      ml: "https://meli.la/1T7s6cP", shopee: "https://s.shopee.com.br/8fTKtSKEqk" },
+      ml: "https://meli.la/1T7s6cP" },
     { id: "projetor", secao: "decoracao", nome: "Projetor de Natal com 16 desenhos", foto: "img/projetor-natal.jpg",
       texto: "Apaga a luz e a parede se enche de desenhos de Natal. Pequenininho e bivolt.",
       ml: "https://meli.la/1GbERNw" },
@@ -322,6 +368,7 @@
             <div class="trilho">${rapida.map(p => cartao(p)).join("")}</div></div>` : ""}
         </div></section>`;
     }
+    if (HOJE <= FIM_OFERTAS_1111) html += faixa("ofertas", "🏷️ Ofertas 11/11 · Mercado Livre", "Selecionadas da página de ofertas do ML. Desconto e preço mudam: confira no link.", de("ofertas"));
     html += faixa("presentes", "🎁 Presentes de Natal", "", de("presentes"));
     html += faixa("decoracao", "✨ Decoração de Natal", "", de("decoracao"));
     lista.innerHTML = html;
