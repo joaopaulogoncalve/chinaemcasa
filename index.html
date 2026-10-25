@@ -134,6 +134,7 @@
   .c-cesta { background: linear-gradient(90deg, #8a1538, #e0a526); }
   .c-enfeites { background: linear-gradient(90deg, #b3001b, #ff4d6d); }
   .c-criancas { background: linear-gradient(90deg, #0077b6, #00b4d8); }
+  .c-feminino { background: linear-gradient(90deg, #c2185b, #f06292); }
   .c-presentes { background: linear-gradient(90deg, #1d4e89, #8e44ad); }
   .c-decoracao { background: linear-gradient(90deg, #6d1a4a, #d4145a); }
   body.bf .barra { background: linear-gradient(90deg, #000, #5b1bd1); }
@@ -207,7 +208,7 @@
   };
 
   // ===== PRODUTOS =====
-  // secao: promo é automático; as outras: "arvore-barata", "arvore-rapida", "presentes", "decoracao", "sacolas".
+  // secao: promo é automático; as outras: "arvore-barata", "arvore-rapida", "presentes", "feminino", "decoracao", "sacolas".
   // Deixe ml/shopee vazio ("") se não tiver. links: botões especiais (ex.: 110 V / 220 V).
   const produtos = [
     // --- Ofertas 11/11 (some depois de 11/11). selo = desconto visto em 24/10; comissão conferida em 24/10 ---
@@ -261,12 +262,12 @@
     { id: "noel-ceramica", secao: "decoracao", nome: "Papai Noel e boneco de neve de cerâmica 22 cm", foto: "img/noel-ceramica.jpg", texto: "Par de enfeites de cerâmica.", ml: "https://meli.la/1gD2vmV" },
     { id: "globo", secao: "decoracao", nome: "Globo de neve Papai Noel", foto: "img/globo.jpg", etiqueta: "FULL · chega rápido", texto: "Enfeite pra estante ou presente.", ml: "https://meli.la/1GaFGvv" },
     { id: "copo-termico", secao: "presentes", nome: "Copo térmico inox 1,2 L com canudo", foto: "img/copo-termico.jpg", etiqueta: "FULL · chega rápido", texto: "Nota 4,9, mais de 50 mil vendidos. Várias cores.", ml: "https://meli.la/2Vj2S25" },
-    { id: "kit-relogio", secao: "presentes", nome: "Kit relógio + colar + brincos dourado", foto: "img/kit-relogio.jpg", etiqueta: "FULL · chega rápido", texto: "Presente feminino pronto.", ml: "https://meli.la/2WKKuxx" },
+    { id: "kit-relogio", secao: "feminino", nome: "Kit relógio + colar + brincos dourado", foto: "img/kit-relogio.jpg", etiqueta: "FULL · chega rápido", texto: "Presente feminino pronto.", ml: "https://meli.la/2WKKuxx" },
     { id: "xicaras-irish", secao: "presentes", nome: "Kit 6 xícaras de vidro Irish coffee", foto: "img/xicaras-irish.jpg", texto: "120 ml.", ml: "https://meli.la/2TrgM8o" },
     { id: "canecas-capp", secao: "presentes", nome: "Jogo 6 canecas cappuccino de vidro 120 ml", foto: "img/canecas-capp.jpg", etiqueta: "FULL · chega rápido", texto: "Nota 4,9.", ml: "https://meli.la/1pivnVh" },
-    { id: "bolsa", secao: "presentes", nome: "Bolsa transversal + bolsa pequena + carteira", foto: "img/bolsa.jpg", etiqueta: "FULL · chega rápido", texto: "Kit feminino.", ml: "https://meli.la/1pQvTpL" },
-    { id: "floratta", secao: "presentes", nome: "Kit Boticário Floratta Red (loção + desodorante)", icone: "🌹", texto: "Presente pronto.", ml: "https://meli.la/32JZ3pP" },
-    { id: "brincos", secao: "presentes", nome: "Kit brincos argola prata 925 com zircônia", foto: "img/brincos.jpg", etiqueta: "FULL · chega rápido", texto: "Prata 925.", ml: "https://meli.la/247MEWJ" },
+    { id: "bolsa", secao: "feminino", nome: "Bolsa transversal + bolsa pequena + carteira", foto: "img/bolsa.jpg", etiqueta: "FULL · chega rápido", texto: "Kit feminino.", ml: "https://meli.la/1pQvTpL" },
+    { id: "floratta", secao: "feminino", nome: "Kit Boticário Floratta Red (loção + desodorante)", icone: "🌹", texto: "Presente pronto.", ml: "https://meli.la/32JZ3pP" },
+    { id: "brincos", secao: "feminino", nome: "Kit brincos argola prata 925 com zircônia", foto: "img/brincos.jpg", etiqueta: "FULL · chega rápido", texto: "Prata 925.", ml: "https://meli.la/247MEWJ" },
     { id: "camisetas", secao: "presentes", nome: "5 camisetas dry fit masculinas", foto: "img/camisetas.jpg", texto: "Kit com 5.", ml: "https://meli.la/1Specfx" },
     { id: "capivara", secao: "criancas", nome: "Capivara de pelúcia gigante", foto: "img/capivara.jpg", etiqueta: "FULL · chega rápido", texto: "Antialérgica, nota 4,7.", ml: "https://meli.la/23FuTcH" },
     { id: "carrinho", secao: "criancas", nome: "Carrinho de controle remoto rally 4x4", foto: "img/carrinho.jpg", etiqueta: "FULL · chega rápido", texto: "Bateria recarregável.", ml: "https://meli.la/2aWfkdV" },
@@ -284,7 +285,7 @@
     // aprovados no painel (olheiro 25/10)
     { id: "pisca200", secao: "decoracao", nome: "Pisca 200 LEDs 20 m · 8 funções", icone: "✨", etiqueta: "FULL · nota 4,9", texto: "Branco quente, fio verde. O dobro do pisca de 9 m.", ml: "https://meli.la/1uPEqP2" },
     { id: "arv2m600", secao: "arvore-rapida", nome: "Ou: árvore 2 m · 600 galhos", icone: "🎄", etiqueta: "FULL · nota 4,7", texto: "Pinheiro tradicional, +1000 vendidos. Sem luzes e sem enfeites.", ml: "https://meli.la/1EPpArB" },
-    { id: "eudora-golden", secao: "presentes", nome: "Kit Eudora Golden (perfume 35 ml + hidratante)", icone: "🎁", etiqueta: "Nota 5,0", texto: "Presente feminino pronto, caixa de Natal.", ml: "https://meli.la/2EJcaRs" },
+    { id: "eudora-golden", secao: "feminino", nome: "Kit Eudora Golden (perfume 35 ml + hidratante)", icone: "🎁", etiqueta: "Nota 5,0", texto: "Presente feminino pronto, caixa de Natal.", ml: "https://meli.la/2EJcaRs" },
     { id: "fantasia-dino", secao: "criancas", nome: "Fantasia de dinossauro infantil", icone: "🦖", etiqueta: "Nota 4,8 · +500 vendidos", texto: "Presente pra menino que ama dinossauro.", ml: "https://meli.la/1EB7LCe" },
     { id: "almofadas-noel", secao: "decoracao", nome: "Kit 4 capas de almofada Papai Noel (mais barato)", foto: "img/almofadas-noel.jpg", etiqueta: "Nota 4,8 · 2º mais vendido", texto: "Capas sem enchimento.", ml: "https://meli.la/17YWXNi" },
 
@@ -395,6 +396,7 @@
     if (HOJE <= FIM_OFERTAS_1111) html += barra("c-ofertas", "🏷️ Ofertas 11/11 · Mercado Livre ›", de("ofertas"));
     if (HOJE <= FIM_BLACK_FRIDAY && !bf) html += barra("c-bf", "🖤 Esquenta Black Friday · Mercado Livre ›", de("blackfriday"));
     if (bf) html = barra("c-bf", "🖤 Ofertas da Black Friday ›", de("blackfriday")) + html;
+    html += barra("c-feminino", "💝 Presentes pra ela · mãe, esposa, namorada ›", de("feminino"));
     html += barra("c-presentes", "🎁 Presentes de Natal ›", de("presentes"));
     html += barra("c-criancas", "🧸 Brinquedos e presentes pra criança ›", de("criancas"));
     html += barra("c-cesta", "🧺 Cesta e kit de Natal · sacolas térmicas ›", de("sacolas"));
