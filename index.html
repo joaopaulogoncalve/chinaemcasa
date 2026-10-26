@@ -157,6 +157,11 @@
   .prod .selo small { font-weight: 800; font-size: .7rem; text-transform: uppercase; }
   /* oferta com foto: foto em cima, degradê laranja na diagonal e o desconto embaixo */
   .prod .selo.com-foto { background: linear-gradient(200deg, transparent 38%, rgba(255,106,0,.88) 66%, #c8102e 100%); align-items: flex-start; justify-content: flex-end; padding: 0 0 14px 14px; text-shadow: 0 2px 8px rgba(0,0,0,.35); }
+  /* 2ª foto (descrição do produto): troca ao passar o mouse; no celular, toque na foto */
+  .prod .img .img2 { opacity: 0; transition: opacity .35s; }
+  .prod.tem2 .img::after { content: "toque pra ver mais ›"; position: absolute; right: 8px; bottom: 8px; background: rgba(0,0,0,.55); color: #fff; font-size: .66rem; font-weight: 800; padding: 3px 7px; border-radius: 99px; }
+  @media (hover: hover) { .prod.tem2 .img::after { content: "passe o mouse ›"; } .prod:hover .img .img2 { opacity: 1; } }
+  .prod.ver2 .img .img2 { opacity: 1; }
   .oferta-ic { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: radial-gradient(circle at 50% 40%, #fff, #fde9d4 70%); }
   body.bf .oferta-ic { background: radial-gradient(circle at 50% 40%, #3a2560, #12091f 70%); }
   .oferta-ic span { font-size: 64px; line-height: 1; filter: drop-shadow(0 6px 10px rgba(0,0,0,.15)); }
@@ -459,13 +464,13 @@
   function cartao(p) {
     // oferta com desconto: foto (ou emoji grande) + adesivo do desconto no canto
     const selo = p.selo ? `<div class="selo ${p.foto ? "com-foto" : ""}"><b>${esc(p.selo)}</b><small>${esc(p.categoria || "oferta")}</small></div>` : "";
-    const img = p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">${selo}`
+    const img = p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">${p.foto2 ? `<img class="img2" src="${esc(p.foto2)}" alt="" loading="lazy">` : ""}${selo}`
       : p.selo ? selo
       : p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">` : esc(p.icone || "🎄");
     const et = p.etiqueta || "", full = /FULL/i.test(et);
     const botoes = (p.links || [p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml }].filter(Boolean))
       .map(b => `<a class="btn" href="${esc(b.url)}" target="_blank" rel="noopener sponsored">${esc(b.rotulo)}</a>`).join("");
-    return `<article class="prod"><div class="img">${img}${et && !p.selo ? `<span class="tag ${full ? "full" : ""}">${esc(full ? "⚡ FULL · chega rápido" : et)}</span>` : ""}${idsHoje.has(p.id) ? `<span class="tag hoje">HOJE</span>` : novo(p) ? `<span class="tag hoje">NOVO</span>` : ""}</div>
+    return `<article class="prod${p.foto && p.foto2 ? " tem2" : ""}"><div class="img">${img}${et && !p.selo ? `<span class="tag ${full ? "full" : ""}">${esc(full ? "⚡ FULL · chega rápido" : et)}</span>` : ""}${idsHoje.has(p.id) ? `<span class="tag hoje">HOJE</span>` : novo(p) ? `<span class="tag hoje">NOVO</span>` : ""}</div>
       <div class="corpo"><h3>${esc(p.nome.replace(/^Ou: |^\d+\. |^\+ /, ""))}</h3><p>${esc(p.texto || "")}</p><div class="botoes">${botoes}</div></div></article>`;
   }
 
@@ -500,6 +505,8 @@
     desenhar(document.getElementById("busca").value);
   });
   document.getElementById("busca").addEventListener("input", e => desenhar(e.target.value));
+  // celular: tocar na foto alterna entre a 1ª e a 2ª
+  document.getElementById("conteudo").addEventListener("click", e => { const im = e.target.closest(".prod.tem2 .img"); if (im) im.parentElement.classList.toggle("ver2"); });
 
   // ===== BANNERS ROLANTES =====
   // de/ate = período em que o banner aparece. breve: loja que ainda não temos (Shopee, TikTok Shop) — aparece como "em breve".
