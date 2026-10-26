@@ -58,19 +58,20 @@
   body.bf .vantagens { background: #150d22; }
 
   /* Banners rolantes (trocam sozinhos; cada um tem data de início/fim) */
-  .banners { position: relative; overflow: hidden; height: clamp(150px, 21vw, 250px); }
+  .banners { position: relative; overflow: hidden; height: clamp(185px, 25vw, 310px); }
   .dia { background: #fff; border-bottom: 1px solid var(--linha); }
   body.bf .dia { background: #150d22; }
-  .dia-in { max-width: 1180px; margin: 0 auto; padding: 8px 16px 10px; display: flex; align-items: center; gap: 12px; }
-  .dia-cab { margin: 0; flex: none; font: 800 .95rem var(--f-tit); color: var(--vermelho); }
-  .dia-cab span { display: block; font: 700 .72rem var(--f-txt); color: var(--muted); }
-  .dia-trilho { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
+  .dia-in { max-width: 1180px; margin: 0 auto; padding: 12px 16px 14px; }
+  .dia-cab { margin: 0 0 8px; font: 800 1.15rem var(--f-tit); color: var(--vermelho); }
+  .dia-cab span { font: 700 .78rem var(--f-txt); color: var(--muted); margin-left: 6px; }
+  .dia-trilho { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .dia-trilho::-webkit-scrollbar { display: none; }
-  .dmini { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; padding: 5px 10px 5px 5px; border: 1px solid var(--linha); border-radius: 12px; background: var(--card); text-decoration: none; max-width: 300px; }
-  .dmini img, .dmini i { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; flex: none; display: grid; place-items: center; font-style: normal; font-size: 22px; background: #fff3d6; }
-  .dmini b { display: block; font-size: .8rem; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 190px; }
-  .dmini em { font-style: normal; font-weight: 800; font-size: .7rem; color: var(--ml-texto); background: var(--ml); padding: 1px 6px; border-radius: 5px; }
-  @media (max-width: 600px) { .dia-in { flex-direction: column; align-items: stretch; gap: 6px; } .dia-cab span { display: inline; margin-left: 6px; } }
+  .dmini { flex: 0 0 min(340px, 86%); scroll-snap-align: start; display: flex; align-items: center; gap: 12px; padding: 8px 14px 8px 8px; border: 1px solid var(--linha); border-radius: 14px; background: var(--card); text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .dmini img, .dmini i { width: 78px; height: 104px; border-radius: 10px; object-fit: cover; flex: none; display: grid; place-items: center; font-style: normal; font-size: 40px; background: #fff3d6; }
+  .dmini b { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: .98rem; line-height: 1.25; margin-bottom: 4px; }
+  .dmini small { display: block; color: var(--muted); font-size: .78rem; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .dmini em { display: inline-block; font-style: normal; font-weight: 800; font-size: .82rem; color: var(--ml-texto); background: var(--ml); padding: 6px 12px; border-radius: 8px; }
+  
   .trilha { display: flex; height: 100%; transition: transform .6s ease; }
   .banner { flex: 0 0 100%; height: 100%; position: relative; color: #fff; text-decoration: none; display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; padding: 0 max(16px, calc((100vw - 1180px) / 2 + 16px)); overflow: hidden; }
   .banner .txt { position: relative; z-index: 2; }
@@ -187,14 +188,14 @@
   <nav class="nav" id="nav" aria-label="Menu da loja"></nav>
   <nav class="menu" id="menu" aria-label="Categorias"></nav>
 </header>
-<section class="dia" id="ofertas-dia" aria-label="Promoções do dia">
-  <div class="dia-in"><p class="dia-cab">🔥 Promoções do dia <span id="dia-data"></span></p><div class="dia-trilho" id="dia-trilho"></div></div>
-</section>
 <section class="banners" id="banners" aria-roledescription="carrossel" aria-label="Destaques">
   <div class="trilha" id="trilha"></div>
   <button class="seta esq" id="ant" aria-label="Banner anterior">‹</button>
   <button class="seta dir" id="prox" aria-label="Próximo banner">›</button>
   <div class="pontos" id="pontos"></div>
+</section>
+<section class="dia" id="ofertas-dia" aria-label="Promoções do dia">
+  <div class="dia-in"><p class="dia-cab">🔥 Promoções do dia <span id="dia-data"></span></p><div class="dia-trilho" id="dia-trilho"></div></div>
 </section>
 
 <main class="wrap" id="inicio">
@@ -509,7 +510,19 @@
 
   // Faixa "Promoções do dia" (topo)
   document.getElementById("dia-data").textContent = diasPromo.length ? diasPromo.map(d => d.split("-").reverse().slice(0, 2).join("/")).join(" e ") : "";
-  document.getElementById("dia-trilho").innerHTML = promo.map(p => `<a class="dmini" href="${esc((p.links && p.links[0].url) || p.ml)}" target="_blank" rel="noopener sponsored">${p.foto ? `<img src="${esc(p.foto)}" alt="">` : `<i>${esc(p.icone || "🎄")}</i>`}<span><b>${esc(p.nome)}</b><em>${idsHoje.has(p.id) ? "HOJE · " : ""}Ver no ML</em></span></a>`).join("") || "<span class=\"dia-cab\"><span>Sem promoção hoje</span></span>";
+  // hoje/ontem primeiro; depois os outros produtos dos vídeos da agenda, pra faixa girar
+  const promoFaixa = [...new Set([...promo, ...Object.keys(AGENDA).sort().reverse().flatMap(d => AGENDA[d]).map(id => porId[id]).filter(Boolean)])];
+  document.getElementById("dia-trilho").innerHTML = promoFaixa.map(p => `<a class="dmini" href="${esc((p.links && p.links[0].url) || p.ml)}" target="_blank" rel="noopener sponsored">${p.foto ? `<img src="${esc(p.foto)}" alt="">` : `<i>${esc(p.icone || "🎄")}</i>`}<span><b>${esc(p.nome)}</b><small>${esc(p.texto || p.etiqueta || "")}</small><em>${idsHoje.has(p.id) ? "HOJE · " : ""}Ver no ML</em></span></a>`).join("") || "<span class=\"dia-cab\"><span>Sem promoção hoje</span></span>";
+
+  // Promoções do dia giram sozinhas (param quando a pessoa toca ou passa o mouse)
+  const diaTr = document.getElementById("dia-trilho"); let diaParado = false;
+  ["pointerenter", "touchstart", "wheel"].forEach(ev => diaTr.addEventListener(ev, () => diaParado = true, { passive: true }));
+  diaTr.addEventListener("pointerleave", () => diaParado = false);
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(() => {
+    if (diaParado || document.hidden || diaTr.scrollWidth <= diaTr.clientWidth + 4) return;
+    const fim = diaTr.scrollLeft + diaTr.clientWidth >= diaTr.scrollWidth - 4;
+    diaTr.scrollTo({ left: fim ? 0 : diaTr.scrollLeft + diaTr.firstElementChild.offsetWidth + 12, behavior: "smooth" });
+  }, 3500);
 
   // Menu marca a categoria que está na tela
   const links = [...document.querySelectorAll(".menu a")];
