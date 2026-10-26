@@ -240,6 +240,7 @@
   };
 
   // ===== PRODUTOS =====
+  // desde: dia em que o produto entrou no site (mostra o selo NOVO por 7 dias; o faxineiro usa pra achar produto velho).
   // secao: promo é automático; as outras: "arvore-barata", "arvore-rapida", "presentes", "feminino", "decoracao", "sacolas".
   // Deixe ml/shopee vazio ("") se não tiver. links: botões especiais (ex.: 110 V / 220 V).
   const produtos = [
@@ -315,19 +316,19 @@
     { id: "cortina-rgb", secao: "decoracao", nome: "Cortina de luz RGB com Bluetooth 2x2 m", icone: "🌈", etiqueta: "FULL", texto: "Muda de cor e desenho pelo celular.", ml: "https://meli.la/1HibtfG" },
     { id: "ursinhos", secao: "decoracao", nome: "Kit 4 ursinhos natalinos pra pendurar 14 cm", icone: "🧸", texto: "Enfeite fofo pra árvore ou porta.", ml: "https://meli.la/1YxUgQJ" },
     // aprovados no painel (olheiro 25/10 18h)
-    { id: "flores12", secao: "decoracao", nome: "Kit 12 flores natalinas pra árvore", icone: "🌺", etiqueta: "FULL · +10 mil vendidos", texto: "Enfeite barato que deixa a árvore cheia.", ml: "https://meli.la/1bPpUyx" },
-    { id: "cuide-se-deleite", secao: "feminino", nome: "Kit Cuide-se Bem Deleite (Boticário, 3 itens)", foto: "img/cuide-se-deleite.jpg", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Presente pronto de hidratante e cuidados.", ml: "https://meli.la/1xoTkYS" },
-    { id: "kit-relogio-folheado", secao: "feminino", nome: "Kit relógio folheado + colar, brinco e pulseira", foto: "img/kit-relogio-folheado.jpg", etiqueta: "FULL · amigo secreto", texto: "Bom pra amigo secreto de até R$ 35.", ml: "https://meli.la/1sjiNSA" },
-    { id: "kit-coracao", secao: "feminino", nome: "Kit colar coração + pulseira + brincos", foto: "img/kit-coracao.jpg", etiqueta: "FULL · nota 4,9", texto: "Presente pra mãe ou namorada.", ml: "https://meli.la/2HiSzCe" },
-    { id: "nativa-spa", secao: "feminino", nome: "Presente Nativa SPA Ameixa (Boticário)", foto: "img/nativa-spa.jpg", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Kit de banho pronto pra presente.", ml: "https://meli.la/1CHFyuM" },
-    { id: "loccitane-roma", secao: "feminino", nome: "Kit L'Occitane Romã (spray + geleia + sacola)", foto: "img/loccitane-roma.jpg", etiqueta: "Nota 4,8 · já vem com sacola", texto: "Presente caprichado, pronto pra entregar.", ml: "https://meli.la/2s1HDL2" },
-    { id: "bola-futebol", secao: "presentes", nome: "Bola de futebol de campo Raccer Champions", icone: "⚽", etiqueta: "Nota 4,7 · +500 vendidos", texto: "Presente pra menino ou pro pai.", ml: "https://meli.la/24czZUW" },
+    { id: "flores12", desde: "2026-10-26", secao: "decoracao", nome: "Kit 12 flores natalinas pra árvore", icone: "🌺", etiqueta: "FULL · +10 mil vendidos", texto: "Enfeite barato que deixa a árvore cheia.", ml: "https://meli.la/1bPpUyx" },
+    { id: "cuide-se-deleite", desde: "2026-10-26", secao: "feminino", nome: "Kit Cuide-se Bem Deleite (Boticário, 3 itens)", foto: "img/cuide-se-deleite.jpg", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Presente pronto de hidratante e cuidados.", ml: "https://meli.la/1xoTkYS" },
+    { id: "kit-relogio-folheado", desde: "2026-10-26", secao: "feminino", nome: "Kit relógio folheado + colar, brinco e pulseira", foto: "img/kit-relogio-folheado.jpg", etiqueta: "FULL · amigo secreto", texto: "Bom pra amigo secreto de até R$ 35.", ml: "https://meli.la/1sjiNSA" },
+    { id: "kit-coracao", desde: "2026-10-26", secao: "feminino", nome: "Kit colar coração + pulseira + brincos", foto: "img/kit-coracao.jpg", etiqueta: "FULL · nota 4,9", texto: "Presente pra mãe ou namorada.", ml: "https://meli.la/2HiSzCe" },
+    { id: "nativa-spa", desde: "2026-10-26", secao: "feminino", nome: "Presente Nativa SPA Ameixa (Boticário)", foto: "img/nativa-spa.jpg", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Kit de banho pronto pra presente.", ml: "https://meli.la/1CHFyuM" },
+    { id: "loccitane-roma", desde: "2026-10-26", secao: "feminino", nome: "Kit L'Occitane Romã (spray + geleia + sacola)", foto: "img/loccitane-roma.jpg", etiqueta: "Nota 4,8 · já vem com sacola", texto: "Presente caprichado, pronto pra entregar.", ml: "https://meli.la/2s1HDL2" },
+    { id: "bola-futebol", desde: "2026-10-26", secao: "presentes", nome: "Bola de futebol de campo Raccer Champions", icone: "⚽", etiqueta: "Nota 4,7 · +500 vendidos", texto: "Presente pra menino ou pro pai.", ml: "https://meli.la/24czZUW" },
     // aprovados no painel (olheiro 25/10)
-    { id: "pisca200", secao: "decoracao", nome: "Pisca 200 LEDs 20 m · 8 funções", icone: "✨", etiqueta: "FULL · nota 4,9", texto: "Branco quente, fio verde. O dobro do pisca de 9 m.", ml: "https://meli.la/1uPEqP2" },
-    { id: "arv2m600", secao: "arvore-rapida", nome: "Ou: árvore 2 m · 600 galhos", icone: "🎄", etiqueta: "FULL · nota 4,7", texto: "Pinheiro tradicional, +1000 vendidos. Sem luzes e sem enfeites.", ml: "https://meli.la/1EPpArB" },
-    { id: "eudora-golden", secao: "feminino", nome: "Kit Eudora Golden (perfume 35 ml + hidratante)", foto: "img/eudora-golden.jpg", etiqueta: "Nota 5,0", texto: "Presente feminino pronto, caixa de Natal.", ml: "https://meli.la/2EJcaRs" },
-    { id: "fantasia-dino", secao: "criancas", nome: "Fantasia de dinossauro infantil", icone: "🦖", etiqueta: "Nota 4,8 · +500 vendidos", texto: "Presente pra menino que ama dinossauro.", ml: "https://meli.la/1EB7LCe" },
-    { id: "almofadas-noel", secao: "decoracao", nome: "Kit 4 capas de almofada Papai Noel (mais barato)", foto: "img/almofadas-noel.jpg", etiqueta: "Nota 4,8 · 2º mais vendido", texto: "Capas sem enchimento.", ml: "https://meli.la/17YWXNi" },
+    { id: "pisca200", desde: "2026-10-25", secao: "decoracao", nome: "Pisca 200 LEDs 20 m · 8 funções", icone: "✨", etiqueta: "FULL · nota 4,9", texto: "Branco quente, fio verde. O dobro do pisca de 9 m.", ml: "https://meli.la/1uPEqP2" },
+    { id: "arv2m600", desde: "2026-10-25", secao: "arvore-rapida", nome: "Ou: árvore 2 m · 600 galhos", icone: "🎄", etiqueta: "FULL · nota 4,7", texto: "Pinheiro tradicional, +1000 vendidos. Sem luzes e sem enfeites.", ml: "https://meli.la/1EPpArB" },
+    { id: "eudora-golden", desde: "2026-10-25", secao: "feminino", nome: "Kit Eudora Golden (perfume 35 ml + hidratante)", foto: "img/eudora-golden.jpg", etiqueta: "Nota 5,0", texto: "Presente feminino pronto, caixa de Natal.", ml: "https://meli.la/2EJcaRs" },
+    { id: "fantasia-dino", desde: "2026-10-25", secao: "criancas", nome: "Fantasia de dinossauro infantil", icone: "🦖", etiqueta: "Nota 4,8 · +500 vendidos", texto: "Presente pra menino que ama dinossauro.", ml: "https://meli.la/1EB7LCe" },
+    { id: "almofadas-noel", desde: "2026-10-25", secao: "decoracao", nome: "Kit 4 capas de almofada Papai Noel (mais barato)", foto: "img/almofadas-noel.jpg", etiqueta: "Nota 4,8 · 2º mais vendido", texto: "Capas sem enchimento.", ml: "https://meli.la/17YWXNi" },
 
     // --- Decoração ---
     { id: "cortina", secao: "decoracao", nome: "Cortina de LED com 300 luzinhas", foto: "img/cortina-led.jpg",
@@ -436,6 +437,7 @@
   const itensDe = c => c.id === "ofertas-dia" ? promo : c.secoes ? c.secoes.flatMap(([s]) => produtos.filter(p => p.secao === s)) : produtos.filter(p => p.secao === c.id);
   const casa = (p, t) => !t || (p.nome + " " + (p.texto || "") + " " + (p.etiqueta || "")).toLowerCase().includes(t);
 
+  const novo = p => p.desde && (new Date(HOJE) - new Date(p.desde)) / 864e5 <= 7;
   function cartao(p) {
     // oferta com desconto: foto (ou emoji grande) + adesivo do desconto no canto
     const selo = p.selo ? `<div class="selo ${p.foto ? "com-foto" : ""}"><b>${esc(p.selo)}</b><small>${esc(p.categoria || "oferta")}</small></div>` : "";
@@ -445,7 +447,7 @@
     const et = p.etiqueta || "", full = /FULL/i.test(et);
     const botoes = (p.links || [p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml }].filter(Boolean))
       .map(b => `<a class="btn" href="${esc(b.url)}" target="_blank" rel="noopener sponsored">${esc(b.rotulo)}</a>`).join("");
-    return `<article class="prod"><div class="img">${img}${et && !p.selo ? `<span class="tag ${full ? "full" : ""}">${esc(full ? "⚡ FULL · chega rápido" : et)}</span>` : ""}${idsHoje.has(p.id) ? `<span class="tag hoje">HOJE</span>` : ""}</div>
+    return `<article class="prod"><div class="img">${img}${et && !p.selo ? `<span class="tag ${full ? "full" : ""}">${esc(full ? "⚡ FULL · chega rápido" : et)}</span>` : ""}${idsHoje.has(p.id) ? `<span class="tag hoje">HOJE</span>` : novo(p) ? `<span class="tag hoje">NOVO</span>` : ""}</div>
       <div class="corpo"><h3>${esc(p.nome.replace(/^Ou: |^\d+\. |^\+ /, ""))}</h3><p>${esc(p.texto || "")}</p><div class="botoes">${botoes}</div></div></article>`;
   }
 
