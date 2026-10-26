@@ -148,6 +148,13 @@
   .prod .selo { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; background: linear-gradient(160deg, #ffcc00, #ff3d00 55%, #c8102e); }
   .prod .selo b { font: 800 2rem/1 var(--f-tit); }
   .prod .selo small { font-weight: 800; font-size: .7rem; text-transform: uppercase; }
+  /* oferta com foto: foto em cima, degradê laranja na diagonal e o desconto embaixo */
+  .prod .selo.com-foto { background: linear-gradient(200deg, transparent 38%, rgba(255,106,0,.88) 66%, #c8102e 100%); align-items: flex-start; justify-content: flex-end; padding: 0 0 14px 14px; text-shadow: 0 2px 8px rgba(0,0,0,.35); }
+  .oferta-ic { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: radial-gradient(circle at 50% 40%, #fff, #fde9d4 70%); }
+  body.bf .oferta-ic { background: radial-gradient(circle at 50% 40%, #3a2560, #12091f 70%); }
+  .oferta-ic span { font-size: 64px; line-height: 1; filter: drop-shadow(0 6px 10px rgba(0,0,0,.15)); }
+  .oferta-ic small { font-weight: 800; font-size: .7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+  .desc { position: absolute; right: 8px; top: 8px; background: var(--vermelho); color: #fff; font: 800 1rem/1 var(--f-tit); padding: 7px 9px; border-radius: 10px; transform: rotate(4deg); box-shadow: 0 3px 8px rgba(0,0,0,.2); }
   .tag { position: absolute; left: 8px; top: 8px; padding: 3px 8px; border-radius: 99px; font-size: .68rem; font-weight: 800; background: #fff; color: var(--texto); box-shadow: 0 1px 4px rgba(0,0,0,.15); max-width: calc(100% - 16px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tag.full { background: var(--verde2); color: #fff; }
   .tag.hoje { left: auto; right: 8px; background: var(--dourado); color: #2a1d17; }
@@ -235,39 +242,39 @@
   // Deixe ml/shopee vazio ("") se não tiver. links: botões especiais (ex.: 110 V / 220 V).
   const produtos = [
     // --- Ofertas 11/11 (some depois de 11/11). selo = desconto visto em 24/10; comissão conferida em 24/10 ---
-    { id: "of1", secao: "ofertas", nome: "Body splash Natura Luna 200 ml", selo: "-40%", categoria: "Presente", etiqueta: "-40% em 24/10 · confira o preço de hoje",
+    { id: "of1", secao: "ofertas", nome: "Body splash Natura Luna 200 ml", icone: "🧴", selo: "-40%", categoria: "Presente", etiqueta: "-40% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2joriJk" }, // 22%
-    { id: "of2", secao: "ofertas", nome: "Perfume Kaiak Ultra Natura 100 ml", selo: "-40%", categoria: "Presente", etiqueta: "-40% em 24/10 · confira o preço de hoje",
+    { id: "of2", secao: "ofertas", nome: "Perfume Kaiak Ultra Natura 100 ml", icone: "🧴", selo: "-40%", categoria: "Presente", etiqueta: "-40% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1xsYvZk" }, // 20%
-    { id: "of3", secao: "ofertas", nome: "Perfume Natura Ilía Ser 50 ml", selo: "-45%", categoria: "Presente", etiqueta: "-45% em 24/10 · confira o preço de hoje",
+    { id: "of3", secao: "ofertas", nome: "Perfume Natura Ilía Ser 50 ml", icone: "🌸", selo: "-45%", categoria: "Presente", etiqueta: "-45% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/31mjkiP" }, // 20%
-    { id: "of4", secao: "ofertas", nome: "Relógio feminino Garoa rose gold", selo: "-25%", categoria: "Presente", etiqueta: "-25% em 24/10 · confira o preço de hoje",
+    { id: "of4", secao: "ofertas", nome: "Relógio feminino Garoa rose gold", icone: "⌚", selo: "-25%", categoria: "Presente", etiqueta: "-25% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2sK6K3m" }, // 12%
-    { id: "of5", secao: "ofertas", nome: "Relógio masculino Garoa + carteira", selo: "-25%", categoria: "Presente", etiqueta: "-25% em 24/10 · confira o preço de hoje",
+    { id: "of5", secao: "ofertas", nome: "Relógio masculino Garoa + carteira", icone: "⌚", selo: "-25%", categoria: "Presente", etiqueta: "-25% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1X7R5yi" }, // 12%
-    { id: "of6", secao: "ofertas", nome: "Patinete elétrico infantil 3 rodas", selo: "-26%", categoria: "Criança", etiqueta: "-26% em 24/10 · confira o preço de hoje",
+    { id: "of6", secao: "ofertas", nome: "Patinete elétrico infantil 3 rodas", icone: "🛴", selo: "-26%", categoria: "Criança", etiqueta: "-26% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1WqZhKP" }, // 12%
-    { id: "of7", secao: "ofertas", nome: "Cadeira de escritório ergonômica LuvinCo", selo: "-36%", categoria: "Casa", etiqueta: "-36% em 24/10 · confira o preço de hoje",
+    { id: "of7", secao: "ofertas", nome: "Cadeira de escritório ergonômica LuvinCo", icone: "🪑", selo: "-36%", categoria: "Casa", etiqueta: "-36% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1nWyEG8" }, // 12%
-    { id: "of8", secao: "ofertas", nome: "Jogo de ferramentas Vonder 110 peças", selo: "-20%", categoria: "Presente", etiqueta: "-20% em 24/10 · confira o preço de hoje",
+    { id: "of8", secao: "ofertas", nome: "Jogo de ferramentas Vonder 110 peças", icone: "🧰", selo: "-20%", categoria: "Presente", etiqueta: "-20% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2Zf3T5q" }, // 12%
 
     // --- Esquenta Black Friday (até 30/11). selo = desconto visto em 24/10; comissão conferida em 24/10 ---
-    { id: "bf1", secao: "blackfriday", nome: "Deo colônia Natura Hoje masculino 100 ml", selo: "-50%", categoria: "Presente", etiqueta: "-50% em 24/10 · confira o preço de hoje",
+    { id: "bf1", secao: "blackfriday", nome: "Deo colônia Natura Hoje masculino 100 ml", icone: "🧴", selo: "-50%", categoria: "Presente", etiqueta: "-50% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/29peutA" }, // 20%
-    { id: "bf2", secao: "blackfriday", nome: "Tênis Puma Flyer Runner", selo: "-45%", categoria: "Presente", etiqueta: "-45% em 24/10 · confira o preço de hoje",
+    { id: "bf2", secao: "blackfriday", nome: "Tênis Puma Flyer Runner", icone: "👟", selo: "-45%", categoria: "Presente", etiqueta: "-45% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1G2AhVB" }, // 20%
-    { id: "bf3", secao: "blackfriday", nome: "Cama elástica infantil 1,40 m", selo: "-62%", categoria: "Criança", etiqueta: "-62% em 24/10 · confira o preço de hoje",
+    { id: "bf3", secao: "blackfriday", nome: "Cama elástica infantil 1,40 m", icone: "🤸", selo: "-62%", categoria: "Criança", etiqueta: "-62% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2HBvZMP" }, // 20%
-    { id: "bf4", secao: "blackfriday", nome: "Loção hidratante CeraVe 473 ml", selo: "-30%", categoria: "Cuidado", etiqueta: "-30% em 24/10 · confira o preço de hoje",
+    { id: "bf4", secao: "blackfriday", nome: "Loção hidratante CeraVe 473 ml", icone: "🧴", selo: "-30%", categoria: "Cuidado", etiqueta: "-30% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2Mbq8Mi" }, // 16%
-    { id: "bf5", secao: "blackfriday", nome: "Creme Cicaplast La Roche-Posay 40 ml", selo: "-34%", categoria: "Cuidado", etiqueta: "-34% em 24/10 · confira o preço de hoje",
+    { id: "bf5", secao: "blackfriday", nome: "Creme Cicaplast La Roche-Posay 40 ml", icone: "🧴", selo: "-34%", categoria: "Cuidado", etiqueta: "-34% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2YrGFk6" }, // 16%
-    { id: "bf6", secao: "blackfriday", nome: "Kit 6 pares de meias Puma", selo: "-66%", categoria: "Presente", etiqueta: "-66% em 24/10 · confira o preço de hoje",
+    { id: "bf6", secao: "blackfriday", nome: "Kit 6 pares de meias Puma", icone: "🧦", selo: "-66%", categoria: "Presente", etiqueta: "-66% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2getX77" }, // 16%
-    { id: "bf7", secao: "blackfriday", nome: "Máscara Kérastase Résistance 200 ml", selo: "-42%", categoria: "Cuidado", etiqueta: "-42% em 24/10 · confira o preço de hoje",
+    { id: "bf7", secao: "blackfriday", nome: "Máscara Kérastase Résistance 200 ml", icone: "💇‍♀️", selo: "-42%", categoria: "Cuidado", etiqueta: "-42% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1AxREgQ" }, // 16%
-    { id: "bf8", secao: "blackfriday", nome: "Kit 10 potes herméticos de vidro", selo: "-51%", categoria: "Casa", etiqueta: "-51% em 24/10 · confira o preço de hoje",
+    { id: "bf8", secao: "blackfriday", nome: "Kit 10 potes herméticos de vidro", icone: "🫙", selo: "-51%", categoria: "Casa", etiqueta: "-51% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2TQBAoP" }, // 12%
 
     { id: "estrela", secao: "decoracao", nome: "Estrela ponteira glitter 20 cm", foto: "img/estrela.jpg", etiqueta: "Vermelha, dourada ou prateada",
@@ -307,16 +314,16 @@
     { id: "ursinhos", secao: "decoracao", nome: "Kit 4 ursinhos natalinos pra pendurar 14 cm", icone: "🧸", texto: "Enfeite fofo pra árvore ou porta.", ml: "https://meli.la/1YxUgQJ" },
     // aprovados no painel (olheiro 25/10 18h)
     { id: "flores12", secao: "decoracao", nome: "Kit 12 flores natalinas pra árvore", icone: "🌺", etiqueta: "FULL · +10 mil vendidos", texto: "Enfeite barato que deixa a árvore cheia.", ml: "https://meli.la/1bPpUyx" },
-    { id: "cuide-se-deleite", secao: "feminino", nome: "Kit Cuide-se Bem Deleite (Boticário, 3 itens)", icone: "🎀", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Presente pronto de hidratante e cuidados.", ml: "https://meli.la/1xoTkYS" },
-    { id: "kit-relogio-folheado", secao: "feminino", nome: "Kit relógio folheado + colar, brinco e pulseira", icone: "⌚", etiqueta: "FULL · amigo secreto", texto: "Bom pra amigo secreto de até R$ 35.", ml: "https://meli.la/1sjiNSA" },
-    { id: "kit-coracao", secao: "feminino", nome: "Kit colar coração + pulseira + brincos", icone: "💎", etiqueta: "FULL · nota 4,9", texto: "Presente pra mãe ou namorada.", ml: "https://meli.la/2HiSzCe" },
-    { id: "nativa-spa", secao: "feminino", nome: "Presente Nativa SPA Ameixa (Boticário)", icone: "🛁", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Kit de banho pronto pra presente.", ml: "https://meli.la/1CHFyuM" },
-    { id: "loccitane-roma", secao: "feminino", nome: "Kit L'Occitane Romã (spray + geleia + sacola)", icone: "🎁", etiqueta: "Nota 4,8 · já vem com sacola", texto: "Presente caprichado, pronto pra entregar.", ml: "https://meli.la/2s1HDL2" },
+    { id: "cuide-se-deleite", secao: "feminino", nome: "Kit Cuide-se Bem Deleite (Boticário, 3 itens)", foto: "img/cuide-se-deleite.jpg", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Presente pronto de hidratante e cuidados.", ml: "https://meli.la/1xoTkYS" },
+    { id: "kit-relogio-folheado", secao: "feminino", nome: "Kit relógio folheado + colar, brinco e pulseira", foto: "img/kit-relogio-folheado.jpg", etiqueta: "FULL · amigo secreto", texto: "Bom pra amigo secreto de até R$ 35.", ml: "https://meli.la/1sjiNSA" },
+    { id: "kit-coracao", secao: "feminino", nome: "Kit colar coração + pulseira + brincos", foto: "img/kit-coracao.jpg", etiqueta: "FULL · nota 4,9", texto: "Presente pra mãe ou namorada.", ml: "https://meli.la/2HiSzCe" },
+    { id: "nativa-spa", secao: "feminino", nome: "Presente Nativa SPA Ameixa (Boticário)", foto: "img/nativa-spa.jpg", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Kit de banho pronto pra presente.", ml: "https://meli.la/1CHFyuM" },
+    { id: "loccitane-roma", secao: "feminino", nome: "Kit L'Occitane Romã (spray + geleia + sacola)", foto: "img/loccitane-roma.jpg", etiqueta: "Nota 4,8 · já vem com sacola", texto: "Presente caprichado, pronto pra entregar.", ml: "https://meli.la/2s1HDL2" },
     { id: "bola-futebol", secao: "presentes", nome: "Bola de futebol de campo Raccer Champions", icone: "⚽", etiqueta: "Nota 4,7 · +500 vendidos", texto: "Presente pra menino ou pro pai.", ml: "https://meli.la/24czZUW" },
     // aprovados no painel (olheiro 25/10)
     { id: "pisca200", secao: "decoracao", nome: "Pisca 200 LEDs 20 m · 8 funções", icone: "✨", etiqueta: "FULL · nota 4,9", texto: "Branco quente, fio verde. O dobro do pisca de 9 m.", ml: "https://meli.la/1uPEqP2" },
     { id: "arv2m600", secao: "arvore-rapida", nome: "Ou: árvore 2 m · 600 galhos", icone: "🎄", etiqueta: "FULL · nota 4,7", texto: "Pinheiro tradicional, +1000 vendidos. Sem luzes e sem enfeites.", ml: "https://meli.la/1EPpArB" },
-    { id: "eudora-golden", secao: "feminino", nome: "Kit Eudora Golden (perfume 35 ml + hidratante)", icone: "🎁", etiqueta: "Nota 5,0", texto: "Presente feminino pronto, caixa de Natal.", ml: "https://meli.la/2EJcaRs" },
+    { id: "eudora-golden", secao: "feminino", nome: "Kit Eudora Golden (perfume 35 ml + hidratante)", foto: "img/eudora-golden.jpg", etiqueta: "Nota 5,0", texto: "Presente feminino pronto, caixa de Natal.", ml: "https://meli.la/2EJcaRs" },
     { id: "fantasia-dino", secao: "criancas", nome: "Fantasia de dinossauro infantil", icone: "🦖", etiqueta: "Nota 4,8 · +500 vendidos", texto: "Presente pra menino que ama dinossauro.", ml: "https://meli.la/1EB7LCe" },
     { id: "almofadas-noel", secao: "decoracao", nome: "Kit 4 capas de almofada Papai Noel (mais barato)", foto: "img/almofadas-noel.jpg", etiqueta: "Nota 4,8 · 2º mais vendido", texto: "Capas sem enchimento.", ml: "https://meli.la/17YWXNi" },
 
@@ -419,7 +426,10 @@
   const casa = (p, t) => !t || (p.nome + " " + (p.texto || "") + " " + (p.etiqueta || "")).toLowerCase().includes(t);
 
   function cartao(p) {
-    const img = p.selo ? `<div class="selo"><b>${esc(p.selo)}</b><small>${esc(p.categoria || "oferta")}</small></div>`
+    // oferta com desconto: foto (ou emoji grande) + adesivo do desconto no canto
+    const selo = p.selo ? `<div class="selo ${p.foto ? "com-foto" : ""}"><b>${esc(p.selo)}</b><small>${esc(p.categoria || "oferta")}</small></div>` : "";
+    const img = p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">${selo}`
+      : p.selo ? selo
       : p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">` : esc(p.icone || "🎄");
     const et = p.etiqueta || "", full = /FULL/i.test(et);
     const botoes = (p.links || [p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml }].filter(Boolean))
