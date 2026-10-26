@@ -410,8 +410,17 @@
     { id: "feminino", nome: "Presentes pra ela", ic: "💝", cor: "linear-gradient(135deg,#c2185b,#f06292)" },
     { id: "presentes", nome: "Pra ele e família", ic: "🎁", cor: "linear-gradient(135deg,#1d4e89,#8e44ad)" },
     { id: "criancas", nome: "Crianças", ic: "🧸", cor: "linear-gradient(135deg,#0077b6,#00b4d8)" },
-    { id: "sacolas", nome: "Cestas e sacolas", ic: "🧺", cor: "linear-gradient(135deg,#8a1538,#e0a526)" }
-  ].filter(c => !c.ate || HOJE <= c.ate);
+    { id: "sacolas", nome: "Cestas e sacolas", ic: "🧺", cor: "linear-gradient(135deg,#8a1538,#e0a526)" },
+    // nichos novos (ver nichos.md): só aparecem no período e quando tiverem produto
+    { id: "casa", nome: "Casa e Cozinha", ic: "🏠", cor: "linear-gradient(135deg,#7a4b2a,#d39b5a)", de: "2026-10-28" },
+    { id: "eletro", nome: "Eletroportáteis", ic: "🔌", cor: "linear-gradient(135deg,#1f2a44,#3d6cb9)", de: "2026-11-09", ate: "2026-11-30" },
+    { id: "reveillon", nome: "Réveillon", ic: "🥂", cor: "linear-gradient(135deg,#1a1a1a,#c9a227)", de: "2026-12-18", ate: "2026-12-31" },
+    { id: "verao", nome: "Verão e férias", ic: "☀️", cor: "linear-gradient(135deg,#00a6d6,#ffb703)", de: "2026-12-18", ate: "2027-02-15" },
+    { id: "escola", nome: "Volta às aulas", ic: "🎒", cor: "linear-gradient(135deg,#5b2a86,#ff6f61)", de: "2027-01-10", ate: "2027-02-28" }
+  ].filter(c => (!c.de || HOJE >= c.de) && (!c.ate || HOJE <= c.ate));
+  // Natal sai do destaque depois do dia 25
+  if (HOJE > "2026-12-25") CATS.forEach(c => { if (["arvore", "decoracao", "sacolas"].includes(c.id)) c.depois = true; });
+  CATS.sort((a, b) => !!a.depois - !!b.depois);
   if (bf) CATS.sort((a, b) => (b.id === "blackfriday") - (a.id === "blackfriday"));
 
   // Promoções do dia = vídeos de hoje + ontem (igual ao site atual)
@@ -441,12 +450,12 @@
   }
 
   // Menu e quadrados de categoria (foto = 1º produto com foto nossa)
-  document.getElementById("menu").innerHTML = CATS.map(c => `<a href="#${c.id}">${c.ic} ${esc(c.nome)}</a>`).join("");
+  document.getElementById("menu").innerHTML = CATS.filter(c => c.id === "ofertas-dia" || itensDe(c).length).map(c => `<a href="#${c.id}">${c.ic} ${esc(c.nome)}</a>`).join("");
   const LIMITE = 8, abertas = new Set();
   function desenhar(filtro) {
     const t = (filtro || "").toLowerCase().trim();
     let html = "";
-    if (!t) html += `<section class="secao"><div class="cab"><div><h2>Compre por categoria</h2></div></div><div class="cats">${CATS.filter(c => c.id !== "ofertas-dia").map(c => {
+    if (!t) html += `<section class="secao"><div class="cab"><div><h2>Compre por categoria</h2></div></div><div class="cats">${CATS.filter(c => c.id !== "ofertas-dia" && itensDe(c).length).map(c => {
       const its = itensDe(c), f = its.find(p => p.foto);
       return `<a class="cat" href="#${c.id}" style="--cor:${c.cor}">${f ? `<img src="${esc(f.foto)}" alt="" loading="lazy">` : ""}<i>${c.ic}</i><span class="t"><b>${esc(c.nome)}</b><span>${its.length} achadinhos</span></span></a>`;
     }).join("")}</div></section>`;
@@ -481,9 +490,13 @@
     { ate: "2026-12-25", cor: "linear-gradient(120deg,#c8102e,#8a0f22 55%,#145a32)", sobre: `Faltam ${faltam} dias pro Natal`, tit: "Ofertas de Natal", txt: "Decoração, árvore e presentes pra família toda", cta: "Ver achadinhos ›", link: "#decoracao", grande: "🎄", fotos: ["img/guirlanda.jpg", "img/arvore-210.jpg"] },
     { ate: "2026-12-25", cor: "linear-gradient(120deg,#0f4d2a,#2e9e5b)", sobre: "Chega antes do Natal", tit: "Monte sua árvore", txt: "Árvore, pisca, bolas e saia: tudo FULL, chega rapidinho", cta: "Montar a minha ›", link: "#arvore", grande: "⚡", fotos: ["img/kit100.jpg", "img/arvore-economica.jpg"] },
     { ate: "2026-12-25", cor: "linear-gradient(120deg,#c2185b,#f06292)", sobre: "Presentes pra ela", tit: "Mãe, esposa, namorada", txt: "Kits prontos de perfume, joia e cuidados", cta: "Ver presentes ›", link: "#feminino", grande: "💝", fotos: ["img/brincos.jpg", "img/bolsa.jpg"] },
+    { de: "2026-10-28", cat: "casa", cor: "linear-gradient(120deg,#7a4b2a,#d39b5a)", sobre: "Pra ceia e pra casa", tit: "Casa e Cozinha", txt: "Potes, travessas e utensílios que facilitam o dia a dia", cta: "Ver achadinhos ›", link: "#casa", grande: "🏠" },
+    { de: "2026-12-18", ate: "2026-12-31", cat: "reveillon", cor: "linear-gradient(120deg,#111,#c9a227)", sobre: "Chega antes da virada (FULL)", tit: "Réveillon", txt: "Ceia de ano novo, balões e decoração dourada", cta: "Ver ofertas ›", link: "#reveillon", grande: "🥂" },
+    { de: "2026-12-18", ate: "2027-02-15", cat: "verao", cor: "linear-gradient(120deg,#00a6d6,#ffb703)", sobre: "Férias", tit: "Verão, praia e camping", txt: "Cooler, barraca, mala e tudo pra viajar", cta: "Ver achadinhos ›", link: "#verao", grande: "☀️" },
+    { de: "2027-01-10", ate: "2027-02-28", cat: "escola", cor: "linear-gradient(120deg,#5b2a86,#ff6f61)", sobre: "Começo do ano", tit: "Volta às aulas", txt: "Mochila, lancheira, estojo e garrafinha", cta: "Ver achadinhos ›", link: "#escola", grande: "🎒" },
     { breve: true, cor: "linear-gradient(120deg,#ee4d2d,#ff7337)", sobre: "Shopee", tit: "Ofertas Shopee", txt: "Achadinhos da Shopee com cupom", cta: "Em breve", grande: "S" },
     { breve: true, cor: "linear-gradient(120deg,#010101,#25f4ee 140%)", sobre: "TikTok Shop", tit: "Ofertas TikTok Shop", txt: "Compre direto pelo TikTok", cta: "Em breve", grande: "♪" }
-  ].filter(b => (!b.de || HOJE >= b.de) && (!b.ate || HOJE <= b.ate));
+  ].filter(b => (!b.de || HOJE >= b.de) && (!b.ate || HOJE <= b.ate) && (!b.cat || produtos.some(p => p.secao === b.cat)));
   const trilha = document.getElementById("trilha"), pontos = document.getElementById("pontos");
   trilha.innerHTML = BANNERS.map(b => `<a class="banner" ${b.link ? `href="${b.link}"` : ""} style="background:${b.cor}"><span class="grande" aria-hidden="true">${b.grande || ""}</span>
     <div class="txt"><small>${esc(b.sobre)}</small><h2>${esc(b.tit)}</h2><p>${esc(b.txt)}</p><span class="cta ${b.breve ? "breve" : ""}">${esc(b.cta)}</span></div>
@@ -504,13 +517,15 @@
   // ===== MENU DA LOJA COM SUBMENUS =====
   const lk = (id, nome, sub) => ({ id, nome, sub });
   const NAV = [
-    { nome: "☰ Todas as categorias", cls: "todas", cols: 2, itens: CATS.map(c => lk(c.id, `${c.ic} ${c.nome}`)) },
+    { nome: "☰ Todas as categorias", cls: "todas", cols: 2, itens: CATS.filter(c => c.id === "ofertas-dia" || itensDe(c).length).map(c => lk(c.id, `${c.ic} ${c.nome}`)) },
     { nome: "Natal", itens: [lk("arvore", "Árvore de Natal", "monte a sua: barata ou FULL"), lk("decoracao", "Decoração", "enfeites, luzes, guirlanda"), lk("sacolas", "Cestas e sacolas", "kit pra empresa e ceia")] },
+    { nome: "Casa", itens: CATS.filter(c => ["casa", "eletro", "reveillon", "verao", "escola"].includes(c.id) && itensDe(c).length).map(c => lk(c.id, `${c.ic} ${c.nome}`)) },
     { nome: "Presentes", itens: [lk("feminino", "Pra ela", "mãe, esposa, namorada"), lk("presentes", "Pra ele e família", "pai, amigo secreto"), lk("criancas", "Crianças", "brinquedos e pelúcias")] },
     { nome: "Ofertas", itens: [lk("ofertas-dia", "Promoções do dia", "dos vídeos de hoje"), ...CATS.filter(c => c.id === "ofertas" || c.id === "blackfriday").map(c => lk(c.id, c.nome))] },
     { nome: "Lojas", itens: [lk("inicio", "Mercado Livre", "todos os links do site"), lk("", "Shopee", "em breve"), lk("", "TikTok Shop", "em breve")] },
     { nome: "Blog", href: "blog/" }
   ];
+  for (let i = NAV.length - 1; i >= 0; i--) if (NAV[i].itens && !NAV[i].itens.length) NAV.splice(i, 1);
   const nav = document.getElementById("nav");
   nav.innerHTML = NAV.map((n, i) => n.href ? `<div class="item"><button onclick="location.href='${n.href}'">${n.nome}</button></div>`
     : `<div class="item ${n.cls || ""}"><button aria-expanded="false" data-i="${i}">${n.nome}</button><div class="sub" style="--cols:${n.cols || 1}">${n.itens.map(s => s.id !== "" ? `<a href="#${s.id}">${esc(s.nome)}${s.sub ? `<small>${esc(s.sub)}</small>` : ""}</a>` : `<a aria-disabled="true">${esc(s.nome)}<small>${esc(s.sub)}</small></a>`).join("")}</div></div>`).join("");
