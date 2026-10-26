@@ -257,13 +257,13 @@
   // Deixe ml/shopee vazio ("") se não tiver. links: botões especiais (ex.: 110 V / 220 V).
   const produtos = [
     // --- Ofertas 11/11 (some depois de 11/11). selo = desconto visto em 24/10; comissão conferida em 24/10 ---
-    { id: "of1", secao: "ofertas", nome: "Body splash Natura Luna 200 ml", icone: "🧴", selo: "-40%", categoria: "Presente", etiqueta: "-40% em 24/10 · confira o preço de hoje",
+    { id: "of1", secao: "ofertas", nome: "Body splash Natura Luna 200 ml", icone: "🧴", foto: "img/of1.jpg", selo: "-40%", categoria: "Presente", etiqueta: "-40% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2joriJk" }, // 22%
-    { id: "of2", secao: "ofertas", nome: "Perfume Kaiak Ultra Natura 100 ml", icone: "🧴", selo: "-40%", categoria: "Presente", etiqueta: "-40% em 24/10 · confira o preço de hoje",
+    { id: "of2", secao: "ofertas", nome: "Perfume Kaiak Ultra Natura 100 ml", icone: "🧴", foto: "img/of2.jpg", selo: "-40%", categoria: "Presente", etiqueta: "-40% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1xsYvZk" }, // 20%
-    { id: "of3", secao: "ofertas", nome: "Perfume Natura Ilía Ser 50 ml", icone: "🌸", selo: "-45%", categoria: "Presente", etiqueta: "-45% em 24/10 · confira o preço de hoje",
+    { id: "of3", secao: "ofertas", nome: "Perfume Natura Ilía Ser 50 ml", icone: "🌸", foto: "img/of3.jpg", selo: "-45%", categoria: "Presente", etiqueta: "-45% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/31mjkiP" }, // 20%
-    { id: "of4", secao: "ofertas", nome: "Relógio feminino Garoa rose gold", icone: "⌚", selo: "-25%", categoria: "Presente", etiqueta: "-25% em 24/10 · confira o preço de hoje",
+    { id: "of4", secao: "ofertas", nome: "Relógio feminino Garoa rose gold", icone: "⌚", foto: "img/of4.jpg", selo: "-25%", categoria: "Presente", etiqueta: "-25% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/2sK6K3m" }, // 12%
     { id: "of5", secao: "ofertas", nome: "Relógio masculino Garoa + carteira", icone: "⌚", selo: "-25%", categoria: "Presente", etiqueta: "-25% em 24/10 · confira o preço de hoje",
       texto: "Oferta Mercado Livre por tempo limitado.", ml: "https://meli.la/1X7R5yi" }, // 12%
@@ -324,8 +324,8 @@
     { id: "gato", secao: "criancas", nome: "Gato de pelúcia gigante 1,10 m", foto: "img/gato.jpg", texto: "Rosa, bem macio.", ml: "https://meli.la/2JLWyoH" },
 
     { id: "arv-bello", secao: "arvore-rapida", nome: "Ou: árvore 2,10 m Bello Festas · 1200 galhos", icone: "🌲", etiqueta: "FULL · nota 4,9", texto: "Cheia, base metálica. Sem luzes e sem enfeites.", ml: "https://meli.la/1iMLNkQ" },
-    { id: "almofadas3d", secao: "decoracao", nome: "Kit 4 capas de almofada Papai Noel 3D", icone: "🛋️", etiqueta: "Nota 4,8 · +1000 vendidos", texto: "Capas (sem enchimento) com Papai Noel em relevo.", ml: "https://meli.la/2WwWR95" },
-    { id: "cortina-rgb", secao: "decoracao", nome: "Cortina de luz RGB com Bluetooth 2x2 m", icone: "🌈", etiqueta: "FULL", texto: "Muda de cor e desenho pelo celular.", ml: "https://meli.la/1HibtfG" },
+    { id: "almofadas3d", secao: "decoracao", nome: "Kit 4 capas de almofada Papai Noel 3D", foto: "img/almofadas3d.jpg", etiqueta: "Nota 4,8 · +1000 vendidos", texto: "Capas (sem enchimento) com Papai Noel em relevo.", ml: "https://meli.la/2WwWR95" },
+    { id: "cortina-rgb", secao: "decoracao", nome: "Cortina de luz RGB com Bluetooth 2x2 m", foto: "img/cortina-rgb.jpg", etiqueta: "FULL", texto: "Muda de cor e desenho pelo celular.", ml: "https://meli.la/1HibtfG" },
     { id: "ursinhos", secao: "decoracao", nome: "Kit 4 ursinhos natalinos pra pendurar 14 cm", icone: "🧸", texto: "Enfeite fofo pra árvore ou porta.", ml: "https://meli.la/1YxUgQJ" },
     // aprovados no painel (olheiro 25/10 18h)
     { id: "flores12", desde: "2026-10-26", secao: "decoracao", nome: "Kit 12 flores natalinas pra árvore", foto: "img/flores12.jpg", etiqueta: "FULL · +10 mil vendidos", texto: "Enfeite barato que deixa a árvore cheia.", ml: "https://meli.la/1bPpUyx" },
@@ -342,16 +342,27 @@
     { id: "fantasia-dino", desde: "2026-10-25", secao: "criancas", nome: "Fantasia de dinossauro infantil", foto: "img/fantasia-dino.jpg", etiqueta: "Nota 4,8 · +500 vendidos", texto: "Presente pra menino que ama dinossauro.", ml: "https://meli.la/1EB7LCe" },
     { id: "almofadas-noel", desde: "2026-10-25", secao: "decoracao", nome: "Kit 4 capas de almofada Papai Noel (mais barato)", foto: "img/almofadas-noel.jpg", etiqueta: "Nota 4,8 · 2º mais vendido", texto: "Capas sem enchimento.", ml: "https://meli.la/17YWXNi" },
     // aprovados no painel (olheiro 26/10 09h)
-    { id: "blocos-magneticos", desde: "2026-10-26", secao: "criancas", nome: "Kit 100 blocos magnéticos de montar", icone: "🧲", etiqueta: "FULL · nota 4,8", texto: "Presente educativo, +1000 vendidos.", ml: "https://meli.la/1EQU1LW" },
-    { id: "cozinha-infantil", desde: "2026-10-26", secao: "criancas", nome: "Cozinha infantil com luz, som e sai água", icone: "🍳", etiqueta: "FULL · nota 4,8", texto: "Clássico de Natal pra menina, +10 mil vendidos.", ml: "https://meli.la/24G4Nk4" },
-    { id: "patinete-luppy", desde: "2026-10-26", secao: "criancas", nome: "Patinete infantil 3 rodas com LED", icone: "🛴", etiqueta: "FULL · nota 4,7", texto: "Dobrável, rodinhas que acendem.", ml: "https://meli.la/2uZn9SM" },
-    { id: "pista-lava-rapido", desde: "2026-10-26", secao: "criancas", nome: "Pista de carrinhos lava-rápido", icone: "🚗", etiqueta: "FULL · nota 4,7", texto: "+10 mil vendidos.", ml: "https://meli.la/1ohwgB9" },
-    { id: "maleta-48", desde: "2026-10-26", secao: "criancas", nome: "Maleta 48 carrinhos + tapete pista", icone: "🏎️", etiqueta: "FULL · nota 4,7", texto: "Tapete de estacionamento 40x60.", ml: "https://meli.la/1aQo2Zk" },
-    { id: "caminhao-dino", desde: "2026-10-26", secao: "criancas", nome: "Caminhão dinossauro 3 em 1", icone: "🦕", etiqueta: "FULL · nota 4,9", texto: "Engole carrinho e lança bola.", ml: "https://meli.la/1vgfW1U" },
-    { id: "escavadeira-rc", desde: "2026-10-26", secao: "criancas", nome: "Escavadeira de controle remoto com luz e som", icone: "🚜", etiqueta: "FULL · nota 4,9", texto: "Presente grande, +1000 vendidos.", ml: "https://meli.la/1Koi6LW" },
-    { id: "casa-atividades", desde: "2026-10-26", secao: "criancas", nome: "Casa de atividades educativa pra bebê (28 peças)", icone: "🏠", etiqueta: "Nota 4,8", texto: "Presente pra bebê de 1 ano.", ml: "https://meli.la/2JPdFum" },
-    { id: "quebra-cabeca-madeira", desde: "2026-10-26", secao: "criancas", nome: "Kit 2 quebra-cabeças de madeira com velcro", icone: "🧩", etiqueta: "FULL · nota 4,8", texto: "Animais e frutas, 3 anos+.", ml: "https://meli.la/1p2mKqe" },
-    { id: "enfeites-pelucia", desde: "2026-10-26", secao: "decoracao", nome: "Kit 10 enfeites de pelúcia bonecos grandes", icone: "🎅", etiqueta: "FULL · nota 4,7", texto: "Bonecos vermelhos pra árvore.", ml: "https://meli.la/1rHa5nf" },
+    { id: "blocos-magneticos", desde: "2026-10-26", secao: "criancas", nome: "Kit 100 blocos magnéticos de montar", foto: "img/blocos-magneticos.jpg", etiqueta: "FULL · nota 4,8", texto: "Presente educativo, +1000 vendidos.", ml: "https://meli.la/1EQU1LW" },
+    { id: "cozinha-infantil", desde: "2026-10-26", secao: "criancas", nome: "Cozinha infantil com luz, som e sai água", foto: "img/cozinha-infantil.jpg", etiqueta: "FULL · nota 4,8", texto: "Clássico de Natal pra menina, +10 mil vendidos.", ml: "https://meli.la/24G4Nk4" },
+    { id: "patinete-luppy", desde: "2026-10-26", secao: "criancas", nome: "Patinete infantil 3 rodas com LED", foto: "img/patinete-luppy.jpg", etiqueta: "FULL · nota 4,7", texto: "Dobrável, rodinhas que acendem.", ml: "https://meli.la/2uZn9SM" },
+    { id: "pista-lava-rapido", desde: "2026-10-26", secao: "criancas", nome: "Pista de carrinhos lava-rápido", foto: "img/pista-lava-rapido.jpg", etiqueta: "FULL · nota 4,7", texto: "+10 mil vendidos.", ml: "https://meli.la/1ohwgB9" },
+    { id: "maleta-48", desde: "2026-10-26", secao: "criancas", nome: "Maleta 48 carrinhos + tapete pista", foto: "img/maleta-48.jpg", etiqueta: "FULL · nota 4,7", texto: "Tapete de estacionamento 40x60.", ml: "https://meli.la/1aQo2Zk" },
+    { id: "caminhao-dino", desde: "2026-10-26", secao: "criancas", nome: "Caminhão dinossauro 3 em 1", foto: "img/caminhao-dino.jpg", etiqueta: "FULL · nota 4,9", texto: "Engole carrinho e lança bola.", ml: "https://meli.la/1vgfW1U" },
+    { id: "escavadeira-rc", desde: "2026-10-26", secao: "criancas", nome: "Escavadeira de controle remoto com luz e som", foto: "img/escavadeira-rc.jpg", etiqueta: "FULL · nota 4,9", texto: "Presente grande, +1000 vendidos.", ml: "https://meli.la/1Koi6LW" },
+    { id: "casa-atividades", desde: "2026-10-26", secao: "criancas", nome: "Casa de atividades educativa pra bebê (28 peças)", foto: "img/casa-atividades.jpg", etiqueta: "Nota 4,8", texto: "Presente pra bebê de 1 ano.", ml: "https://meli.la/2JPdFum" },
+    { id: "quebra-cabeca-madeira", desde: "2026-10-26", secao: "criancas", nome: "Kit 2 quebra-cabeças de madeira com velcro", foto: "img/quebra-cabeca-madeira.jpg", etiqueta: "FULL · nota 4,8", texto: "Animais e frutas, 3 anos+.", ml: "https://meli.la/1p2mKqe" },
+    { id: "enfeites-pelucia", desde: "2026-10-26", secao: "decoracao", nome: "Kit 10 enfeites de pelúcia bonecos grandes", foto: "img/enfeites-pelucia.jpg", etiqueta: "FULL · nota 4,7", texto: "Bonecos vermelhos pra árvore.", ml: "https://meli.la/1rHa5nf" },
+    // aprovados no painel (olheiro 26/10 18h)
+    { id: "noel-retratil", desde: "2026-10-26", secao: "decoracao", nome: "Papai Noel retrátil grande", icone: "🎅", etiqueta: "FULL · nota 4,8", texto: "Boneco grande de Natal, +1000 vendidos.", ml: "https://meli.la/1ZRJzqu" },
+    { id: "utensilios12", desde: "2026-10-26", secao: "casa", nome: "Kit 12 utensílios de silicone cabo de madeira", icone: "🥄", etiqueta: "FULL · nota 4,8", texto: "Campeão de vendas, +250 mil vendidos.", ml: "https://meli.la/1RGdyCF" },
+    { id: "utensilios-facas", desde: "2026-10-26", secao: "casa", nome: "Kit utensílios de silicone + facas inox", icone: "🔪", etiqueta: "FULL · nota 4,8", texto: "Versão presente do kit, +10 mil vendidos.", ml: "https://meli.la/26frbWs" },
+    { id: "panelas10", desde: "2026-10-26", secao: "casa", nome: "Conjunto de panelas antiaderente 10 peças", icone: "🍲", etiqueta: "FULL · nota 4,7", texto: "Presente de casa clássico, +100 mil vendidos.", ml: "https://meli.la/2S4TyZS" },
+    { id: "cacarolas5", desde: "2026-10-26", secao: "casa", nome: "Conjunto 5 caçarolas + 3 utensílios", icone: "🥘", etiqueta: "FULL · nota 4,8", texto: "Antiaderente com tampa de vidro.", ml: "https://meli.la/1zfY714" },
+    { id: "escorredor-inox", desde: "2026-10-26", secao: "casa", nome: "Escorredor/peneira multiuso inox", icone: "🥣", etiqueta: "FULL · nota 4,6", texto: "Lava e escorre arroz, feijão e salada.", ml: "https://meli.la/2LbdgAB" },
+    { id: "penteadeira-infantil", desde: "2026-10-26", secao: "criancas", nome: "Penteadeira infantil com acessórios (rosa)", icone: "💄", etiqueta: "FULL · nota 4,6", texto: "+5 mil vendidos, presente pra menina.", ml: "https://meli.la/2edqbqq" },
+    { id: "maleta-ferramentas", desde: "2026-10-26", secao: "criancas", nome: "Maleta de ferramentas de brinquedo 3 em 1 (22 peças)", icone: "🧰", etiqueta: "Nota 4,9", texto: "Oficina completa pra menino.", ml: "https://meli.la/2ztDetT" },
+    { id: "motosserra-brinquedo", desde: "2026-10-26", secao: "criancas", nome: "Motosserra de brinquedo (gira a corrente)", icone: "🪚", etiqueta: "FULL · nota 4,8", texto: "A corrente gira, +500 vendidos.", ml: "https://meli.la/2FgtRoS" },
+    { id: "pescaria", desde: "2026-10-26", secao: "criancas", nome: "Pescaria pega-peixe", icone: "🎣", etiqueta: "Nota 4,8", texto: "Barato, pra menino e menina, +5 mil vendidos.", ml: "https://meli.la/2Ycv8Te" },
 
     // --- Decoração ---
     { id: "cortina", secao: "decoracao", nome: "Cortina de LED com 300 luzinhas", foto: "img/cortina-led.jpg",
