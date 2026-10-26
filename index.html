@@ -119,7 +119,9 @@
   .cab { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
   .cab h2 { margin: 0; font: 800 1.35rem/1.15 var(--f-tit); }
   .cab p { margin: 2px 0 0; color: var(--muted); font-size: .88rem; }
-  .cab .ver { flex: none; font-weight: 800; font-size: .85rem; color: var(--vermelho); background: none; border: 0; cursor: pointer; padding: 4px 0; font-family: inherit; }
+  /* "Ver mais produtos": botão largo e fininho embaixo da grade */
+  .ver { display: block; width: 100%; margin-top: 14px; padding: 11px 16px; border: 1.5px solid var(--vermelho); border-radius: 12px; background: var(--card); color: var(--vermelho); font: 800 .95rem var(--f-txt); letter-spacing: .3px; cursor: pointer; }
+  .ver:hover { background: var(--vermelho); color: #fff; }
 
   /* Categorias em quadrados */
   .cats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -452,11 +454,12 @@
       if (c.id === "ofertas-dia" && !t) continue;
       const its = itensDe(c).filter(p => casa(p, t));
       if (!its.length) continue;
-      const cab = `<div class="cab"><div><h2>${c.ic} ${esc(c.nome)}</h2>${c.id === "ofertas-dia" ? "<p>Os produtos dos vídeos de hoje e de ontem</p>" : ""}</div>${!c.trilho && !c.secoes && its.length > LIMITE && !t ? `<button class="ver" data-c="${c.id}">${abertas.has(c.id) ? "Ver menos" : `Ver todos (${its.length}) ›`}</button>` : ""}</div>`;
+      const cab = `<div class="cab"><div><h2>${c.ic} ${esc(c.nome)}</h2>${c.id === "ofertas-dia" ? "<p>Os produtos dos vídeos de hoje e de ontem</p>" : ""}</div></div>`;
       let corpo;
       if (c.trilho) corpo = `<div class="trilho">${its.map(cartao).join("")}</div>`;
       else if (c.secoes) corpo = c.secoes.map(([s, nome]) => { const g = its.filter(p => p.secao === s); return g.length ? `<p class="sub2">${nome}</p><div class="trilho">${g.map(cartao).join("")}</div>` : ""; }).join("");
-      else corpo = `<div class="grade">${(abertas.has(c.id) || t ? its : its.slice(0, LIMITE)).map(cartao).join("")}</div>`;
+      else corpo = `<div class="grade">${(abertas.has(c.id) || t ? its : its.slice(0, LIMITE)).map(cartao).join("")}</div>`
+        + (its.length > LIMITE && !t ? `<button class="ver" data-c="${c.id}">${abertas.has(c.id) ? "Ver menos ▴" : `Ver mais produtos (+${its.length - LIMITE}) ▾`}</button>` : "");
       html += `<section class="secao" id="${c.id}">${cab}${corpo}</section>`;
     }
     document.getElementById("conteudo").innerHTML = html;
