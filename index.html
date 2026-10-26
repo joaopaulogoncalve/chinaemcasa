@@ -253,7 +253,7 @@
 
   // ===== PRODUTOS =====
   // desde: dia em que o produto entrou no site (mostra o selo NOVO por 7 dias; o faxineiro usa pra achar produto velho).
-  // secao: promo é automático; as outras: "arvore-barata", "arvore-rapida", "presentes", "feminino", "decoracao", "sacolas".
+  // secao: promo é automático; as outras: "arvore-barata", "arvore-rapida", "presentes", "feminino", "beleza", "decoracao", "sacolas".
   // Deixe ml/shopee vazio ("") se não tiver. links: botões especiais (ex.: 110 V / 220 V).
   const produtos = [
     // --- Ofertas 11/11 (some depois de 11/11). selo = desconto visto em 24/10; comissão conferida em 24/10 ---
@@ -311,7 +311,7 @@
     { id: "xicaras-irish", secao: "presentes", nome: "Kit 6 xícaras de vidro Irish coffee", foto: "img/xicaras-irish.jpg", texto: "120 ml.", ml: "https://meli.la/2TrgM8o" },
     { id: "canecas-capp", secao: "presentes", nome: "Jogo 6 canecas cappuccino de vidro 120 ml", foto: "img/canecas-capp.jpg", etiqueta: "FULL · chega rápido", texto: "Nota 4,9.", ml: "https://meli.la/1pivnVh" },
     { id: "bolsa", secao: "feminino", nome: "Bolsa transversal + bolsa pequena + carteira", foto: "img/bolsa.jpg", etiqueta: "FULL · chega rápido", texto: "Kit feminino.", ml: "https://meli.la/1pQvTpL" },
-    { id: "floratta", secao: "feminino", nome: "Kit Boticário Floratta Red (loção + desodorante)", foto: "img/floratta.jpg", texto: "Presente pronto.", ml: "https://meli.la/32JZ3pP" },
+    { id: "floratta", secao: "beleza", nome: "Kit Boticário Floratta Red (loção + desodorante)", foto: "img/floratta.jpg", texto: "Presente pronto.", ml: "https://meli.la/32JZ3pP" },
     { id: "brincos", secao: "feminino", nome: "Kit brincos argola prata 925 com zircônia", foto: "img/brincos.jpg", etiqueta: "FULL · chega rápido", texto: "Prata 925.", ml: "https://meli.la/247MEWJ" },
     { id: "camisetas", secao: "presentes", nome: "5 camisetas dry fit masculinas", foto: "img/camisetas.jpg", texto: "Kit com 5.", ml: "https://meli.la/1Specfx" },
     { id: "capivara", secao: "criancas", nome: "Capivara de pelúcia gigante", foto: "img/capivara.jpg", etiqueta: "FULL · chega rápido", texto: "Antialérgica, nota 4,7.", ml: "https://meli.la/23FuTcH" },
@@ -329,16 +329,16 @@
     { id: "ursinhos", secao: "decoracao", nome: "Kit 4 ursinhos natalinos pra pendurar 14 cm", icone: "🧸", texto: "Enfeite fofo pra árvore ou porta.", ml: "https://meli.la/1YxUgQJ" },
     // aprovados no painel (olheiro 25/10 18h)
     { id: "flores12", desde: "2026-10-26", secao: "decoracao", nome: "Kit 12 flores natalinas pra árvore", foto: "img/flores12.jpg", etiqueta: "FULL · +10 mil vendidos", texto: "Enfeite barato que deixa a árvore cheia.", ml: "https://meli.la/1bPpUyx" },
-    { id: "cuide-se-deleite", desde: "2026-10-26", secao: "feminino", nome: "Kit Cuide-se Bem Deleite (Boticário, 3 itens)", foto: "img/cuide-se-deleite.jpg", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Presente pronto de hidratante e cuidados.", ml: "https://meli.la/1xoTkYS" },
+    { id: "cuide-se-deleite", desde: "2026-10-26", secao: "beleza", nome: "Kit Cuide-se Bem Deleite (Boticário, 3 itens)", foto: "img/cuide-se-deleite.jpg", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Presente pronto de hidratante e cuidados.", ml: "https://meli.la/1xoTkYS" },
     { id: "kit-relogio-folheado", desde: "2026-10-26", secao: "feminino", nome: "Kit relógio folheado + colar, brinco e pulseira", foto: "img/kit-relogio-folheado.jpg", etiqueta: "FULL · amigo secreto", texto: "Bom pra amigo secreto de até R$ 35.", ml: "https://meli.la/1sjiNSA" },
     { id: "kit-coracao", desde: "2026-10-26", secao: "feminino", nome: "Kit colar coração + pulseira + brincos", foto: "img/kit-coracao.jpg", etiqueta: "FULL · nota 4,9", texto: "Presente pra mãe ou namorada.", ml: "https://meli.la/2HiSzCe" },
-    { id: "nativa-spa", desde: "2026-10-26", secao: "feminino", nome: "Presente Nativa SPA Ameixa (Boticário)", foto: "img/nativa-spa.jpg", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Kit de banho pronto pra presente.", ml: "https://meli.la/1CHFyuM" },
-    { id: "loccitane-roma", desde: "2026-10-26", secao: "feminino", nome: "Kit L'Occitane Romã (spray + geleia + sacola)", foto: "img/loccitane-roma.jpg", etiqueta: "Nota 4,8 · já vem com sacola", texto: "Presente caprichado, pronto pra entregar.", ml: "https://meli.la/2s1HDL2" },
+    { id: "nativa-spa", desde: "2026-10-26", secao: "beleza", nome: "Presente Nativa SPA Ameixa (Boticário)", foto: "img/nativa-spa.jpg", etiqueta: "Nota 4,9 · +1000 vendidos", texto: "Kit de banho pronto pra presente.", ml: "https://meli.la/1CHFyuM" },
+    { id: "loccitane-roma", desde: "2026-10-26", secao: "beleza", nome: "Kit L'Occitane Romã (spray + geleia + sacola)", foto: "img/loccitane-roma.jpg", etiqueta: "Nota 4,8 · já vem com sacola", texto: "Presente caprichado, pronto pra entregar.", ml: "https://meli.la/2s1HDL2" },
     { id: "bola-futebol", desde: "2026-10-26", secao: "presentes", nome: "Bola de futebol de campo Raccer Champions", foto: "img/bola-futebol.jpg", etiqueta: "Nota 4,7 · +500 vendidos", texto: "Presente pra menino ou pro pai.", ml: "https://meli.la/24czZUW" },
     // aprovados no painel (olheiro 25/10)
     { id: "pisca200", desde: "2026-10-25", secao: "decoracao", nome: "Pisca 200 LEDs 20 m · 8 funções", foto: "img/pisca200.jpg", etiqueta: "FULL · nota 4,9", texto: "Branco quente, fio verde. O dobro do pisca de 9 m.", ml: "https://meli.la/1uPEqP2" },
     { id: "arv2m600", desde: "2026-10-25", secao: "arvore-rapida", nome: "Ou: árvore 2 m · 600 galhos", foto: "img/arv2m600.jpg", etiqueta: "FULL · nota 4,7", texto: "Pinheiro tradicional, +1000 vendidos. Sem luzes e sem enfeites.", ml: "https://meli.la/1EPpArB" },
-    { id: "eudora-golden", desde: "2026-10-25", secao: "feminino", nome: "Kit Eudora Golden (perfume 35 ml + hidratante)", foto: "img/eudora-golden.jpg", etiqueta: "Nota 5,0", texto: "Presente feminino pronto, caixa de Natal.", ml: "https://meli.la/2EJcaRs" },
+    { id: "eudora-golden", desde: "2026-10-25", secao: "beleza", nome: "Kit Eudora Golden (perfume 35 ml + hidratante)", foto: "img/eudora-golden.jpg", etiqueta: "Nota 5,0", texto: "Presente feminino pronto, caixa de Natal.", ml: "https://meli.la/2EJcaRs" },
     { id: "fantasia-dino", desde: "2026-10-25", secao: "criancas", nome: "Fantasia de dinossauro infantil", foto: "img/fantasia-dino.jpg", etiqueta: "Nota 4,8 · +500 vendidos", texto: "Presente pra menino que ama dinossauro.", ml: "https://meli.la/1EB7LCe" },
     { id: "almofadas-noel", desde: "2026-10-25", secao: "decoracao", nome: "Kit 4 capas de almofada Papai Noel (mais barato)", foto: "img/almofadas-noel.jpg", etiqueta: "Nota 4,8 · 2º mais vendido", texto: "Capas sem enchimento.", ml: "https://meli.la/17YWXNi" },
     // aprovados no painel (olheiro 26/10 09h)
@@ -431,7 +431,8 @@
     { id: "ofertas", nome: "Ofertas 11/11", ic: "🏷️", cor: "linear-gradient(135deg,#ee0979,#ff6a00)", ate: "2026-11-11", trilho: true },
     { id: "arvore", nome: "Árvore de Natal", ic: "🎄", cor: "linear-gradient(135deg,#0f4d2a,#2e9e5b)", secoes: [["arvore-barata", "💰 Monte a mais barata · ~R$ 135"], ["arvore-rapida", "⚡ Chega rápido (FULL)"]] },
     { id: "decoracao", nome: "Decoração", ic: "✨", cor: "linear-gradient(135deg,#6d1a4a,#d4145a)" },
-    { id: "feminino", nome: "Presentes pra ela", ic: "💝", cor: "linear-gradient(135deg,#c2185b,#f06292)" },
+    { id: "feminino", nome: "Presentes pra ela", ic: "💝", cor: "linear-gradient(135deg,#c2185b,#f06292)", inclui: ["beleza"] },
+    { id: "beleza", nome: "Beleza e cuidados", ic: "💄", cor: "linear-gradient(135deg,#8e2a5b,#e8899b)" },
     { id: "presentes", nome: "Pra ele e família", ic: "🎁", cor: "linear-gradient(135deg,#1d4e89,#8e44ad)" },
     { id: "criancas", nome: "Crianças", ic: "🧸", cor: "linear-gradient(135deg,#0077b6,#00b4d8)" },
     { id: "sacolas", nome: "Cestas e sacolas", ic: "🧺", cor: "linear-gradient(135deg,#8a1538,#e0a526)" },
@@ -457,7 +458,7 @@
   const promo = [...new Set(diasPromo.slice().reverse().flatMap(d => AGENDA[d]))].map(id => porId[id]).filter(Boolean);
 
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const itensDe = c => c.id === "ofertas-dia" ? promo : c.secoes ? c.secoes.flatMap(([s]) => produtos.filter(p => p.secao === s)) : produtos.filter(p => p.secao === c.id);
+  const itensDe = c => c.id === "ofertas-dia" ? promo : c.secoes ? c.secoes.flatMap(([s]) => produtos.filter(p => p.secao === s)) : produtos.filter(p => p.secao === c.id || (c.inclui || []).includes(p.secao));
   const casa = (p, t) => !t || (p.nome + " " + (p.texto || "") + " " + (p.etiqueta || "")).toLowerCase().includes(t);
 
   const novo = p => p.desde && (new Date(HOJE) - new Date(p.desde)) / 864e5 <= 7;
@@ -517,6 +518,7 @@
     { ate: "2026-12-25", cor: "linear-gradient(120deg,#c8102e,#8a0f22 55%,#145a32)", sobre: `Faltam ${faltam} dias pro Natal`, tit: "Ofertas de Natal", txt: "Decoração, árvore e presentes pra família toda", cta: "Ver achadinhos ›", link: "#decoracao", grande: "🎄", fotos: ["img/guirlanda.jpg", "img/arvore-210.jpg"] },
     { ate: "2026-12-25", cor: "linear-gradient(120deg,#0f4d2a,#2e9e5b)", sobre: "Chega antes do Natal", tit: "Monte sua árvore", txt: "Árvore, pisca, bolas e saia: tudo FULL, chega rapidinho", cta: "Montar a minha ›", link: "#arvore", grande: "⚡", fotos: ["img/kit100.jpg", "img/arvore-economica.jpg"] },
     { ate: "2026-12-25", cor: "linear-gradient(120deg,#c2185b,#f06292)", sobre: "Presentes pra ela", tit: "Mãe, esposa, namorada", txt: "Kits prontos de perfume, joia e cuidados", cta: "Ver presentes ›", link: "#feminino", grande: "💝", fotos: ["img/brincos.jpg", "img/bolsa.jpg"] },
+    { cat: "beleza", cor: "linear-gradient(120deg,#8e2a5b,#e8899b)", sobre: "Beleza e cuidados", tit: "Perfumes e kits prontos", txt: "Boticário, Natura, L'Occitane: presente que agrada sempre", cta: "Ver beleza ›", link: "#beleza", grande: "💄", fotos: ["img/loccitane-roma.jpg", "img/eudora-golden.jpg"] },
     { de: "2026-10-28", cat: "casa", cor: "linear-gradient(120deg,#7a4b2a,#d39b5a)", sobre: "Pra ceia e pra casa", tit: "Casa e Cozinha", txt: "Potes, travessas e utensílios que facilitam o dia a dia", cta: "Ver achadinhos ›", link: "#casa", grande: "🏠" },
     { de: "2026-12-18", ate: "2026-12-31", cat: "reveillon", cor: "linear-gradient(120deg,#111,#c9a227)", sobre: "Chega antes da virada (FULL)", tit: "Réveillon", txt: "Ceia de ano novo, balões e decoração dourada", cta: "Ver ofertas ›", link: "#reveillon", grande: "🥂" },
     { de: "2026-12-18", ate: "2027-02-15", cat: "verao", cor: "linear-gradient(120deg,#00a6d6,#ffb703)", sobre: "Férias", tit: "Verão, praia e camping", txt: "Cooler, barraca, mala e tudo pra viajar", cta: "Ver achadinhos ›", link: "#verao", grande: "☀️" },
@@ -548,7 +550,7 @@
     { nome: "☰ Todas as categorias", cls: "todas", cols: 2, itens: CATS.filter(c => c.id === "ofertas-dia" || itensDe(c).length).map(c => lk(c.id, `${c.ic} ${c.nome}`)) },
     { nome: "Natal", itens: [lk("arvore", "Árvore de Natal", "monte a sua: barata ou FULL"), lk("decoracao", "Decoração", "enfeites, luzes, guirlanda"), lk("sacolas", "Cestas e sacolas", "kit pra empresa e ceia")] },
     { nome: "Casa", itens: CATS.filter(c => ["casa", "eletro", "reveillon", "verao", "escola"].includes(c.id) && itensDe(c).length).map(c => lk(c.id, `${c.ic} ${c.nome}`)) },
-    { nome: "Presentes", itens: [lk("feminino", "Pra ela", "mãe, esposa, namorada"), lk("presentes", "Pra ele e família", "pai, amigo secreto"), lk("criancas", "Crianças", "brinquedos e pelúcias")] },
+    { nome: "Presentes", itens: [lk("feminino", "Pra ela", "mãe, esposa, namorada"), lk("beleza", "Beleza e cuidados", "perfume, kit de banho, skincare"), lk("presentes", "Pra ele e família", "pai, amigo secreto"), lk("criancas", "Crianças", "brinquedos e pelúcias")] },
     { nome: "Ofertas", itens: [lk("ofertas-dia", "Promoções do dia", "dos vídeos de hoje"), ...CATS.filter(c => c.id === "ofertas" || c.id === "blackfriday").map(c => lk(c.id, c.nome))] },
     { nome: "Lojas", itens: [lk("inicio", "Mercado Livre", "todos os links do site"), lk("", "Shopee", "em breve"), lk("", "TikTok Shop", "em breve")] },
     { nome: "Blog", href: "blog/" }
