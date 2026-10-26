@@ -40,6 +40,11 @@
   @media (max-width: 700px) { .faixa-top span:not(:first-child) { display: none; } }
   .siga-top { display: flex; gap: 8px; align-items: center; text-decoration: none; font-size: .78rem; line-height: 1.2; flex: none; }
   .siga-top span:first-child { font-size: 1.4rem; }
+  .zap-top { background: #25d366; color: #fff; padding: 6px 12px; border-radius: 12px; }
+  .zap-top svg { flex: none; }
+  .zap-flutua { position: fixed; right: 16px; bottom: 16px; z-index: 40; display: flex; align-items: center; gap: 8px; background: #25d366; color: #fff; text-decoration: none; font-weight: 800; font-size: .9rem; padding: 12px 16px; border-radius: 99px; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+  .zap-flutua svg { width: 26px; height: 26px; }
+  @media (max-width: 600px) { .zap-flutua span { display: none; } .zap-flutua { padding: 13px; } }
   @media (max-width: 600px) { .siga-top { display: none; } }
 
   /* Menu principal com submenus (passa o mouse / toca) */
@@ -192,7 +197,7 @@
   <div class="linha1">
     <a class="marca" href="#inicio"><img src="logo.png" alt=""><span><b>China em Casa</b><small>achadinhos de Natal</small></span></a>
     <input class="busca" id="busca" type="search" placeholder="O que você procura? Presente, enfeite…" aria-label="Procurar">
-    <a class="siga-top" href="https://www.tiktok.com/@china.em.casa" target="_blank" rel="noopener"><span>📱</span><span>Siga no TikTok<br><b>@china.em.casa</b></span></a>
+    <a class="siga-top zap-top" href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>Ofertas todo dia<br><b>no WhatsApp</b></span></a>
   </div>
   <nav class="nav" id="nav" aria-label="Menu da loja"></nav>
   <nav class="menu" id="menu" aria-label="Categorias"></nav>
@@ -216,8 +221,10 @@
   <a class="blog" href="blog/"><i>📖</i><span><b>Guias de presentes e decoração</b><span>Ideias por preço e por pessoa, no nosso blog</span></span></a>
 </main>
 
+<a class="zap-flutua" href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener" aria-label="Entrar no canal de ofertas do WhatsApp"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>Ofertas no WhatsApp</span></a>
 <footer>
   <div class="redes">
+    <a href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n">WhatsApp</a>
     <a href="https://www.tiktok.com/@china.em.casa">TikTok</a>
     <a href="https://www.instagram.com/chin_aemcasa">Instagram</a>
     <a href="https://www.youtube.com/@ChinaemCasa">YouTube</a>
@@ -507,11 +514,12 @@
     { de: "2026-12-18", ate: "2026-12-31", cat: "reveillon", cor: "linear-gradient(120deg,#111,#c9a227)", sobre: "Chega antes da virada (FULL)", tit: "Réveillon", txt: "Ceia de ano novo, balões e decoração dourada", cta: "Ver ofertas ›", link: "#reveillon", grande: "🥂" },
     { de: "2026-12-18", ate: "2027-02-15", cat: "verao", cor: "linear-gradient(120deg,#00a6d6,#ffb703)", sobre: "Férias", tit: "Verão, praia e camping", txt: "Cooler, barraca, mala e tudo pra viajar", cta: "Ver achadinhos ›", link: "#verao", grande: "☀️" },
     { de: "2027-01-10", ate: "2027-02-28", cat: "escola", cor: "linear-gradient(120deg,#5b2a86,#ff6f61)", sobre: "Começo do ano", tit: "Volta às aulas", txt: "Mochila, lancheira, estojo e garrafinha", cta: "Ver achadinhos ›", link: "#escola", grande: "🎒" },
+    { cor: "linear-gradient(120deg,#075e54,#25d366)", sobre: "Canal do WhatsApp", tit: "Ofertas todo dia no seu celular", txt: "Entre no canal: sem spam, só achadinho bom", cta: "Entrar no canal ›", link: "https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n", grande: "💬" },
     { breve: true, cor: "linear-gradient(120deg,#ee4d2d,#ff7337)", sobre: "Shopee", tit: "Ofertas Shopee", txt: "Achadinhos da Shopee com cupom", cta: "Em breve", grande: "S" },
     { breve: true, cor: "linear-gradient(120deg,#010101,#25f4ee 140%)", sobre: "TikTok Shop", tit: "Ofertas TikTok Shop", txt: "Compre direto pelo TikTok", cta: "Em breve", grande: "♪" }
   ].filter(b => (!b.de || HOJE >= b.de) && (!b.ate || HOJE <= b.ate) && (!b.cat || produtos.some(p => p.secao === b.cat)));
   const trilha = document.getElementById("trilha"), pontos = document.getElementById("pontos");
-  trilha.innerHTML = BANNERS.map(b => `<a class="banner" ${b.link ? `href="${b.link}"` : ""} style="background:${b.cor}"><span class="grande" aria-hidden="true">${b.grande || ""}</span>
+  trilha.innerHTML = BANNERS.map(b => `<a class="banner" ${b.link ? `href="${b.link}"${b.link.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}` : ""} style="background:${b.cor}"><span class="grande" aria-hidden="true">${b.grande || ""}</span>
     <div class="txt"><small>${esc(b.sobre)}</small><h2>${esc(b.tit)}</h2><p>${esc(b.txt)}</p><span class="cta ${b.breve ? "breve" : ""}">${esc(b.cta)}</span></div>
     <div class="fotos">${(b.fotos || []).map(f => `<img src="${f}" alt="">`).join("")}</div></a>`).join("");
   pontos.innerHTML = BANNERS.map((b, i) => `<button aria-label="Banner ${i + 1}"></button>`).join("");
