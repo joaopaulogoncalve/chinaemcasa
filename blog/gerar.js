@@ -63,6 +63,6 @@ fs.writeFileSync(path.join(__dirname, "index.html"), `<!doctype html><html lang=
 </main><footer>China em Casa</footer></body></html>`);
 
 // Sitemap
-const urls = [`${BASE}/`, `${BASE}/blog/`, ...artigos.map(a => `${BASE}/blog/${a.slug}/`)];
+const urls = [`${BASE}/`, `${BASE}/blog/`, `${BASE}/sobre/`, `${BASE}/contato/`, `${BASE}/privacidade/`, ...artigos.map(a => `${BASE}/blog/${a.slug}/`)];
 fs.writeFileSync(path.join(__dirname, "..", "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${u}</loc><lastmod>2026-10-25</lastmod></url>`).join("\n")}\n</urlset>\n`);
 console.log("ok", artigos.length, "artigos");
