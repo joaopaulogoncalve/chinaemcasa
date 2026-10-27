@@ -176,6 +176,7 @@
   .botoes { display: flex; gap: 6px; flex-wrap: wrap; }
   .btn { flex: 1 1 80px; text-align: center; text-decoration: none; font-weight: 800; padding: 9px 6px; border-radius: 10px; font-size: .82rem; background: var(--ml); color: var(--ml-texto); }
   .btn:hover { filter: brightness(.95); }
+  .btn.shopee { background: #ee4d2d; color: #fff; }
   .sub2 { margin: 18px 0 8px; font: 800 1rem var(--f-tit); }
   .vazio { color: var(--muted); text-align: center; padding: 30px 0; display: none; }
 
@@ -449,6 +450,7 @@
     { id: "presentes", nome: "Pra ele e família", ic: "🎁", cor: "linear-gradient(135deg,#1d4e89,#8e44ad)" },
     { id: "criancas", nome: "Crianças", ic: "🧸", cor: "linear-gradient(135deg,#0077b6,#00b4d8)" },
     { id: "sacolas", nome: "Cestas e sacolas", ic: "🧺", cor: "linear-gradient(135deg,#8a1538,#e0a526)" },
+    { id: "shopee", nome: "Ofertas Shopee", ic: "🧡", cor: "linear-gradient(135deg,#ee4d2d,#ff7337)" },
     // nichos novos (ver nichos.md): só aparecem no período e quando tiverem produto
     { id: "casa", nome: "Casa e Cozinha", ic: "🏠", cor: "linear-gradient(135deg,#7a4b2a,#d39b5a)", de: "2026-10-28" },
     { id: "eletro", nome: "Eletroportáteis", ic: "🔌", cor: "linear-gradient(135deg,#1f2a44,#3d6cb9)", de: "2026-11-09", ate: "2026-11-30" },
@@ -482,8 +484,8 @@
       : p.selo ? selo
       : p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">` : esc(p.icone || "🎄");
     const et = p.etiqueta || "", full = /FULL/i.test(et);
-    const botoes = (p.links || [p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml }].filter(Boolean))
-      .map(b => `<a class="btn" href="${esc(b.url)}" target="_blank" rel="noopener sponsored">${esc(b.rotulo)}</a>`).join("");
+    const botoes = (p.links || [p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml }, p.shopee && { rotulo: "Ver na Shopee", url: p.shopee, cls: "shopee" }].filter(Boolean))
+      .map(b => `<a class="btn ${b.cls || ""}" href="${esc(b.url)}" target="_blank" rel="noopener sponsored">${esc(b.rotulo)}</a>`).join("");
     return `<article class="prod${p.foto && p.foto2 ? " tem2" : ""}"><div class="img">${img}${et && !p.selo ? `<span class="tag ${full ? "full" : ""}">${esc(full ? "⚡ FULL · chega rápido" : et)}</span>` : ""}${idsHoje.has(p.id) ? `<span class="tag hoje">HOJE</span>` : novo(p) ? `<span class="tag hoje">NOVO</span>` : ""}</div>
       <div class="corpo"><h3>${esc(p.nome.replace(/^Ou: |^\d+\. |^\+ /, ""))}</h3><p>${esc(p.texto || "")}</p><div class="botoes">${botoes}</div></div></article>`;
   }
@@ -537,7 +539,10 @@
     { de: "2026-12-18", ate: "2027-02-15", cat: "verao", cor: "linear-gradient(120deg,#00a6d6,#ffb703)", sobre: "Férias", tit: "Verão, praia e camping", txt: "Cooler, barraca, mala e tudo pra viajar", cta: "Ver achadinhos ›", link: "#verao", grande: "☀️" },
     { de: "2027-01-10", ate: "2027-02-28", cat: "escola", cor: "linear-gradient(120deg,#5b2a86,#ff6f61)", sobre: "Começo do ano", tit: "Volta às aulas", txt: "Mochila, lancheira, estojo e garrafinha", cta: "Ver achadinhos ›", link: "#escola", grande: "🎒" },
     { cor: "linear-gradient(120deg,#075e54,#25d366)", sobre: "Canal do WhatsApp", tit: "Ofertas todo dia no seu celular", txt: "Entre no canal: sem spam, só achadinho bom", cta: "Entrar no canal ›", link: "https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n", grande: "💬" },
-    { breve: true, cor: "linear-gradient(120deg,#ee4d2d,#ff7337)", sobre: "Shopee", tit: "Ofertas Shopee", txt: "Achadinhos da Shopee com cupom", cta: "Em breve", grande: "S" },
+    // Shopee: "em breve" até ter produto na seção; depois vira banner normal
+    produtos.some(p => p.secao === "shopee")
+      ? { cor: "linear-gradient(120deg,#ee4d2d,#ff7337)", sobre: "Shopee", tit: "Ofertas Shopee", txt: "Achadinhos com envio nacional, escolhidos a dedo", cta: "Ver ofertas ›", link: "#shopee", grande: "S" }
+      : { breve: true, cor: "linear-gradient(120deg,#ee4d2d,#ff7337)", sobre: "Shopee", tit: "Ofertas Shopee", txt: "Achadinhos da Shopee com cupom", cta: "Em breve", grande: "S" },
     { breve: true, cor: "linear-gradient(120deg,#010101,#25f4ee 140%)", sobre: "TikTok Shop", tit: "Ofertas TikTok Shop", txt: "Compre direto pelo TikTok", cta: "Em breve", grande: "♪" }
   ].filter(b => (!b.de || HOJE >= b.de) && (!b.ate || HOJE <= b.ate) && (!b.cat || produtos.some(p => p.secao === b.cat)));
   const trilha = document.getElementById("trilha"), pontos = document.getElementById("pontos");
@@ -565,7 +570,7 @@
     { nome: "Casa", itens: CATS.filter(c => ["casa", "eletro", "reveillon", "verao", "escola"].includes(c.id) && itensDe(c).length).map(c => lk(c.id, `${c.ic} ${c.nome}`)) },
     { nome: "Presentes", itens: [lk("feminino", "Pra ela", "mãe, esposa, namorada"), lk("beleza", "Beleza e cuidados", "perfume, kit de banho, skincare"), lk("presentes", "Pra ele e família", "pai, amigo secreto"), lk("criancas", "Crianças", "brinquedos e pelúcias")] },
     { nome: "Ofertas", itens: [lk("ofertas-dia", "Promoções do dia", "dos vídeos de hoje"), ...CATS.filter(c => c.id === "ofertas" || c.id === "blackfriday").map(c => lk(c.id, c.nome))] },
-    { nome: "Lojas", itens: [lk("inicio", "Mercado Livre", "todos os links do site"), lk("", "Shopee", "em breve"), lk("", "TikTok Shop", "em breve")] },
+    { nome: "Lojas", itens: [lk("inicio", "Mercado Livre", "todos os links do site"), (produtos.some(p => p.secao === "shopee") ? lk("shopee", "Shopee", "ofertas com envio nacional") : lk("", "Shopee", "em breve")), lk("", "TikTok Shop", "em breve")] },
     { nome: "Blog", href: "blog/" }
   ];
   for (let i = NAV.length - 1; i >= 0; i--) if (NAV[i].itens && !NAV[i].itens.length) NAV.splice(i, 1);
