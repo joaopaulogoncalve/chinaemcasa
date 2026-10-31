@@ -494,7 +494,8 @@
   }
 
   // Menu e quadrados de categoria (foto = 1º produto com foto nossa)
-  document.getElementById("menu").innerHTML = CATS.filter(c => c.id === "ofertas-dia" || itensDe(c).length).map(c => `<a href="#${c.id}">${c.ic} ${esc(c.nome)}</a>`).join("");
+  const montarMenu = () => document.getElementById("menu").innerHTML = CATS.filter(c => c.id === "ofertas-dia" || itensDe(c).length).map(c => `<a href="#${c.id}">${c.ic} ${esc(c.nome)}</a>`).join("");
+  montarMenu();
   const LIMITE = 8, abertas = new Set();
   function desenhar(filtro) {
     const t = (filtro || "").toLowerCase().trim();
@@ -525,8 +526,8 @@
   });
   document.getElementById("busca").addEventListener("input", e => desenhar(e.target.value));
   // link direto: ?cod=12 ou ?p=<id> abre o site já mostrando esse produto (pros vídeos antigos acharem o produto)
-  const alvo = params.get("cod") ? produtos.find(p => p.cod === +params.get("cod")) : params.get("p") ? porId[params.get("p")] : null;
-  if (alvo) { document.getElementById("busca").value = String(alvo.cod); desenhar(String(alvo.cod)); setTimeout(() => { const el = document.querySelector(".prod"); if (el) { el.classList.add("achado"); el.scrollIntoView({ block: "center" }); } }, 100); }
+  const irAlvo = () => { const alvo = params.get("cod") ? produtos.find(p => p.cod === +params.get("cod")) : params.get("p") ? porId[params.get("p")] : null;
+  if (alvo) { document.getElementById("busca").value = String(alvo.cod); desenhar(String(alvo.cod)); setTimeout(() => { const el = document.querySelector(".prod"); if (el) { el.classList.add("achado"); el.scrollIntoView({ block: "center" }); } }, 100); } return !!alvo; };
   // contador de cliques por rede (de= no link da bio: tiktok, insta, yt, pin, zap); vai pro nosso Worker, sem dado pessoal
   const ORIGEM = (params.get("de") || (/tiktok/.test(document.referrer) ? "tiktok" : /instagram/.test(document.referrer) ? "insta" : /youtube/.test(document.referrer) ? "yt" : /pinterest/.test(document.referrer) ? "pin" : document.referrer ? "outro" : "direto")).slice(0, 12);
   try { sessionStorage.origem ||= ORIGEM; } catch (e) {}
@@ -623,6 +624,14 @@
   }, { passive: true });
 
   desenhar();
+  const achou = irAlvo();
+  // ofertas aprovadas no admin (publicador do Worker) entram aqui sozinhas, sem mexer neste arquivo
+  fetch("https://china-em-casa.paulojao151.workers.dev/api/novos").then(r => r.json()).then(novos => {
+    const ja = new Set(produtos.map(p => p.id));
+    novos.filter(p => !ja.has(p.id)).forEach(p => { produtos.push(p); porId[p.id] = p; });
+    montarMenu();
+    if (!achou && !irAlvo()) desenhar(document.getElementById("busca").value);
+  }).catch(() => {});
 </script>
 </body>
 </html>
