@@ -380,7 +380,7 @@
     { id: "projetor", cod: 81, secao: "decoracao", nome: "Projetor de Natal com 16 desenhos", foto2: "img/projetor-2.jpg", foto: "img/projetor-natal.jpg",
       texto: "Apaga a luz e a parede se enche de desenhos de Natal. Pequenininho e bivolt.",
       ml: "https://meli.la/1GbERNw" },
-    { id: "guirlanda", cod: 82, secao: "decoracao", nome: "Guirlanda de porta 30 cm nevada", foto: "img/guirlanda.jpg",
+    { id: "guirlanda", cod: 82, idml: "HNABFC-PE14", secao: "decoracao", nome: "Guirlanda de porta 30 cm nevada", foto: "img/guirlanda.jpg",
       texto: "Já vem decorada com pinhas: é só pendurar. Escolha a cor Nevada. Sem luzes.",
       ml: "https://meli.la/1oxp3zS" },
     { id: "festao", cod: 83, secao: "decoracao", nome: "Festão aramado 2,70 m · 300 galhos", foto: "img/festao.jpg",
@@ -483,7 +483,10 @@
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const itensDe = c => c.id === "ofertas-dia" ? promo : c.lista ? c.lista.map(id => porId[id]).filter(Boolean) : c.secoes ? c.secoes.flatMap(([s]) => produtos.filter(p => p.secao === s)) : produtos.filter(p => p.secao === c.id || (c.inclui || []).includes(p.secao));
   // busca: número (ou "cód 12") acha pelo código curto do produto; o resto procura no nome/texto
-  const casa = (p, t) => { const n = t.replace(/^c[oó]d(igo)?\.?\s*/, ""); if (/^\d+$/.test(n)) return p.cod === +n; return !t || (p.nome + " " + (p.texto || "") + " " + (p.etiqueta || "")).toLowerCase().includes(t); };
+  // busca: ID do ML (com ou sem o traço) ou o número antigo acham o produto; o resto procura no nome/texto
+  const soLetras = x => String(x || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+  const achaCodigo = c => { const n = soLetras(String(c).replace(/^c[oó]d(igo)?\.?\s*|^id\s*/i, "")); return n ? produtos.find(p => (p.idml && soLetras(p.idml) === n) || (/^\d+$/.test(n) && p.cod === +n)) : null; };
+  const casa = (p, t) => { const a = achaCodigo(t); if (a) return a === p; return !t || (p.nome + " " + (p.texto || "") + " " + (p.etiqueta || "")).toLowerCase().includes(t); };
 
   const novo = p => p.desde && (new Date(HOJE) - new Date(p.desde)) / 864e5 <= 7;
   function cartao(p) {
@@ -496,7 +499,7 @@
     const botoes = (p.links || [p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml }, p.shopee && { rotulo: "Ver na Shopee", url: p.shopee, cls: "shopee" }].filter(Boolean))
       .map(b => `<a class="btn ${b.cls || ""}" href="${esc(b.url)}" target="_blank" rel="noopener sponsored">${esc(b.rotulo)}</a>`).join("");
     return `<article data-id="${esc(p.id)}" class="prod${p.foto && p.foto2 ? " tem2" : ""}"><div class="img">${img}${et && !p.selo ? `<span class="tag ${full ? "full" : ""}">${esc(full ? "⚡ FULL · chega rápido" : et)}</span>` : ""}${idsHoje.has(p.id) ? `<span class="tag hoje">HOJE</span>` : novo(p) ? `<span class="tag hoje">NOVO</span>` : ""}</div>
-      <div class="corpo">${p.cod ? `<span class="cod">Cód. ${p.cod}</span>` : ""}<h3>${esc(p.nome.replace(/^Ou: |^\d+\. |^\+ /, ""))}</h3><p>${esc(p.texto || "")}</p><div class="botoes">${botoes}</div></div></article>`;
+      <div class="corpo">${p.idml ? `<span class="cod">ID ${esc(p.idml)}</span>` : p.cod ? `<span class="cod">Cód. ${p.cod}</span>` : ""}<h3>${esc(p.nome.replace(/^Ou: |^\d+\. |^\+ /, ""))}</h3><p>${esc(p.texto || "")}</p><div class="botoes">${botoes}</div></div></article>`;
   }
 
   // Menu e quadrados de categoria (foto = 1º produto com foto nossa)
@@ -532,8 +535,8 @@
   });
   document.getElementById("busca").addEventListener("input", e => desenhar(e.target.value));
   // link direto: ?cod=12 ou ?p=<id> abre o site já mostrando esse produto (pros vídeos antigos acharem o produto)
-  const irAlvo = () => { const alvo = params.get("cod") ? produtos.find(p => p.cod === +params.get("cod")) : params.get("p") ? porId[params.get("p")] : null;
-  if (alvo) { document.getElementById("busca").value = String(alvo.cod); desenhar(String(alvo.cod)); setTimeout(() => { const el = document.querySelector(".prod"); if (el) { el.classList.add("achado"); el.scrollIntoView({ block: "center" }); } }, 100); } return !!alvo; };
+  const irAlvo = () => { const alvo = params.get("cod") ? achaCodigo(params.get("cod")) : params.get("p") ? porId[params.get("p")] : null;
+  if (alvo) { const cc = alvo.idml || String(alvo.cod); document.getElementById("busca").value = cc; desenhar(cc); setTimeout(() => { const el = document.querySelector(".prod"); if (el) { el.classList.add("achado"); el.scrollIntoView({ block: "center" }); } }, 100); } return !!alvo; };
   // contador de cliques por rede (de= no link da bio: tiktok, insta, yt, pin, zap); vai pro nosso Worker, sem dado pessoal
   const ORIGEM = (params.get("de") || (/tiktok/.test(document.referrer) ? "tiktok" : /instagram/.test(document.referrer) ? "insta" : /youtube/.test(document.referrer) ? "yt" : /pinterest/.test(document.referrer) ? "pin" : document.referrer ? "outro" : "direto")).slice(0, 12);
   try { sessionStorage.origem ||= ORIGEM; } catch (e) {}
