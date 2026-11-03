@@ -103,13 +103,13 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-bet
 footer a{color:#fff;text-decoration:none}
 footer nav{display:flex;flex-wrap:wrap;gap:8px 16px}
 /* 03/11: faixa colorida com logo, passo a passo com telinha de celular, dicas em cartões e vitrine de fotos */
-.faixa { display: flex; align-items: center; gap: 14px; color: #fff; border-radius: 18px; padding: 16px 18px; margin: 18px 0; box-shadow: 0 8px 24px rgba(200,16,46,.25); overflow: hidden; }
-.faixa img { width: 54px; height: 54px; border-radius: 14px; background: #fff; padding: 4px; flex: none; }
-.faixa div { display: grid; gap: 2px; min-width: 0; }
-.faixa small { font-size: .78rem; opacity: .9; text-transform: uppercase; letter-spacing: .06em; font-weight: 800; }
-.faixa b { font-family: var(--f-tit, Georgia, serif); font-size: 1.35rem; line-height: 1.1; }
-.faixa span { font-size: .92rem; opacity: .95; }
-.faixa em { margin-left: auto; font-style: normal; font-size: 2.6rem; font-weight: 800; line-height: 1; opacity: .95; }
+.faixa-art { display: flex; align-items: center; gap: 14px; color: #fff; border-radius: 18px; padding: 16px 18px; margin: 18px 0; box-shadow: 0 8px 24px rgba(200,16,46,.25); overflow: hidden; }
+.faixa-art img { width: 54px; height: 54px; border-radius: 14px; background: #fff; padding: 4px; flex: none; }
+.faixa-art div { display: grid; gap: 2px; min-width: 0; }
+.faixa-art small { font-size: .78rem; opacity: .9; text-transform: uppercase; letter-spacing: .06em; font-weight: 800; }
+.faixa-art b { font-family: var(--f-tit, Georgia, serif); font-size: 1.35rem; line-height: 1.1; }
+.faixa-art span { font-size: .92rem; opacity: .95; }
+.faixa-art em { margin-left: auto; font-style: normal; font-size: 2.6rem; font-weight: 800; line-height: 1; opacity: .95; }
 .passos { list-style: none; padding: 0; margin: 18px 0; display: grid; gap: 14px; }
 .passos li { display: flex; gap: 16px; align-items: center; background: #fff; border: 1px solid #ecdfcd; border-radius: 18px; padding: 14px; }
 .passos .cel { flex: none; width: 74px; height: 132px; border-radius: 16px; background: #222; padding: 5px; box-shadow: 0 6px 16px rgba(0,0,0,.18); }
@@ -131,7 +131,8 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 16px}
 .vitrine span { font-size: .8rem; font-weight: 700; padding: 6px 8px; line-height: 1.2; }
 .ver-mais { text-align: center; }
 .ver-mais a { display: inline-block; background: #c8102e; color: #fff; font-weight: 800; padding: 12px 20px; border-radius: 999px; text-decoration: none; }
-@media (max-width: 420px) { .faixa em { display: none; } .vitrine { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px) { .faixa-art em { display: none; } .vitrine { grid-template-columns: repeat(2, 1fr); } }
+.faixa-art .conta { font-style: normal; display: inline-block; margin-top: 6px; background: rgba(255,255,255,.22); border-radius: 999px; padding: 3px 10px; font-weight: 800; font-size: .85rem; width: fit-content; }
 </style>
 <meta property="og:title" content="Presente de amigo secreto barato: ideias de R$ 20 a R$ 50 (2026)"><meta property="og:image" content="https://joaopaulogoncalve.github.io/chinaemcasa/img/caneca.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Qual presente de amigo secreto agrada qualquer pessoa?","acceptedAnswer":{"@type":"Answer","text":"Copo térmico e caneca de Natal são as escolhas mais seguras: úteis e bonitas."}},{"@type":"Question","name":"Quanto gastar no amigo secreto?","acceptedAnswer":{"@type":"Answer","text":"O mais comum é entre R$ 30 e R$ 50. Combine o valor com o grupo antes."}}]}</script>
@@ -200,4 +201,4 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 16px}
 </main>
 <footer><div class="wrap"><span>🎄 China em Casa · achadinhos que cabem no bolso · #publi links de afiliado</span>
 <nav><a href="../../">Ofertas</a><a href="../../blog/">Blog</a><a href="../../sobre/">Sobre</a><a href="../../contato/">Contato</a><a href="../../privacidade/">Privacidade</a><a href="https://www.tiktok.com/@china.em.casa">TikTok</a><a href="https://br.pinterest.com/chinaemcasa">Pinterest</a></nav>
-</div></footer></body></html>
+</div></footer><script>document.querySelectorAll(".conta").forEach(e=>{const h=new Date();h.setHours(0,0,0,0);const d=JSON.parse(e.dataset.datas).map(([n,dt])=>[n,Math.round((new Date(dt+"T00:00:00")-h)/864e5)]).find(([,x])=>x>=0);e.textContent=d?(d[1]===0?"⏰ É HOJE: "+d[0]+"!":"⏳ Faltam "+d[1]+(d[1]===1?" dia":" dias")+" pro "+d[0]):"";if(!d)e.remove();});</script></body></html>

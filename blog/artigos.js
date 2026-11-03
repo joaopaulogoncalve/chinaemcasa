@@ -10,7 +10,7 @@ module.exports = [
   h1: "Cupom Mercado Livre no 11.11 e na Black Friday: como usar e economizar no Natal",
   descricao: "Passo a passo pra ativar e usar cupom do Mercado Livre no 11.11 e na Black Friday 2026, o que fazer se o cupom não entra e quais presentes de Natal aproveitar.",
   capa: "projetor-natal.jpg", atualizado: "novembro de 2026",
-  faixa: { cor: "linear-gradient(120deg,#ff6a00,#c8102e)", sobre: "Temporada de cupons", tit: "11.11 → Black Friday (27/11)", txt: "Ative o cupom antes de comprar 🎟️", grande: "11.11" },
+  faixa: { cor: "linear-gradient(120deg,#ff6a00,#c8102e)", sobre: "Temporada de cupons", tit: "11.11 → Black Friday (27/11)", txt: "Ative o cupom antes de comprar 🎟️", grande: "11.11", conta: [["11.11", "2026-11-11"], ["Black Friday", "2026-11-27"]] },
   intro: ["O <strong>11.11</strong> abre a temporada de promoções que vai até a <strong>Black Friday (27/11)</strong>. O Mercado Livre anunciou mais de R$ 100 milhões em cupons pra esse período. Ou seja: dá pra comprar os presentes de Natal pagando menos, desde que você <strong>ative o cupom antes de comprar</strong>.", "Abaixo, o passo a passo, os erros mais comuns e os achadinhos de Natal que valem a pena olhar nessas datas."],
   resumo: ["🎟️ <strong>Regra de ouro:</strong> ative o cupom no app ANTES de colocar no carrinho.", "📅 <strong>Datas:</strong> 11.11 (11/11) e Black Friday (27/11); cupom novo aparece quase todo dia.", "💳 <strong>Pagamento:</strong> veja as opções de parcelar pelo Mercado Pago na hora de pagar."],
   secoes: [

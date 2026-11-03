@@ -26,9 +26,11 @@ const topo = raiz => `<div class="faixa"></div><header class="topo"><div class="
 <a class="logo" href="${raiz}"><i>🎄</i><span><b>China em Casa</b><small>achadinhos de Natal</small></span></a>
 <nav><a href="${raiz}">Ofertas</a><a href="${raiz}blog/">Blog</a><a class="zap" href="${ZAP}" target="_blank" rel="noopener">Canal no WhatsApp</a></nav>
 </div></header>`;
+// mini contador da faixa do artigo ("faltam 8 dias pro 11.11"); some sozinho depois da última data
+const CONTA = `<script>document.querySelectorAll(".conta").forEach(e=>{const h=new Date();h.setHours(0,0,0,0);const d=JSON.parse(e.dataset.datas).map(([n,dt])=>[n,Math.round((new Date(dt+"T00:00:00")-h)/864e5)]).find(([,x])=>x>=0);e.textContent=d?(d[1]===0?"⏰ É HOJE: "+d[0]+"!":"⏳ Faltam "+d[1]+(d[1]===1?" dia":" dias")+" pro "+d[0]):"";if(!d)e.remove();});</script>`;
 const rodape = raiz => `<footer><div class="wrap"><span>🎄 China em Casa · achadinhos que cabem no bolso · #publi links de afiliado</span>
 <nav><a href="${raiz}">Ofertas</a><a href="${raiz}blog/">Blog</a><a href="${raiz}sobre/">Sobre</a><a href="${raiz}contato/">Contato</a><a href="${raiz}privacidade/">Privacidade</a><a href="https://www.tiktok.com/@china.em.casa">TikTok</a><a href="https://br.pinterest.com/chinaemcasa">Pinterest</a></nav>
-</div></footer></body></html>`;
+</div></footer>${CONTA}</body></html>`;
 
 function card(p) {
   return `<div class="prod">
@@ -63,7 +65,7 @@ ${topo("../../")}
 </div><img src="../../img/${a.capa}" alt="" width="300" height="400"></div>
 <div class="corpo"><article>
 <p class="publi">#publi — Os botões são links de afiliado do Mercado Livre: posso ganhar uma comissão, sem custo extra pra você. Preço e prazo mudam: confira no anúncio.</p>
-${a.faixa ? `<div class="faixa" style="background:${a.faixa.cor}"><img src="../../logo.png" alt="China em Casa"><div><small>${esc(a.faixa.sobre)}</small><b>${esc(a.faixa.tit)}</b><span>${esc(a.faixa.txt)}</span></div><em>${a.faixa.grande}</em></div>` : ""}
+${a.faixa ? `<div class="faixa-art" style="background:${a.faixa.cor}"><img src="../../logo.png" alt="China em Casa"><div><small>${esc(a.faixa.sobre)}</small><b>${esc(a.faixa.tit)}</b><span>${esc(a.faixa.txt)}</span>${a.faixa.conta ? `<i class="conta" data-datas="${esc(JSON.stringify(a.faixa.conta))}"></i>` : ""}</div><em>${a.faixa.grande}</em></div>` : ""}
 ${a.intro.map(p => `<p>${p}</p>`).join("\n")}
 <div class="resumo"><strong>Resumo rápido:</strong><br>${a.resumo.join("<br>")}</div>
 ${a.tabela ? `<h2 id="${ancora(a.tabela.titulo)}">${esc(a.tabela.titulo)}</h2><div class="tabela"><table><tr>${a.tabela.cab.map(c => `<th>${esc(c)}</th>`).join("")}</tr>${a.tabela.linhas.map(l => `<tr>${l.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</table></div>` : ""}
