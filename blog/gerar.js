@@ -40,7 +40,11 @@ function card(p) {
   </div></div>`;
 }
 const minutos = a => Math.max(2, Math.round(JSON.stringify(a).split(/\s+/).length / 200));
-const cardArtigo = (x, raiz) => `<a class="card" href="${raiz}blog/${x.slug}/"><img src="${raiz}img/${x.capa}" alt="" loading="lazy"><div><span class="tag">Guia de compra · ${minutos(x)} min</span><h3>${esc(x.h1 || x.titulo)}</h3><p>${esc(x.descricao)}</p></div></a>`;
+// 03/11: blocos visuais opcionais da seção: passo a passo com telinha de celular, dicas em cartões e vitrine de fotos (leva pro site)
+const passos = s => s.passos ? `<ol class="passos">${s.passos.map((p, i) => `<li><div class="cel"><div class="tela"><span class="barra"></span><span class="ico">${p.icone}</span><span class="bt">${esc(p.tela)}</span></div></div><div><span class="n">${i + 1}</span><h3>${esc(p.tit)}</h3><p>${p.txt}</p></div></li>`).join("")}</ol>` : "";
+const dicas = s => s.dicas ? `<div class="dicas">${s.dicas.map(([ic, t, txt]) => `<div><span>${ic}</span><b>${esc(t)}</b><p>${esc(txt)}</p></div>`).join("")}</div>` : "";
+const vitrine = s => s.vitrine ? `<div class="vitrine">${s.vitrine.map(v => `<a href="../../${v.link || ""}"><img src="../../img/${v.foto}" alt="" loading="lazy"><span>${esc(v.nome)}</span></a>`).join("")}</div><p class="ver-mais"><a href="../../">Ver todos os achadinhos no site →</a></p>` : "";
+const cardArtigo =(x, raiz) => `<a class="card" href="${raiz}blog/${x.slug}/"><img src="${raiz}img/${x.capa}" alt="" loading="lazy"><div><span class="tag">Guia de compra · ${minutos(x)} min</span><h3>${esc(x.h1 || x.titulo)}</h3><p>${esc(x.descricao)}</p></div></a>`;
 
 function pagina(a) {
   const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: a.faq.map(([q, r]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: r } })) };
@@ -59,10 +63,11 @@ ${topo("../../")}
 </div><img src="../../img/${a.capa}" alt="" width="300" height="400"></div>
 <div class="corpo"><article>
 <p class="publi">#publi — Os botões são links de afiliado do Mercado Livre: posso ganhar uma comissão, sem custo extra pra você. Preço e prazo mudam: confira no anúncio.</p>
+${a.faixa ? `<div class="faixa" style="background:${a.faixa.cor}"><img src="../../logo.png" alt="China em Casa"><div><small>${esc(a.faixa.sobre)}</small><b>${esc(a.faixa.tit)}</b><span>${esc(a.faixa.txt)}</span></div><em>${a.faixa.grande}</em></div>` : ""}
 ${a.intro.map(p => `<p>${p}</p>`).join("\n")}
 <div class="resumo"><strong>Resumo rápido:</strong><br>${a.resumo.join("<br>")}</div>
 ${a.tabela ? `<h2 id="${ancora(a.tabela.titulo)}">${esc(a.tabela.titulo)}</h2><div class="tabela"><table><tr>${a.tabela.cab.map(c => `<th>${esc(c)}</th>`).join("")}</tr>${a.tabela.linhas.map(l => `<tr>${l.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</table></div>` : ""}
-${a.secoes.map(s => `<h2 id="${ancora(s.h2)}">${esc(s.h2)}</h2>${(s.texto || []).map(p => `<p>${p}</p>`).join("")}${(s.produtos || []).map(card).join("")}`).join("\n")}
+${a.secoes.map(s => `<h2 id="${ancora(s.h2)}">${esc(s.h2)}</h2>${(s.texto || []).map(p => `<p>${p}</p>`).join("")}${passos(s)}${dicas(s)}${(s.produtos || []).map(card).join("")}${vitrine(s)}`).join("\n")}
 <h2 id="perguntas-frequentes">Perguntas frequentes</h2><div class="faq">${a.faq.map(([q, r]) => `<details><summary>${esc(q)}</summary><p>${esc(r)}</p></details>`).join("")}</div>
 <div class="chamada"><h2>Quer receber os achadinhos do dia?</h2><p>Mando as melhores ofertas de Natal no canal do WhatsApp, sem spam.</p>
 <a class="btn zap" href="${ZAP}" target="_blank" rel="noopener">Entrar no canal</a> <a class="btn" href="../../">Ver todas as ofertas</a></div>
@@ -95,6 +100,6 @@ ${topo("../")}
 ${rodape("../")}`);
 
 // Sitemap
-const urls = [`${BASE}/`, `${BASE}/blog/`, `${BASE}/sobre/`, `${BASE}/contato/`, `${BASE}/privacidade/`, `${BASE}/cupom/`, ...artigos.map(a => `${BASE}/blog/${a.slug}/`)];
+const urls = [`${BASE}/`, `${BASE}/blog/`, `${BASE}/sobre/`, `${BASE}/contato/`, `${BASE}/privacidade/`, ...artigos.map(a => `${BASE}/blog/${a.slug}/`)];
 fs.writeFileSync(path.join(__dirname, "..", "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${u}</loc><lastmod>2026-10-31</lastmod></url>`).join("\n")}\n</urlset>\n`);
 console.log("ok", artigos.length, "artigos");
