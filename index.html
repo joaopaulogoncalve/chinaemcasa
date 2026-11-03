@@ -196,6 +196,58 @@
   footer p { margin: 6px auto 0; max-width: 640px; opacity: .85; }
   footer .inst { opacity: 1; font-weight: 800; } footer .inst a { color: #fff; }
   @media (prefers-reduced-motion: reduce) { .pisca { animation: none; } html { scroll-behavior: auto; } }
+
+  /* ===== Visual 2.0 (03/11): cara de loja grande — topo branco, banners arredondados, cartões com sombra, rodapé com logo ===== */
+  :root { --sombra: 0 1px 2px rgba(42,29,23,.06), 0 6px 18px rgba(42,29,23,.08); --sombra2: 0 10px 28px rgba(42,29,23,.16); --raio: 18px; }
+  body:not(.bf) { background: #f7f3ed; }
+  .pisca { display: none; }
+  .faixa-top { background: var(--verde); color: #e9f3ec; text-transform: none; letter-spacing: 0; font-size: .78rem; font-weight: 600; gap: 28px; padding: 7px 16px; }
+  .faixa-top b { color: #fff; }
+  body:not(.bf) .topo { background: #fff; color: var(--texto); box-shadow: 0 1px 0 var(--linha), 0 6px 20px rgba(42,29,23,.06); }
+  .topo .linha1 { padding: 12px 16px; gap: 16px; }
+  .marca img { width: 46px; height: 46px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,.12); object-fit: cover; object-view-box: inset(4% 25% 31% 28%); }
+  body:not(.bf) .marca b { color: var(--vermelho); font-size: 1.25rem; }
+  body:not(.bf) .marca small { color: var(--muted); opacity: 1; }
+  .busca { background: #f4efe7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%236e5d52' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") no-repeat 14px 50%; padding: 12px 16px 12px 42px; border: 1.5px solid transparent; transition: border-color .2s, background-color .2s; }
+  .busca:focus { outline: none; border-color: var(--vermelho); background-color: #fff; }
+  .zap-top { border-radius: 99px; padding: 8px 14px; font-weight: 700; }
+  body:not(.bf) .menu a { background: #f4efe7; color: var(--texto); }
+  body:not(.bf) .menu a.ativo, body:not(.bf) .menu a:hover { background: var(--vermelho); color: #fff; }
+  .nav { border-top: 1px solid var(--linha); }
+  .nav .item > button { font-size: .8rem; padding: 13px 16px; }
+  .banners { max-width: 1180px; margin: 16px auto 0; border-radius: 24px; box-shadow: var(--sombra2); height: clamp(190px, 26vw, 330px); }
+  @media (max-width: 1212px) { .banners { margin: 12px 16px 0; } }
+  .banner { padding: 0 clamp(20px, 5vw, 56px); }
+  .banner h2 { letter-spacing: -.5px; }
+  .banner .cta { border-radius: 99px; padding: 10px 20px; box-shadow: 0 6px 16px rgba(0,0,0,.18); }
+  .dia { background: transparent; border: 0; }
+  .dia-in { margin-top: 18px; padding: 16px 18px; background: var(--card); border-radius: var(--raio); box-shadow: var(--sombra); }
+  @media (max-width: 1212px) { .dia-in { margin: 14px 16px 0; } }
+  .dmini { border: 0; background: #faf6f0; box-shadow: none; transition: transform .2s, box-shadow .2s; }
+  .dmini:hover { transform: translateY(-2px); box-shadow: var(--sombra); background: #fff; }
+  .dmini em { border-radius: 99px; }
+  .selos-conf { margin-top: 18px; gap: 8px; }
+  .selos-conf span { box-shadow: var(--sombra); border: 0; color: var(--texto); font-weight: 700; }
+  .secao { margin-top: 42px; }
+  .cab { border-bottom: 2px solid var(--linha); padding-bottom: 10px; margin-bottom: 16px; position: relative; }
+  .cab::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 64px; height: 3px; border-radius: 3px; background: var(--vermelho); }
+  .cab h2 { font-size: clamp(1.3rem, 3vw, 1.6rem); letter-spacing: -.3px; }
+  .cat { border-radius: var(--raio); box-shadow: var(--sombra); }
+  .grade, .trilho { gap: 16px; }
+  .prod { border: 0; border-radius: var(--raio); box-shadow: var(--sombra); transition: transform .2s ease, box-shadow .2s ease; }
+  .prod:hover { transform: translateY(-4px); box-shadow: var(--sombra2); }
+  .prod .corpo { padding: 12px 12px 14px; gap: 8px; }
+  .prod h3 { font-size: .95rem; }
+  .btn { border-radius: 99px; padding: 10px 8px; font-size: .84rem; box-shadow: inset 0 -2px 0 rgba(0,0,0,.08); }
+  .btn::after { content: " ›"; }
+  .tag { box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+  .ver { border-radius: 99px; }
+  .blog { border: 0; box-shadow: var(--sombra); background: linear-gradient(120deg, #fff, #fff7e6); }
+  footer { margin-top: 48px; padding: 34px 16px 40px; background: #0f3d24; }
+  footer::before { content: ""; display: block; width: 64px; height: 64px; margin: 0 auto 12px; border-radius: 18px; background: #fff url("logo.png") center/86% no-repeat; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+  footer .redes a { background: rgba(255,255,255,.1); transition: background .2s; }
+  footer .redes a:hover { background: rgba(255,255,255,.22); }
+  @media (max-width: 600px) { .selos-conf { gap: 6px; } .selos-conf span { font-size: .7rem; padding: 4px 10px; } }
 </style>
 </head>
 <body>
@@ -611,7 +663,9 @@
   });
 
   // Faixa "Promoções do dia" (topo)
-  document.getElementById("dia-data").textContent = diasPromo.length ? diasPromo.map(d => d.split("-").reverse().slice(0, 2).join("/")).join(" e ") : "";
+  // só mostra a data se for de hoje ou ontem (03/11: aparecia "30/10" dias depois)
+  const ontemPromo = new Date(Date.parse(HOJE) - 864e5).toISOString().slice(0, 10);
+  document.getElementById("dia-data").textContent = diasPromo.some(d => d >= ontemPromo) ? diasPromo.filter(d => d >= ontemPromo).map(d => d.split("-").reverse().slice(0, 2).join("/")).join(" e ") : "";
   // hoje/ontem primeiro; depois os outros produtos dos vídeos da agenda, pra faixa girar
   const promoFaixa = [...new Set([...promo, ...Object.keys(AGENDA).sort().reverse().flatMap(d => AGENDA[d]).map(id => porId[id]).filter(Boolean)])];
   document.getElementById("dia-trilho").innerHTML = promoFaixa.map(p => `<a class="dmini" href="${esc((p.links && p.links[0].url) || p.ml)}" target="_blank" rel="noopener sponsored">${p.foto ? `<img src="${esc(p.foto)}" alt="">` : `<i>${esc(p.icone || "🎄")}</i>`}<span><b>${esc(p.nome)}</b><small>${esc(p.texto || p.etiqueta || "")}</small><em>${idsHoje.has(p.id) ? "HOJE · " : ""}Ver no ML</em></span></a>`).join("") || "<span class=\"dia-cab\"><span>Sem promoção hoje</span></span>";
