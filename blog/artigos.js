@@ -4,6 +4,36 @@ const L = c => "https://meli.la/" + c;
 
 module.exports = [
 {
+  // 03/11: como usar o ID do produto (o código que aparece fixo nos vídeos) no nosso site e na busca do Mercado Livre
+  slug: "como-usar-o-codigo-do-video",
+  titulo: "Viu o código no vídeo? Como achar o produto no site e no Mercado Livre (passo a passo)",
+  h1: "Viu o código no vídeo? Veja como achar o produto em 10 segundos",
+  descricao: "Nos vídeos do China em Casa aparece um código (ex.: HNABFC-PE14). Veja como usar esse ID pra achar o produto no nosso site ou direto na busca do Mercado Livre.",
+  capa: "guirlanda.jpg", atualizado: "novembro de 2026",
+  faixa: { cor: "linear-gradient(120deg,#145a32,#2e9e5b)", sobre: "Passo a passo", tit: "Achou no vídeo? Busca o código 🔎", txt: "Funciona no nosso site e no Mercado Livre", grande: "ID" },
+  intro: ["Nos nossos vídeos aparece, o tempo todo, uma faixa assim: <strong>🔎 Busque no Mercado Livre: HNABFC-PE14</strong>. Esse é o <strong>código (ID) do produto</strong>. Com ele você acha exatamente o produto do vídeo, sem precisar procurar entre centenas de parecidos.", "Dá pra usar de dois jeitos: no <strong>nosso site</strong> ou direto na <strong>busca do Mercado Livre</strong>."],
+  resumo: ["🔎 <strong>O código</strong> fica fixo na parte de cima do vídeo (ex.: HNABFC-PE14).", "🛍️ <strong>No site:</strong> digite o código na busca do China em Casa.", "🤝 <strong>No Mercado Livre:</strong> digite o mesmo código na busca do app."],
+  secoes: [
+    { h2: "Onde fica o código no vídeo", img: "cupom-celular.jpg", texto: ["Ele aparece numa faixa escura, na parte de cima da tela, durante o vídeo todo. Começa com letras e tem um traço no meio, tipo <strong>HNABFC-PE14</strong>.", "Dica: pause o vídeo ou tire um print da tela pra não esquecer o código."] },
+    { h2: "Jeito 1: no site do China em Casa", passos: [
+      { icone: "🌐", tela: "Link na bio", tit: "Abra o site", txt: "Toque no <strong>link da bio</strong> do perfil (TikTok, Instagram, YouTube ou Pinterest)." },
+      { icone: "🔎", tela: "Buscar", tit: "Digite o código", txt: "Na busca do topo, digite o código do vídeo. Pode ser com ou sem o traço: <strong>HNABFC-PE14</strong> ou <strong>HNABFCPE14</strong>." },
+      { icone: "🎁", tela: "Ver no ML", tit: "Toque no produto", txt: "O produto aparece destacado. Toque em <strong>Ver no Mercado Livre</strong> pra ver preço, frete e comprar." }] },
+    { h2: "Jeito 2: direto no Mercado Livre", passos: [
+      { icone: "📱", tela: "Mercado Livre", tit: "Abra o app", txt: "Abra o app (ou o site) do Mercado Livre." },
+      { icone: "⌨️", tela: "Buscar", tit: "Cole o código na busca", txt: "Digite o código do vídeo na barra de busca, igualzinho, com o traço." },
+      { icone: "✅", tela: "Comprar", tit: "Confira e compre", txt: "Confira se é o mesmo produto do vídeo (foto e nome), escolha cor e voltagem e digite o CEP pra ver o frete." }] },
+    { h2: "Não achou? Veja o que pode ser", dicas: [
+      ["🔤", "Letra trocada", "Confira letra por letra: O (letra) e 0 (zero) confundem. Copie do print do vídeo."],
+      ["➖", "Faltou o traço", "No Mercado Livre, digite com o traço. No nosso site, tanto faz."],
+      ["⏳", "Saiu do ar", "Às vezes o anúncio acaba. No nosso site, a gente tira o produto que saiu do ar e coloca outro parecido."],
+      ["💬", "Pede ajuda", "Comenta no vídeo que a gente responde com o link certo."]] },
+    { h2: "Por que usar o código?", texto: ["Tem muito produto parecido no Mercado Livre, com preço e qualidade bem diferentes. O código leva você <strong>exatamente</strong> ao que aparece no vídeo, que a gente escolheu pela nota, pelo preço e pela entrega.", "E comprando pelo nosso link ou pelo código, você ajuda o China em Casa a continuar achando ofertas, <strong>sem pagar nada a mais</strong> por isso (#publi: podemos ganhar uma comissão)."] }],
+  faq: [["O que é o código que aparece no vídeo?", "É o ID do produto no nosso programa de afiliados do Mercado Livre. Ele leva direto ao produto mostrado no vídeo."],
+        ["O código funciona no app do Mercado Livre?", "Sim: digite o código na busca do app, com o traço."],
+        ["Paga mais caro comprando pelo código?", "Não. O preço é o mesmo do anúncio; a comissão de afiliado é paga pelo Mercado Livre."]]
+},
+{
   // 03/11: 11.11 → Black Friday (ML anunciou +R$ 100 mi em cupons na temporada). Só fatos; sem prometer valor de cupom nem "sem juros".
   slug: "cupom-mercado-livre-11-11-black-friday",
   titulo: "Cupom Mercado Livre no 11.11 e na Black Friday: como usar e economizar nos presentes (2026)",
