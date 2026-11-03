@@ -38,6 +38,37 @@ const paginas = [
 <p class="nota">Nunca pedimos senha, dados de cartão ou pagamento por fora. Se alguém fizer isso em nosso nome, é golpe.</p>`
   },
   {
+    // 03/11: página de entregas/trocas (como a das lojas grandes), explicando que tudo é com o Mercado Livre; só o que é verdade
+    slug: "entregas", titulo: "Entregas, trocas e devoluções", desc: "Como funcionam entrega, frete, troca e devolução dos produtos indicados pelo China em Casa: tudo é feito pelo Mercado Livre.",
+    corpo: `
+<h1>📦 Entregas, trocas e devoluções</h1>
+<p class="lead">O China em Casa escolhe e indica os achadinhos. A compra, o pagamento, a entrega e a troca são feitos direto no <b>Mercado Livre</b>, com o vendedor de cada anúncio.</p>
+<h2>Como comprar</h2>
+<ol>
+  <li>Escolha o produto aqui no site e toque em <b>Ver no Mercado Livre</b>.</li>
+  <li>No anúncio, confira preço, cor, tamanho e voltagem.</li>
+  <li>Digite o seu CEP pra ver o <b>frete e o prazo</b> de entrega.</li>
+  <li>Finalize no Mercado Livre com Pix, cartão, boleto ou Mercado Pago.</li>
+</ol>
+<h2>Entrega e prazo</h2>
+<ul>
+  <li>O prazo e o frete aparecem no anúncio, depois que você digita o CEP. Eles mudam de acordo com a cidade e o vendedor.</li>
+  <li>Produtos com o selo <b>⚡ FULL</b> saem dos centros de distribuição do Mercado Livre e costumam chegar mais rápido.</li>
+  <li>Perto do Natal, prefira FULL e compre com antecedência.</li>
+  <li>Você acompanha o pedido no app ou no site do Mercado Livre, em <b>Minhas compras</b>.</li>
+</ul>
+<h2>Trocas e devoluções</h2>
+<ul>
+  <li>Troca, devolução e reembolso são feitos <b>pelo Mercado Livre</b>, em <b>Minhas compras → o pedido → Devolver ou Preciso de ajuda</b>.</li>
+  <li>Pelo Código de Defesa do Consumidor, compra pela internet tem <b>7 dias de arrependimento</b> a partir do recebimento.</li>
+  <li>O Mercado Livre tem o programa <b>Compra Garantida</b>: se o produto não chegar ou vier diferente do anúncio, você pede ajuda por lá. Confira as regras atuais na central de ajuda deles.</li>
+</ul>
+<h2>Garantia</h2>
+<p>A garantia é do fabricante ou do vendedor, como está escrito em cada anúncio. Guarde a nota fiscal que vem no pedido.</p>
+<p class="nota">O China em Casa não vende, não recebe pagamento e não envia produtos: somos afiliados do Programa de Afiliados Mercado Livre (#publi). Por isso não temos acesso aos seus pedidos. Ficou com dúvida sobre um achadinho? Fale com a gente pela página de <a href="../contato/">contato</a>.</p>
+<p><a class="btn" href="../">Ver os achadinhos ›</a></p>`
+  },
+  {
     slug: "privacidade", titulo: "Privacidade e links de afiliado", desc: "Política de privacidade e aviso de links de afiliado do China em Casa.",
     corpo: `
 <h1>Privacidade e links de afiliado</h1>
