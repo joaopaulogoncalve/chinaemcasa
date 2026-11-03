@@ -514,6 +514,12 @@
     // nichos novos (ver nichos.md): só aparecem no período e quando tiverem produto
     { id: "casa", nome: "Casa e Cozinha", ic: "🏠", cor: "linear-gradient(135deg,#7a4b2a,#d39b5a)", de: "2026-10-28" },
     { id: "eletro", nome: "Eletrônicos e eletroportáteis", ic: "🔌", cor: "linear-gradient(135deg,#1f2a44,#3d6cb9)", de: "2026-11-04", ate: "2026-11-30" },
+    // 03/11: linhas novas do olheiro (aparecem quando tiver produto aprovado)
+    { id: "tech", nome: "Celulares e informática", ic: "📱", cor: "linear-gradient(135deg,#0f172a,#2563eb)" },
+    { id: "gamer", nome: "Gamer", ic: "🎮", cor: "linear-gradient(135deg,#1e1b4b,#7c3aed)" },
+    { id: "fitness", nome: "Fitness e suplementos", ic: "💪", cor: "linear-gradient(135deg,#14532d,#16a34a)" },
+    { id: "bebe", nome: "Bebês", ic: "👶", cor: "linear-gradient(135deg,#0e7490,#67e8f9)" },
+    { id: "ferramentas", nome: "Ferramentas", ic: "🔧", cor: "linear-gradient(135deg,#7c2d12,#f97316)" },
     { id: "reveillon", nome: "Réveillon", ic: "🥂", cor: "linear-gradient(135deg,#1a1a1a,#c9a227)", de: "2026-12-18", ate: "2026-12-31" },
     { id: "verao", nome: "Verão e férias", ic: "☀️", cor: "linear-gradient(135deg,#00a6d6,#ffb703)", de: "2026-12-18", ate: "2027-02-15" },
     { id: "escola", nome: "Volta às aulas", ic: "🎒", cor: "linear-gradient(135deg,#5b2a86,#ff6f61)", de: "2027-01-10", ate: "2027-02-28" }
@@ -645,7 +651,8 @@
   const NAV = [
     { nome: "☰ Todas as categorias", cls: "todas", cols: 2, itens: CATS.filter(c => c.id === "ofertas-dia" || itensDe(c).length).map(c => lk(c.id, `${c.ic} ${c.nome}`)) },
     { nome: "Natal", itens: [lk("arvore", "Árvore de Natal", "monte a sua: barata ou FULL"), lk("decoracao", "Decoração", "enfeites, luzes, guirlanda"), lk("sacolas", "Cestas e sacolas", "kit pra empresa e ceia")] },
-    { nome: "Casa", itens: CATS.filter(c => ["casa", "eletro", "reveillon", "verao", "escola"].includes(c.id) && itensDe(c).length).map(c => lk(c.id, `${c.ic} ${c.nome}`)) },
+    { nome: "Tecnologia", itens: CATS.filter(c => ["eletro", "tech", "gamer"].includes(c.id) && itensDe(c).length).map(c => lk(c.id, `${c.ic} ${c.nome}`)) },
+    { nome: "Casa", itens: CATS.filter(c => ["casa", "ferramentas", "bebe", "fitness", "reveillon", "verao", "escola"].includes(c.id) && itensDe(c).length).map(c => lk(c.id, `${c.ic} ${c.nome}`)) },
     { nome: "Presentes", itens: [lk("feminino", "Pra ela", "mãe, esposa, namorada"), lk("beleza", "Beleza e cuidados", "perfume, kit de banho, skincare"), lk("presentes", "Pra ele e família", "pai, amigo secreto"), lk("criancas", "Crianças", "brinquedos e pelúcias")] },
     { nome: "Ofertas", itens: [lk("ofertas-dia", "Promoções do dia", "dos vídeos de hoje"), ...CATS.filter(c => c.id === "ofertas" || c.id === "blackfriday").map(c => lk(c.id, c.nome))] },
     { nome: "Lojas", itens: [lk("inicio", "Mercado Livre", "todos os links do site"), (produtos.some(p => p.secao === "shopee") ? lk("shopee", "Shopee", "ofertas com envio nacional") : lk("", "Shopee", "em breve")), lk("", "TikTok Shop", "em breve")] },
