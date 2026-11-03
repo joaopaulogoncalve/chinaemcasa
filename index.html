@@ -246,7 +246,12 @@
   footer { margin-top: 48px; padding: 34px 16px 40px; background: #0f3d24; }
   footer::before { content: ""; display: block; width: 240px; max-width: 80%; height: 80px; margin: 0 auto 16px; border-radius: 18px; background: #fff url("logo-horizontal.jpg") center/92% no-repeat; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
   footer .redes a { background: rgba(255,255,255,.1); transition: background .2s; }
+  footer .lojas-rod img { width: 30px; height: 20px; object-fit: contain; vertical-align: -5px; background: #fff; border-radius: 6px; padding: 2px 3px; }
   footer .redes a:hover { background: rgba(255,255,255,.22); }
+  /* 03/11: logo do Mercado Livre no botão e no selo (indica a loja de destino; somos afiliados, não parceiro oficial) */
+  .logo-loja { width: 22px; height: 15px; object-fit: contain; vertical-align: -3px; margin-right: 4px; }
+  .logo-btn { width: 22px; height: 15px; object-fit: contain; vertical-align: -3px; margin-right: 6px; }
+  .btn::after { content: ""; }
   @media (max-width: 600px) { .selos-conf { gap: 6px; } .selos-conf span { font-size: .7rem; padding: 4px 10px; } }
 </style>
 </head>
@@ -277,7 +282,7 @@
 </section>
 
 <main class="wrap" id="inicio">
-  <div class="selos-conf"><span><b>✔</b> Afiliado do Programa de Afiliados Mercado Livre</span><span><b>✔</b> Afiliado Shopee</span><span><b>✔</b> Você compra direto no site oficial da loja</span><span><b>✔</b> Entrega e garantia pela própria loja</span></div>
+  <div class="selos-conf"><span><img class="logo-loja" src="img/ml-icone.png" alt="Mercado Livre"> Afiliado do Programa de Afiliados Mercado Livre</span><span><b>✔</b> Afiliado Shopee</span><span><b>✔</b> Você compra direto no site oficial da loja</span><span><b>✔</b> Entrega e garantia pela própria loja</span></div>
   <p class="aviso">#publi · Os botões são links de afiliado do Mercado Livre: posso ganhar uma comissão, sem custo extra pra você. Preço e estoque mudam; confira na loja.</p>
 
   <div id="conteudo"></div>
@@ -296,7 +301,8 @@
     <a href="https://br.pinterest.com/chinaemcasa">Pinterest</a>
   </div>
   <p class="inst"><a href="sobre/">Sobre nós</a> · <a href="contato/">Contato</a> · <a href="privacidade/">Privacidade e afiliados</a> · <a href="blog/">Blog</a></p>
-  <p>China em Casa · links de afiliado do Mercado Livre (#publi). Preços e prazos são da loja.</p>
+  <p class="lojas-rod">Você compra direto em <img src="img/ml-icone.png" alt=""> <b>Mercado Livre</b></p>
+  <p>China em Casa · links de afiliado do Mercado Livre (#publi). Preços e prazos são da loja. Mercado Livre é marca do seu dono; somos afiliados, não parceiro oficial.</p>
 </footer>
 
 <script>
@@ -555,7 +561,7 @@
       : p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">` : esc(p.icone || "🎄");
     const et = p.etiqueta || "", full = /FULL/i.test(et);
     const botoes = (p.links || [p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml }, p.shopee && { rotulo: "Ver na Shopee", url: p.shopee, cls: "shopee" }].filter(Boolean))
-      .map(b => `<a class="btn ${b.cls || ""}" href="${esc(b.url)}" target="_blank" rel="noopener sponsored">${esc(b.rotulo)}</a>`).join("");
+      .map(b => `<a class="btn ${b.cls || ""}" href="${esc(b.url)}" target="_blank" rel="noopener sponsored">${b.cls === "shopee" ? "" : `<img class="logo-btn" src="img/ml-icone.png" alt="">`}${esc(b.rotulo)}</a>`).join("");
     return `<article data-id="${esc(p.id)}" class="prod${p.foto && p.foto2 ? " tem2" : ""}"><div class="img">${img}${et && !p.selo ? `<span class="tag ${full ? "full" : ""}">${esc(full ? "⚡ FULL · chega rápido" : et)}</span>` : ""}${idsHoje.has(p.id) ? `<span class="tag hoje">HOJE</span>` : novo(p) ? `<span class="tag hoje">NOVO</span>` : ""}</div>
       <div class="corpo">${p.idml ? `<span class="cod">ID ${esc(p.idml)}</span>` : p.cod ? `<span class="cod">Cód. ${p.cod}</span>` : ""}<h3>${esc(p.nome.replace(/^Ou: |^\d+\. |^\+ /, ""))}</h3><p>${esc(p.texto || "")}</p><div class="botoes">${botoes}</div></div></article>`;
   }
@@ -675,7 +681,7 @@
   document.getElementById("dia-data").textContent = diasPromo.some(d => d >= ontemPromo) ? diasPromo.filter(d => d >= ontemPromo).map(d => d.split("-").reverse().slice(0, 2).join("/")).join(" e ") : "";
   // hoje/ontem primeiro; depois os outros produtos dos vídeos da agenda, pra faixa girar
   const promoFaixa = [...new Set([...promo, ...Object.keys(AGENDA).sort().reverse().flatMap(d => AGENDA[d]).map(id => porId[id]).filter(Boolean)])];
-  document.getElementById("dia-trilho").innerHTML = promoFaixa.map(p => `<a class="dmini" href="${esc((p.links && p.links[0].url) || p.ml)}" target="_blank" rel="noopener sponsored">${p.foto ? `<img src="${esc(p.foto)}" alt="">` : `<i>${esc(p.icone || "🎄")}</i>`}<span><b>${esc(p.nome)}</b><small>${esc(p.texto || p.etiqueta || "")}</small><em>${idsHoje.has(p.id) ? "HOJE · " : ""}Ver no ML</em></span></a>`).join("") || "<span class=\"dia-cab\"><span>Sem promoção hoje</span></span>";
+  document.getElementById("dia-trilho").innerHTML = promoFaixa.map(p => `<a class="dmini" href="${esc((p.links && p.links[0].url) || p.ml)}" target="_blank" rel="noopener sponsored">${p.foto ? `<img src="${esc(p.foto)}" alt="">` : `<i>${esc(p.icone || "🎄")}</i>`}<span><b>${esc(p.nome)}</b><small>${esc(p.texto || p.etiqueta || "")}</small><em><img class="logo-btn" src="img/ml-icone.png" alt="">${idsHoje.has(p.id) ? "HOJE · " : ""}Ver no ML</em></span></a>`).join("") || "<span class=\"dia-cab\"><span>Sem promoção hoje</span></span>";
 
   // Promoções do dia giram sozinhas (param quando a pessoa toca ou passa o mouse)
   const diaTr = document.getElementById("dia-trilho"); let diaParado = false;
