@@ -26,6 +26,12 @@ module.exports = [
       ["🏷️", "Produto participante", "O cupom vale só pra alguns produtos ou categorias: leia as condições."],
       ["⏰", "Acabou", "Cupom de data especial esgota rápido. Ative e compre no mesmo dia."],
       ["🔁", "Outro vendedor", "O mesmo produto às vezes tem outro anúncio que aceita o cupom."]] },
+    // 03/11: o que aparece na página de cupons do ML na temporada (prints do João)
+    { h2: "Cupom relâmpago: tem hora pra começar e pra acabar", dicas: [
+      ["⏰", "Tem horário", "Alguns cupons são liberados num horário marcado (ex.: 17h ou 18h) e somem quando o contador zera. Na página de cupons aparece \"Encerra em\" e \"Disponível às\"."],
+      ["🧮", "Tem limite", "Cupom de porcentagem costuma ter limite de desconto (ex.: 15% OFF com limite de R$ 20). Leia o \"Limite de desconto\" embaixo de cada um."],
+      ["🎯", "Tem categoria", "Cada cupom vale numa área: queima de estoque, casa e construção, celular e tech, lojas oficiais ou o site todo."],
+      ["➕", "Dá pra combinar", "O Mercado Livre mostra que dá pra somar cupom relâmpago com cupom Mercado Pago e desconto no Pix ou no cartão."]] },
     { h2: "Presentes de Natal pra aproveitar no 11.11", produtos: [
       { nome: "Projetor de Natal com 16 desenhos", foto: "projetor-natal.jpg", texto: "Decora a parede inteira sem subir em escada: um dos que mais chamam atenção nos nossos vídeos.", link: L("1GbERNw") },
       { nome: "Copo térmico 1,2 L", foto: "copo-termico.jpg", texto: "Presente seguro pra amigo secreto: serve pra qualquer pessoa.", link: L("2Vj2S25") },
