@@ -4,6 +4,28 @@ const L = c => "https://meli.la/" + c;
 
 module.exports = [
 {
+  // 03/11: 11.11 → Black Friday (ML anunciou +R$ 100 mi em cupons na temporada). Só fatos; sem prometer valor de cupom nem "sem juros".
+  slug: "cupom-mercado-livre-11-11-black-friday",
+  titulo: "Cupom Mercado Livre no 11.11 e na Black Friday: como usar e economizar nos presentes (2026)",
+  h1: "Cupom Mercado Livre no 11.11 e na Black Friday: como usar e economizar no Natal",
+  descricao: "Passo a passo pra ativar e usar cupom do Mercado Livre no 11.11 e na Black Friday 2026, o que fazer se o cupom não entra e quais presentes de Natal aproveitar.",
+  capa: "projetor-natal.jpg", atualizado: "novembro de 2026",
+  intro: ["O <strong>11.11</strong> abre a temporada de promoções que vai até a <strong>Black Friday (27/11)</strong>. O Mercado Livre anunciou mais de R$ 100 milhões em cupons pra esse período. Ou seja: dá pra comprar os presentes de Natal pagando menos, desde que você <strong>ative o cupom antes de comprar</strong>.", "Abaixo, o passo a passo, os erros mais comuns e os achadinhos de Natal que valem a pena olhar nessas datas."],
+  resumo: ["🎟️ <strong>Regra de ouro:</strong> ative o cupom no app ANTES de colocar no carrinho.", "📅 <strong>Datas:</strong> 11.11 (11/11) e Black Friday (27/11); cupom novo aparece quase todo dia.", "💳 <strong>Pagamento:</strong> veja as opções de parcelar pelo Mercado Pago na hora de pagar."],
+  secoes: [
+    { h2: "Como ativar e usar o cupom (passo a passo)", texto: ["<strong>1.</strong> Abra o app do Mercado Livre e entre na sua conta.", "<strong>2.</strong> Toque em <strong>Cupons</strong> (no menu ou na tela inicial).", "<strong>3.</strong> Toque em <strong>Ativar</strong> nos cupons que servirem. Recebeu um código? Use <strong>Inserir código</strong>.", "<strong>4.</strong> Escolha o produto (pode ser por aqui, nos links abaixo) e vá pro carrinho.", "<strong>5.</strong> Confira se o desconto entrou antes de pagar. Os cupons ativos ficam em <strong>Meus cupons</strong>.", "Tem o passo a passo com figurinhas na nossa página <a href=\"../../cupom/\">Como usar cupom</a>."] },
+    { h2: "O cupom não entrou? Veja o que pode ser", texto: ["<strong>Valor mínimo:</strong> quase todo cupom pede um valor mínimo de compra. Junte 2 presentes no mesmo carrinho.", "<strong>Produto participante:</strong> o cupom vale só pra alguns produtos ou categorias; leia as condições dele.", "<strong>Acabou:</strong> cupom de data especial esgota rápido. Ative e compre no mesmo dia.", "<strong>Outro vendedor:</strong> o mesmo produto às vezes tem outro anúncio que aceita o cupom."] },
+    { h2: "Presentes de Natal pra aproveitar no 11.11", produtos: [
+      { nome: "Projetor de Natal com 16 desenhos", foto: "projetor-natal.jpg", texto: "Decora a parede inteira sem subir em escada: um dos que mais chamam atenção nos nossos vídeos.", link: L("1GbERNw") },
+      { nome: "Copo térmico 1,2 L", foto: "copo-termico.jpg", texto: "Presente seguro pra amigo secreto: serve pra qualquer pessoa.", link: L("2Vj2S25") },
+      { nome: "Kit 10 sacolinhas térmicas Papai Noel", foto: "sacola-noel-pequena.jpg", texto: "Presente que já vem embrulhado; bom pra lembrancinha da firma.", link: L("1poFz8Z") }] },
+    { h2: "11.11 ou Black Friday: quando comprar?", texto: ["Se o produto é <strong>presente de Natal</strong>, não deixe tudo pra Black Friday: os mais vendidos podem esgotar e a entrega fica mais disputada perto do fim do ano.", "Uma estratégia simples: compre no <strong>11.11</strong> o que você já sabe que quer e deixe pra <strong>Black Friday</strong> o que ainda está pesquisando. A partir de 15/12, prefira entrega FULL (chega mais rápido)."] }],
+  faq: [["Quando é o 11.11 do Mercado Livre?", "No dia 11 de novembro. A temporada de promoções segue até a Black Friday, em 27 de novembro de 2026."],
+        ["Onde ficam os cupons do Mercado Livre?", "No app, na área Cupons. Os que você ativou ficam em Meus cupons."],
+        ["Dá pra usar cupom e parcelar?", "Na maioria das compras, sim: o desconto entra antes e você escolhe as parcelas na hora de pagar. As condições mudam por produto, então confira na tela de pagamento."],
+        ["O China em Casa vende os produtos?", "Não. Indicamos produtos do Mercado Livre por links de afiliado (#publi): podemos ganhar uma comissão, sem custo extra pra você. Preço, cupom e entrega são do Mercado Livre."]]
+},
+{
   slug: "arvore-de-natal-completa-barata",
   titulo: "Árvore de Natal completa barata: 3 opções que chegam rápido (2026)",
   h1: "Árvore de Natal completa barata: 3 opções que chegam rápido",
