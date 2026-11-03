@@ -95,6 +95,6 @@ ${topo("../")}
 ${rodape("../")}`);
 
 // Sitemap
-const urls = [`${BASE}/`, `${BASE}/blog/`, `${BASE}/sobre/`, `${BASE}/contato/`, `${BASE}/privacidade/`, ...artigos.map(a => `${BASE}/blog/${a.slug}/`)];
+const urls = [`${BASE}/`, `${BASE}/blog/`, `${BASE}/sobre/`, `${BASE}/contato/`, `${BASE}/privacidade/`, `${BASE}/cupom/`, ...artigos.map(a => `${BASE}/blog/${a.slug}/`)];
 fs.writeFileSync(path.join(__dirname, "..", "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${u}</loc><lastmod>2026-10-31</lastmod></url>`).join("\n")}\n</urlset>\n`);
 console.log("ok", artigos.length, "artigos");

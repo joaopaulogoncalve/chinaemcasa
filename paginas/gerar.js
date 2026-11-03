@@ -38,6 +38,30 @@ const paginas = [
 <p class="nota">Nunca pedimos senha, dados de cartão ou pagamento por fora. Se alguém fizer isso em nosso nome, é golpe.</p>`
   },
   {
+    // 03/11: passo a passo do cupom pro 11.11 e Black Friday (banner do site aponta pra cá); só o que é verdade, sem prometer valor
+    slug: "cupom", titulo: "Como usar cupom no Mercado Livre (11.11 e Black Friday)", desc: "Passo a passo pra pegar e usar cupom de desconto no Mercado Livre no 11.11 e na Black Friday, e onde ver a opção de parcelar.",
+    corpo: `
+<h1>🎟️ Como usar cupom no Mercado Livre</h1>
+<p class="lead">Do 11.11 até a Black Friday (27/11) o Mercado Livre libera cupons todo dia. Leva 1 minuto e pode deixar o presente mais barato.</p>
+<h2>Passo a passo</h2>
+<ol>
+  <li><b>Abra o app do Mercado Livre</b> (ou o site) e entre na sua conta.</li>
+  <li>Toque em <b>Cupons</b> (no menu ou na tela inicial). Ali aparecem os cupons disponíveis pra você.</li>
+  <li>Toque em <b>Ativar</b> nos que servirem. Recebeu um código? Use <b>Inserir código</b> e digite igualzinho (maiúsculas contam).</li>
+  <li>Volte aqui no <a href="../">China em Casa</a>, escolha o achadinho e toque em <b>Ver no Mercado Livre</b>.</li>
+  <li>No carrinho ou no pagamento, confira se o desconto entrou (cupons ativos ficam em <b>Meus cupons</b>).</li>
+  <li>Na hora de pagar, veja as opções de <b>parcelamento pelo Mercado Pago</b>.</li>
+</ol>
+<h2>O cupom não entrou?</h2>
+<ul>
+  <li>Quase todo cupom tem <b>valor mínimo</b> de compra e vale só pra <b>produtos participantes</b>: leia as condições no próprio cupom.</li>
+  <li>Cupom acaba rápido: ative e compre no mesmo dia.</li>
+  <li>Teste pelo app e pelo site, ou outro vendedor do mesmo produto.</li>
+</ul>
+<p class="nota">Os cupons são do Mercado Livre: valores, regras e parcelas mudam a cada dia e são definidos por eles. O China em Casa só indica produtos (links de afiliado #publi: posso ganhar uma comissão, sem custo extra pra você).</p>
+<p><a class="btn" href="../#ofertas">Ver os achadinhos ›</a></p>`
+  },
+  {
     slug: "privacidade", titulo: "Privacidade e links de afiliado", desc: "Política de privacidade e aviso de links de afiliado do China em Casa.",
     corpo: `
 <h1>Privacidade e links de afiliado</h1>
@@ -84,6 +108,8 @@ const html = p => `<!doctype html>
   a { color: var(--vermelho); }
   ul { padding-left: 20px; }
   .nota { margin-top: 24px; background: var(--card); border: 1px solid var(--linha); border-radius: 12px; padding: 14px 16px; font-size: .92rem; }
+  .btn { display: inline-block; margin-top: 18px; background: #c8102e; color: #fff; text-decoration: none; font-weight: 700; padding: 12px 20px; border-radius: 999px; }
+  ol li { margin: 8px 0; }
   .cards { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 16px 0; }
   .card { display: block; text-decoration: none; color: var(--texto); background: var(--card); border: 1px solid var(--linha); border-radius: 14px; padding: 14px 16px; }
   .card b { display: block; font-size: 1.02rem; }
