@@ -246,6 +246,42 @@
   footer { margin-top: 48px; padding: 34px 16px 40px; background: #0f3d24; }
   footer::before { content: ""; display: block; width: 240px; max-width: 80%; height: 80px; margin: 0 auto 16px; border-radius: 18px; background: #fff url("logo-horizontal.jpg") center/92% no-repeat; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
   footer .redes a { background: rgba(255,255,255,.1); transition: background .2s; }
+  /* ===== Loja grande (03/11) ===== */
+  body:not(.bf) .faixa-top { background: #ffe14d; color: #2a1d17; font-size: .74rem; letter-spacing: .4px; font-weight: 600; justify-content: space-around; }
+  body:not(.bf) .faixa-top b { color: var(--vermelho); }
+  body:not(.bf) .topo { background: #1f1a17; color: #fff; }
+  body:not(.bf) .marca b { color: #fff; }
+  body:not(.bf) .marca small { color: #e9dccb; }
+  .marca img { width: 58px; height: 58px; border-radius: 16px; }
+  body:not(.bf) .busca { background-color: #fff; }
+  body:not(.bf) .nav { border-top: 0; }
+  body:not(.bf) .menu { background: #fff; padding-top: 10px; }
+  .vant2 { background: #ece6dd; color: #5d5047; display: flex; justify-content: safe center; gap: clamp(14px, 4vw, 54px); padding: 10px 16px; font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .3px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+  .vant2::-webkit-scrollbar { display: none; }
+  .vant2 i { font-style: normal; font-size: 1.05rem; margin-right: 6px; filter: grayscale(.2); }
+  .siga { margin-top: 48px; }
+  .siga-in { max-width: 1180px; margin: 0 auto; padding: 0 16px; display: grid; gap: 16px; }
+  @media (min-width: 860px) { .siga-in { grid-template-columns: 1fr 1.4fr; } }
+  .siga-insta { text-align: center; background: var(--card); border-radius: var(--raio); box-shadow: var(--sombra); padding: 24px 16px; }
+  .siga-insta h2, .siga-zap h2 { margin: 0; font: 800 1.4rem var(--f-tit); }
+  .siga-insta p, .siga-zap p { margin: 4px 0 14px; color: var(--muted); }
+  .siga-insta a { display: inline-block; background: #111; color: #fff; text-decoration: none; font-weight: 800; padding: 12px 20px; border-radius: 10px; }
+  .siga-zap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; background: #f1ece4; border-radius: var(--raio); padding: 22px 22px; }
+  .siga-zap a { background: #25d366; color: #fff; text-decoration: none; font-weight: 800; padding: 13px 24px; border-radius: 10px; }
+  footer { text-align: left; }
+  .rod-col { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 22px; }
+  .rod-col h3 { margin: 0 0 8px; font: 800 .9rem var(--f-txt); text-transform: uppercase; letter-spacing: .5px; color: #fff; }
+  .rod-col a { display: block; color: #d9eadf; text-decoration: none; padding: 3px 0; }
+  .rod-col a:hover { color: #fff; text-decoration: underline; }
+  .rod-col p { margin: 0 0 8px; max-width: none; text-align: left; font-size: .85rem; }
+  .rod-col p a { display: inline; color: #fff; text-decoration: underline; }
+  .rod-selos { max-width: 1180px; margin: 22px auto 10px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.15); display: flex; flex-wrap: wrap; justify-content: space-around; gap: 16px; text-align: center; }
+  .rod-selos small { display: block; margin-bottom: 6px; opacity: .8; }
+  .rod-selos span { display: inline-block; background: #fff; color: #2a1d17; font-weight: 800; font-size: .76rem; padding: 4px 9px; border-radius: 6px; margin: 2px; }
+  .rod-selos .ml img { width: 22px; height: 15px; object-fit: contain; vertical-align: -3px; }
+  footer > p { text-align: center; }
+  footer .inst, footer .lojas-rod { display: none; }
+  footer > p:last-of-type { font-size: .76rem; opacity: .75; margin-top: 10px; }
   footer .lojas-rod img { width: 30px; height: 20px; object-fit: contain; vertical-align: -5px; background: #fff; border-radius: 6px; padding: 2px 3px; }
   footer .redes a:hover { background: rgba(255,255,255,.22); }
   /* 03/11: logo do Mercado Livre no botão e no selo (indica a loja de destino; somos afiliados, não parceiro oficial) */
@@ -264,9 +300,9 @@
 </head>
 <body>
 <div class="faixa-top" id="faixa-top">
-  <span>🔒 Compra segura direto no <b>Mercado Livre</b></span>
-  <span>⚡ Produtos <b>FULL</b> chegam rápido</span>
-  <span>🎁 Presentes escolhidos a dedo</span>
+  <span>🎁 ACHADINHOS ESCOLHIDOS A DEDO, <b>PREÇO QUE CABE NO BOLSO</b></span>
+  <span>🔒 VOCÊ COMPRA DIRETO NO <b>MERCADO LIVRE</b></span>
+  <span>💬 <b>OFERTAS TODO DIA</b> NO CANAL DO WHATSAPP</span>
 </div>
 <header class="topo">
   <div class="pisca" aria-hidden="true"></div>
@@ -278,6 +314,12 @@
   <nav class="nav" id="nav" aria-label="Menu da loja"></nav>
   <nav class="menu" id="menu" aria-label="Categorias"></nav>
 </header>
+<div class="vant2" aria-label="Vantagens">
+  <span><i>🧭</i> Escolhidos a dedo</span>
+  <span><i>⚡</i> Entrega FULL rápida</span>
+  <span><i>🛡️</i> Garantia do Mercado Livre</span>
+  <span><i>🎟️</i> Dicas de cupom</span>
+</div>
 <section class="banners" id="banners" aria-roledescription="carrossel" aria-label="Destaques">
   <div class="trilha" id="trilha"></div>
   <button class="seta esq" id="ant" aria-label="Banner anterior">‹</button>
@@ -299,8 +341,25 @@
 </main>
 
 <a class="zap-flutua" href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener" aria-label="Entrar no canal de ofertas do WhatsApp"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>Ofertas no WhatsApp</span></a>
+<section class="siga">
+  <div class="siga-in">
+    <div class="siga-insta"><h2>📸 Instagram</h2><p>Os vídeos dos achadinhos, todo dia</p><a href="https://www.instagram.com/chin_aemcasa" target="_blank" rel="noopener">Siga @chin_aemcasa →</a></div>
+    <div class="siga-zap"><div><h2>💬 Canal de ofertas</h2><p>Receba os achadinhos e os cupons do dia no seu WhatsApp. Sem spam.</p></div><a href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener">Entrar no canal</a></div>
+  </div>
+</section>
 <footer>
-  <div class="redes">
+  <div class="rod-col">
+    <div><h3>Atendimento</h3><p>Fale com a gente pelo <a href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener">canal do WhatsApp</a> ou pela página de <a href="contato/">contato</a>.</p><p>Dúvidas sobre pedido, entrega ou troca: direto no Mercado Livre (Minhas compras).</p></div>
+    <div><h3>Institucional</h3><a href="sobre/">Sobre o China em Casa</a><a href="contato/">Contato</a><a href="privacidade/">Privacidade e afiliados</a><a href="blog/">Blog</a></div>
+    <div><h3>Ajuda</h3><a href="blog/cupom-mercado-livre-11-11-black-friday/">Como usar cupom</a><a href="blog/presentes-de-natal-ate-50-reais/">Presentes até R$ 50</a><a href="blog/presente-de-amigo-secreto-barato/">Amigo secreto</a><a href="blog/arvore-de-natal-completa-barata/">Árvore barata</a></div>
+    <div><h3>Redes</h3><a href="https://www.tiktok.com/@china.em.casa">TikTok</a><a href="https://www.instagram.com/chin_aemcasa">Instagram</a><a href="https://www.youtube.com/@ChinaemCasa">YouTube</a><a href="https://br.pinterest.com/chinaemcasa">Pinterest</a></div>
+  </div>
+  <div class="rod-selos">
+    <div><small>Pagamento (no Mercado Livre)</small><span>💳 Cartão</span><span>⚡ Pix</span><span>🧾 Boleto</span><span>🤝 Mercado Pago</span></div>
+    <div><small>Entrega (pelo Mercado Livre)</small><span>⚡ FULL</span><span>📦 Correios e transportadoras</span></div>
+    <div><small>Você compra em</small><span class="ml"><img src="img/ml-icone.png" alt=""> Mercado Livre</span></div>
+  </div>
+  <div class="redes" hidden>
     <a href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n">WhatsApp</a>
     <a href="https://www.tiktok.com/@china.em.casa">TikTok</a>
     <a href="https://www.instagram.com/chin_aemcasa">Instagram</a>
