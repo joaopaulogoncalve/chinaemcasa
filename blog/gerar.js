@@ -15,6 +15,7 @@ const cabeca = (titulo, descricao, canonico, extra = "") => `<!doctype html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(titulo)}</title>
+<meta property="og:site_name" content="China em Casa Achadinhos">
 <meta name="description" content="${esc(descricao)}">
 <link rel="canonical" href="${canonico}">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
@@ -91,7 +92,7 @@ for (const a of artigos) {
 
 // Índice do blog: 1º artigo em destaque + grade com os outros
 const [primeiro, ...outros] = artigos;
-fs.writeFileSync(path.join(__dirname, "index.html"), `${cabeca("Blog China em Casa: ideias de Natal, presentes e decoração", "Guias de compra de Natal: árvore, decoração e presentes baratos no Mercado Livre, com comparativos e dicas.", `${BASE}/blog/`)}
+fs.writeFileSync(path.join(__dirname, "index.html"), `${cabeca("Blog China em Casa Achadinhos: ideias de Natal, presentes e decoração", "Guias de compra de Natal: árvore, decoração e presentes baratos no Mercado Livre, com comparativos e dicas.", `${BASE}/blog/`)}
 ${topo("../")}
 <section class="hero-blog"><div class="wrap"><span class="chip">🎄 GUIAS DE NATAL 2026</span><h1>Ideias de Natal que cabem no bolso</h1><p>Comparativos e listas de presentes e decoração, com o que vale a pena e o que chega a tempo.</p></div></section>
 <main class="wrap">

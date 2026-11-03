@@ -94,7 +94,8 @@ const html = p => `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${p.titulo} · China em Casa</title>
+<title>${p.titulo} · China em Casa Achadinhos</title>
+<meta property="og:site_name" content="China em Casa Achadinhos">
 <meta name="description" content="${p.desc}">
 <link rel="canonical" href="${BASE}/${p.slug}/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
