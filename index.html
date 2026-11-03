@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>China em Casa — Achadinhos de Natal</title>
 <meta name="description" content="Achadinhos de Natal: decoração, árvore, presentes pra ela, pra ele e pras crianças. Links de afiliado #publi">
-<link rel="icon" href="icone.jpg"><link rel="apple-touch-icon" href="icone-512.jpg"><meta property="og:image" content="https://joaopaulogoncalve.github.io/chinaemcasa/icone-512.jpg"><text y='.9em' font-size='90'>🎄</text></svg>">
+<link rel="icon" href="icone.jpg"><link rel="apple-touch-icon" href="icone-512.jpg"><meta property="og:image" content="https://joaopaulogoncalve.github.io/chinaemcasa/icone-512.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
@@ -252,6 +252,11 @@
   .logo-loja { width: 22px; height: 15px; object-fit: contain; vertical-align: -3px; margin-right: 4px; }
   .logo-btn { width: 22px; height: 15px; object-fit: contain; vertical-align: -3px; margin-right: 6px; }
   .btn::after { content: ""; }
+  .logos-ban { display: flex; align-items: center; justify-content: center; gap: clamp(8px, 2vw, 18px); position: relative; z-index: 2; }
+  .logos-ban img { width: clamp(64px, 11vw, 130px); height: clamp(64px, 11vw, 130px); object-fit: contain; background: #fff; border-radius: 26px; padding: 10px; box-shadow: 0 10px 24px rgba(0,0,0,.3); }
+  .ban-logos h2 { font-size: clamp(1.15rem, 3.6vw, 2.5rem); }
+  @media (max-width: 600px) { .ban-logos p { display: none; } .ban-logos { grid-template-columns: 1.3fr 1fr; } .logos-ban img { width: 54px; height: 54px; border-radius: 16px; padding: 6px; } }
+  .logos-ban span { color: #ffe600; font: 800 clamp(1.4rem, 4vw, 2.6rem) var(--f-tit); }
   .dmini em img.logo-btn { width: 22px; height: 15px; flex: none; display: inline-block; border-radius: 0; background: none; object-fit: contain; margin: 0 6px 0 0; vertical-align: -3px; }
   .dmini em { display: inline-flex; align-items: center; width: fit-content; }
   @media (max-width: 600px) { .selos-conf { gap: 6px; } .selos-conf span { font-size: .7rem; padding: 4px 10px; } }
@@ -618,6 +623,8 @@
   // de/ate = período em que o banner aparece. breve: loja que ainda não temos (Shopee, TikTok Shop) — aparece como "em breve".
   const natal = new Date("2026-12-25T00:00:00-03:00"), faltam = Math.max(0, Math.ceil((natal - new Date(HOJE + "T12:00:00-03:00")) / 864e5));
   const BANNERS = [
+    // 03/11: banner de confiança (somos afiliados do PROGRAMA de afiliados; nunca "afiliado oficial" nem "parceiro oficial")
+    { cor: "linear-gradient(120deg,#2d3277,#3d4fb3)", sobre: "Compra segura", tit: "Afiliado do Programa de Afiliados Mercado Livre", txt: "A gente escolhe os achadinhos; você compra direto no Mercado Livre, com entrega, garantia e devolução da própria loja.", cta: "Ver achadinhos ›", link: "#arvore", logos: ["icone.jpg", "img/ml-icone.png"] },
     // 03/11: cupons da temporada 11.11 → Black Friday; leva pro passo a passo (página cupom/)
     { de: "2026-11-04", ate: "2026-11-30", cor: "linear-gradient(120deg,#ff6a00,#c8102e)", sobre: "Antes de comprar", tit: "Pegue seu cupom 🎟️", txt: "Passo a passo: ative o cupom no app do Mercado Livre e depois compre pelo link", cta: "Ver o passo a passo ›", link: "blog/cupom-mercado-livre-11-11-black-friday/", grande: "🎟️", fotos: ["img/cupom-banner.jpg"] },
     { ate: "2026-11-11", cor: "linear-gradient(120deg,#ee0979,#ff6a00)", sobre: "Mercado Livre", tit: "Ofertas 11.11", txt: "As melhores ofertas do dia 11 de novembro, escolhidas pra você", cta: "Ver ofertas ›", link: "#ofertas", grande: "11.11", fotos: ["img/projetor-natal.jpg", "img/kit-relogio.jpg"] },
@@ -638,9 +645,9 @@
     { breve: true, cor: "linear-gradient(120deg,#010101,#25f4ee 140%)", sobre: "TikTok Shop", tit: "Ofertas TikTok Shop", txt: "Compre direto pelo TikTok", cta: "Em breve", grande: "♪" }
   ].filter(b => (!b.de || HOJE >= b.de) && (!b.ate || HOJE <= b.ate) && (!b.cat || produtos.some(p => p.secao === b.cat)));
   const trilha = document.getElementById("trilha"), pontos = document.getElementById("pontos");
-  trilha.innerHTML = BANNERS.map(b => `<a class="banner" ${b.link ? `href="${b.link}"${b.link.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}` : ""} style="background:${b.cor}"><span class="grande" aria-hidden="true">${b.grande || ""}</span>
+  trilha.innerHTML = BANNERS.map(b => `<a class="banner${b.logos ? " ban-logos" : ""}" ${b.link ? `href="${b.link}"${b.link.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}` : ""} style="background:${b.cor}"><span class="grande" aria-hidden="true">${b.grande || ""}</span>
     <div class="txt"><small>${esc(b.sobre)}</small><h2>${esc(b.tit)}</h2><p>${esc(b.txt)}</p><span class="cta ${b.breve ? "breve" : ""}">${esc(b.cta)}</span></div>
-    <div class="fotos">${(b.fotos || []).map(f => `<img src="${f}" alt="">`).join("")}</div></a>`).join("");
+    ${b.logos ? `<div class="logos-ban">${b.logos.map((f, i) => `${i ? "<span>+</span>" : ""}<img src="${f}" alt="">`).join("")}</div>` : `<div class="fotos">${(b.fotos || []).map(f => `<img src="${f}" alt="">`).join("")}</div>`}</a>`).join("");
   pontos.innerHTML = BANNERS.map((b, i) => `<button aria-label="Banner ${i + 1}"></button>`).join("");
   let atual = 0, parado = false;
   const ir = i => { atual = (i + BANNERS.length) % BANNERS.length; trilha.style.transform = `translateX(-${atual * 100}%)`; [...pontos.children].forEach((p, j) => p.classList.toggle("ativo", j === atual)); };
