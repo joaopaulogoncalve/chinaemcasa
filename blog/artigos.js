@@ -9,12 +9,12 @@ module.exports = [
   titulo: "Cupom Mercado Livre no 11.11 e na Black Friday: como usar e economizar nos presentes (2026)",
   h1: "Cupom Mercado Livre no 11.11 e na Black Friday: como usar e economizar no Natal",
   descricao: "Passo a passo pra ativar e usar cupom do Mercado Livre no 11.11 e na Black Friday 2026, o que fazer se o cupom não entra e quais presentes de Natal aproveitar.",
-  capa: "projetor-natal.jpg", atualizado: "novembro de 2026",
+  capa: "cupom-capa.jpg", atualizado: "novembro de 2026",
   faixa: { cor: "linear-gradient(120deg,#ff6a00,#c8102e)", sobre: "Temporada de cupons", tit: "11.11 → Black Friday (27/11)", txt: "Ative o cupom antes de comprar 🎟️", grande: "11.11", conta: [["11.11", "2026-11-11"], ["Black Friday", "2026-11-27"]] },
   intro: ["O <strong>11.11</strong> abre a temporada de promoções que vai até a <strong>Black Friday (27/11)</strong>. O Mercado Livre anunciou mais de R$ 100 milhões em cupons pra esse período. Ou seja: dá pra comprar os presentes de Natal pagando menos, desde que você <strong>ative o cupom antes de comprar</strong>.", "Abaixo, o passo a passo, os erros mais comuns e os achadinhos de Natal que valem a pena olhar nessas datas."],
   resumo: ["🎟️ <strong>Regra de ouro:</strong> ative o cupom no app ANTES de colocar no carrinho.", "📅 <strong>Datas:</strong> 11.11 (11/11) e Black Friday (27/11); cupom novo aparece quase todo dia.", "💳 <strong>Pagamento:</strong> veja as opções de parcelar pelo Mercado Pago na hora de pagar."],
   secoes: [
-    { h2: "Como ativar e usar o cupom (passo a passo)", passos: [
+    { h2: "Como ativar e usar o cupom (passo a passo)", img: "cupom-celular.jpg", passos: [
       { icone: "📱", tela: "Mercado Livre", tit: "Abra o app", txt: "Entre no app do Mercado Livre (ou no site) com a sua conta." },
       { icone: "🎟️", tela: "Cupons", tit: "Toque em Cupons", txt: "Fica no menu ou na tela inicial. Ali aparecem os cupons disponíveis pra você." },
       { icone: "✅", tela: "Ativar", tit: "Ative os que servirem", txt: "Toque em <strong>Ativar</strong>. Recebeu um código? Use <strong>Inserir código</strong> e digite igualzinho." },

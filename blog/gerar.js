@@ -69,7 +69,7 @@ ${a.faixa ? `<div class="faixa-art" style="background:${a.faixa.cor}"><img src="
 ${a.intro.map(p => `<p>${p}</p>`).join("\n")}
 <div class="resumo"><strong>Resumo rápido:</strong><br>${a.resumo.join("<br>")}</div>
 ${a.tabela ? `<h2 id="${ancora(a.tabela.titulo)}">${esc(a.tabela.titulo)}</h2><div class="tabela"><table><tr>${a.tabela.cab.map(c => `<th>${esc(c)}</th>`).join("")}</tr>${a.tabela.linhas.map(l => `<tr>${l.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</table></div>` : ""}
-${a.secoes.map(s => `<h2 id="${ancora(s.h2)}">${esc(s.h2)}</h2>${(s.texto || []).map(p => `<p>${p}</p>`).join("")}${passos(s)}${dicas(s)}${(s.produtos || []).map(card).join("")}${vitrine(s)}`).join("\n")}
+${a.secoes.map(s => `<h2 id="${ancora(s.h2)}">${esc(s.h2)}</h2>${s.img ? `<img class="sec-img" src="../../img/${s.img}" alt="" loading="lazy">` : ""}${(s.texto || []).map(p => `<p>${p}</p>`).join("")}${passos(s)}${dicas(s)}${(s.produtos || []).map(card).join("")}${vitrine(s)}`).join("\n")}
 <h2 id="perguntas-frequentes">Perguntas frequentes</h2><div class="faq">${a.faq.map(([q, r]) => `<details><summary>${esc(q)}</summary><p>${esc(r)}</p></details>`).join("")}</div>
 <div class="chamada"><h2>Quer receber os achadinhos do dia?</h2><p>Mando as melhores ofertas de Natal no canal do WhatsApp, sem spam.</p>
 <a class="btn zap" href="${ZAP}" target="_blank" rel="noopener">Entrar no canal</a> <a class="btn" href="../../">Ver todas as ofertas</a></div>

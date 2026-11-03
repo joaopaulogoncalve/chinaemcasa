@@ -124,3 +124,4 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 16px}
 .ver-mais a { display: inline-block; background: #c8102e; color: #fff; font-weight: 800; padding: 12px 20px; border-radius: 999px; text-decoration: none; }
 @media (max-width: 420px) { .faixa-art em { display: none; } .vitrine { grid-template-columns: repeat(2, 1fr); } }
 .faixa-art .conta { font-style: normal; display: inline-block; margin-top: 6px; background: rgba(255,255,255,.22); border-radius: 999px; padding: 3px 10px; font-weight: 800; font-size: .85rem; width: fit-content; }
+.sec-img { width: 100%; max-height: 420px; object-fit: cover; border-radius: 18px; margin: 6px 0 14px; box-shadow: 0 8px 22px rgba(0,0,0,.15); }
