@@ -97,7 +97,7 @@ const html = p => `<!doctype html>
 </style>
 </head>
 <body>
-<header><div class="in"><a href="../"><img src="../logo.png" alt="">China em Casa</a><a class="voltar" href="../">← Voltar aos achadinhos</a></div></header>
+<header><div class="in"><a href="../"><img src="../icone.jpg" alt="">China em Casa</a><a class="voltar" href="../">← Voltar aos achadinhos</a></div></header>
 <main>${p.corpo}
 </main>
 <footer><a href="../sobre/">Sobre</a> · <a href="../contato/">Contato</a> · <a href="../privacidade/">Privacidade</a> · <a href="../blog/">Blog</a><br>China em Casa · links de afiliado do Mercado Livre (#publi)</footer>

@@ -65,7 +65,7 @@ ${topo("../../")}
 </div><img src="../../img/${a.capa}" alt="" width="300" height="400"></div>
 <div class="corpo"><article>
 <p class="publi">#publi — Os botões são links de afiliado do Mercado Livre: posso ganhar uma comissão, sem custo extra pra você. Preço e prazo mudam: confira no anúncio.</p>
-${a.faixa ? `<div class="faixa-art" style="background:${a.faixa.cor}"><img src="../../logo.png" alt="China em Casa"><div><small>${esc(a.faixa.sobre)}</small><b>${esc(a.faixa.tit)}</b><span>${esc(a.faixa.txt)}</span>${a.faixa.conta ? `<i class="conta" data-datas="${esc(JSON.stringify(a.faixa.conta))}"></i>` : ""}</div><em>${a.faixa.grande}</em></div>` : ""}
+${a.faixa ? `<div class="faixa-art" style="background:${a.faixa.cor}"><img src="../../icone.jpg" alt="China em Casa"><div><small>${esc(a.faixa.sobre)}</small><b>${esc(a.faixa.tit)}</b><span>${esc(a.faixa.txt)}</span>${a.faixa.conta ? `<i class="conta" data-datas="${esc(JSON.stringify(a.faixa.conta))}"></i>` : ""}</div><em>${a.faixa.grande}</em></div>` : ""}
 ${a.intro.map(p => `<p>${p}</p>`).join("\n")}
 <div class="resumo"><strong>Resumo rápido:</strong><br>${a.resumo.join("<br>")}</div>
 ${a.tabela ? `<h2 id="${ancora(a.tabela.titulo)}">${esc(a.tabela.titulo)}</h2><div class="tabela"><table><tr>${a.tabela.cab.map(c => `<th>${esc(c)}</th>`).join("")}</tr>${a.tabela.linhas.map(l => `<tr>${l.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</table></div>` : ""}
