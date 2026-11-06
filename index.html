@@ -298,6 +298,12 @@
   .dmini em img.logo-btn { width: 22px; height: 15px; flex: none; display: inline-block; border-radius: 0; background: none; object-fit: contain; margin: 0 6px 0 0; vertical-align: -3px; }
   .dmini em { display: inline-flex; align-items: center; width: fit-content; }
   @media (max-width: 600px) { .selos-conf { gap: 6px; } .selos-conf span { font-size: .7rem; padding: 4px 10px; } }
+  /* 06/11: setas das fileiras de produtos (aparecem também no celular) */
+  .trilho-wrap { position: relative; }
+  .trilho-wrap .seta { display: grid; place-items: center; top: 38%; width: 44px; height: 44px; background: #fff; color: #1d1d1d; font-size: 28px; line-height: 1; box-shadow: 0 4px 14px rgba(0,0,0,.25); cursor: pointer; }
+  .trilho-wrap .seta.esq { left: -6px; } .trilho-wrap .seta.dir { right: -6px; }
+  .trilho-wrap .seta[hidden] { display: none; }
+  @media (max-width: 600px) { .trilho-wrap .seta { width: 36px; height: 36px; font-size: 22px; } .trilho-wrap .seta.esq { left: 2px; } .trilho-wrap .seta.dir { right: 2px; } }
 </style>
 </head>
 <body>
@@ -606,12 +612,18 @@
 
   // Promoções do dia = vídeos de hoje + ontem (igual ao site atual)
   const porId = Object.fromEntries(produtos.map(p => [p.id, p]));
-  const dias = Object.keys(AGENDA).filter(d => d <= HOJE).sort();
+  // 06/11: a AGENDA também vem do Worker (/api/agenda = vídeos que já foram ao ar) → recalcula quando chegar
   const ontem = new Date(new Date(HOJE + "T12:00:00").getTime() - 864e5).toLocaleDateString("sv-SE");
-  let diasPromo = dias.filter(d => d >= ontem);
-  if (!diasPromo.length && dias.length) diasPromo = [dias[dias.length - 1]];
-  const idsHoje = new Set(AGENDA[HOJE] || []);
-  const promo = [...new Set(diasPromo.slice().reverse().flatMap(d => AGENDA[d]))].map(id => porId[id]).filter(Boolean);
+  let diasPromo = [];
+  const idsHoje = new Set(), promo = [];
+  const calcPromo = () => {
+    const dias = Object.keys(AGENDA).filter(d => d <= HOJE).sort();
+    diasPromo = dias.filter(d => d >= ontem);
+    if (!diasPromo.length && dias.length) diasPromo = [dias[dias.length - 1]];
+    idsHoje.clear(); (AGENDA[HOJE] || []).forEach(id => idsHoje.add(id));
+    promo.length = 0; promo.push(...[...new Set(diasPromo.slice().reverse().flatMap(d => AGENDA[d]))].map(id => porId[id]).filter(Boolean));
+  };
+  calcPromo();
 
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const itensDe = c => c.id === "ofertas-dia" ? promo : c.lista ? c.lista.map(id => porId[id]).filter(Boolean) : c.secoes ? c.secoes.flatMap(([s]) => produtos.filter(p => p.secao === s)) : produtos.filter(p => p.secao === c.id || (c.inclui || []).includes(p.secao));
@@ -652,8 +664,8 @@
       if (!its.length) continue;
       const cab = `<div class="cab"><div><h2>${c.ic} ${esc(c.nome)}</h2>${c.id === "ofertas-dia" ? "<p>Os produtos dos vídeos de hoje e de ontem</p>" : ""}</div></div>`;
       let corpo;
-      if (c.trilho) corpo = `<div class="trilho">${its.map(cartao).join("")}</div>`;
-      else if (c.secoes) corpo = c.secoes.map(([s, nome]) => { const g = its.filter(p => p.secao === s); return g.length ? `<p class="sub2">${nome}</p><div class="trilho">${g.map(cartao).join("")}</div>` : ""; }).join("");
+      if (c.trilho) corpo = `<div class="trilho-wrap"><button class="seta esq" aria-label="Voltar">‹</button><div class="trilho">${its.map(cartao).join("")}</div><button class="seta dir" aria-label="Mais produtos">›</button></div>`;
+      else if (c.secoes) corpo = c.secoes.map(([s, nome]) => { const g = its.filter(p => p.secao === s); return g.length ? `<p class="sub2">${nome}</p><div class="trilho-wrap"><button class="seta esq" aria-label="Voltar">‹</button><div class="trilho">${g.map(cartao).join("")}</div><button class="seta dir" aria-label="Mais produtos">›</button></div>` : ""; }).join("");
       else corpo = `<div class="grade">${(abertas.has(c.id) || t ? its : its.slice(0, LIMITE)).map(cartao).join("")}</div>`
         + (its.length > LIMITE && !t ? `<button class="ver" data-c="${c.id}">${abertas.has(c.id) ? "Ver menos ▴" : `Ver mais produtos (+${its.length - LIMITE}) ▾`}</button>` : "");
       html += `<section class="secao" id="${c.id}">${cab}${corpo}</section>`;
@@ -715,6 +727,19 @@
   const ir = i => { atual = (i + BANNERS.length) % BANNERS.length; trilha.style.transform = `translateX(-${atual * 100}%)`; [...pontos.children].forEach((p, j) => p.classList.toggle("ativo", j === atual)); };
   document.getElementById("ant").onclick = () => ir(atual - 1);
   document.getElementById("prox").onclick = () => ir(atual + 1);
+  // 06/11: setas ‹ › nas fileiras de produtos (mostra que tem mais e anda uma "página" por clique)
+  const setasTrilho = () => document.querySelectorAll(".trilho-wrap").forEach(w => {
+    const t = w.querySelector(".trilho"), e = w.querySelector(".seta.esq"), d = w.querySelector(".seta.dir");
+    e.hidden = t.scrollLeft < 8; d.hidden = t.scrollLeft + t.clientWidth >= t.scrollWidth - 8;
+  });
+  document.addEventListener("click", ev => {
+    const b = ev.target.closest(".trilho-wrap .seta"); if (!b) return;
+    const t = b.parentElement.querySelector(".trilho");
+    t.scrollBy({ left: (b.classList.contains("dir") ? 1 : -1) * t.clientWidth * 0.9, behavior: "smooth" });
+  });
+  document.addEventListener("scroll", ev => { if (ev.target.classList && ev.target.classList.contains("trilho")) setasTrilho(); }, true);
+  new MutationObserver(setasTrilho).observe(document.body, { childList: true, subtree: true });
+  window.addEventListener("resize", setasTrilho);
   pontos.onclick = e => { const i = [...pontos.children].indexOf(e.target); if (i >= 0) ir(i); };
   const ban = document.getElementById("banners");
   ban.addEventListener("mouseenter", () => parado = true); ban.addEventListener("mouseleave", () => parado = false);
@@ -749,10 +774,13 @@
   // Faixa "Promoções do dia" (topo)
   // só mostra a data se for de hoje ou ontem (03/11: aparecia "30/10" dias depois)
   const ontemPromo = new Date(Date.parse(HOJE) - 864e5).toISOString().slice(0, 10);
+  const faixa = () => {
   document.getElementById("dia-data").textContent = diasPromo.some(d => d >= ontemPromo) ? diasPromo.filter(d => d >= ontemPromo).map(d => d.split("-").reverse().slice(0, 2).join("/")).join(" e ") : "";
   // hoje/ontem primeiro; depois os outros produtos dos vídeos da agenda, pra faixa girar
   const promoFaixa = [...new Set([...promo, ...Object.keys(AGENDA).sort().reverse().flatMap(d => AGENDA[d]).map(id => porId[id]).filter(Boolean)])];
   document.getElementById("dia-trilho").innerHTML = promoFaixa.map(p => `<a class="dmini" href="${esc((p.links && p.links[0].url) || p.ml)}" target="_blank" rel="noopener sponsored">${p.foto ? `<img src="${esc(p.foto)}" alt="">` : `<i>${esc(p.icone || "🎄")}</i>`}<span><b>${esc(p.nome)}</b><small>${esc(p.texto || p.etiqueta || "")}</small><em><img class="logo-btn" src="img/ml-icone.png" alt="">${idsHoje.has(p.id) ? "HOJE · " : ""}Ver no ML</em></span></a>`).join("") || "<span class=\"dia-cab\"><span>Sem promoção hoje</span></span>";
+  };
+  faixa();
 
   // Promoções do dia giram sozinhas (param quando a pessoa toca ou passa o mouse)
   const diaTr = document.getElementById("dia-trilho"); let diaParado = false;
@@ -778,6 +806,8 @@
   fetch("https://china-em-casa.paulojao151.workers.dev/api/novos").then(r => r.json()).then(novos => {
     const ja = new Set(produtos.map(p => p.id));
     novos.filter(p => !ja.has(p.id)).forEach(p => { produtos.push(p); porId[p.id] = p; });
+    return fetch("https://china-em-casa.paulojao151.workers.dev/api/agenda").then(r => r.json()).then(ag => { Object.assign(AGENDA, ag); calcPromo(); faixa(); }).catch(() => {});
+  }).then(() => {
     montarMenu();
     if (!achou && !irAlvo()) desenhar(document.getElementById("busca").value);
   }).catch(() => {});
