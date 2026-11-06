@@ -4,6 +4,47 @@ const L = c => "https://meli.la/" + c;
 
 module.exports = [
 {
+  // 06/11: Black Friday (27/11) = comprar os presentes de Natal mais barato. Fotos nossas (bf-*.jpg). Preço só como faixa.
+  slug: "black-friday-presentes-de-natal",
+  titulo: "Black Friday 2026 no Mercado Livre: 12 presentes de Natal que valem a pena (e como não cair em desconto falso)",
+  h1: "Black Friday 2026: 12 presentes de Natal pra comprar mais barato",
+  descricao: "Black Friday 2026 (27/11) no Mercado Livre: 12 presentes de Natal bem avaliados pra criança, pra ele, pra casa e decoração, com dicas pra fugir de desconto falso e garantir a entrega antes do Natal.",
+  capa: "bf-reborn.jpg", atualizado: "novembro de 2026",
+  faixa: { cor: "linear-gradient(120deg,#000,#5b1bd1)", sobre: "Esquenta Black Friday", tit: "Compre o Natal na Black Friday 🖤", txt: "Lista pronta + dicas pra não cair em desconto falso", grande: "%", conta: [["Black Friday", "2026-11-27"], ["Natal", "2026-12-25"]] },
+  intro: ["A <strong>Black Friday é dia 27/11</strong>, quase um mês antes do Natal. É o melhor momento pra comprar os presentes pagando menos e ainda com tempo de sobra pra chegar.", "Separei <strong>12 presentes</strong> que estão entre os mais vendidos e bem avaliados no Mercado Livre, divididos por pra quem é. Os preços mudam todo dia (na Black, às vezes de hora em hora), então use como faixa e confira o do dia no link."],
+  resumo: ["🧸 <strong>Pra criança:</strong> boneca Reborn, maleta com 48 carrinhos, carrinho do Homem-Aranha.", "🔧 <strong>Pra ele:</strong> parafusadeira de impacto e kit de ferramentas.", "✨ <strong>Pra casa:</strong> pisca cortina, cascata meteoro e fio de fada.", "🛡️ <strong>Regra de ouro:</strong> desconfie de desconto enorme em preço que subiu na semana."],
+  tabela: { titulo: "Resumo da lista", cab: ["Presente", "Pra quem", "Faixa de preço"], linhas: [
+    ["Boneca Reborn 48 cm", "Crianças", "R$ 100–150"], ["Maleta 48 carrinhos + pista", "Crianças", "R$ 60–80"], ["Carrinho Homem-Aranha (fumaça e LED)", "Crianças", "R$ 70–90"],
+    ["Kit 9 carrinhos Patrulha Canina", "Crianças pequenas", "R$ 60–80"], ["Urso de pelúcia 50 cm", "Crianças / namorada", "R$ 50–90"], ["Parafusadeira de impacto", "Pai / marido", "R$ 130–170"],
+    ["Kit ferramentas 11 peças", "Pai / amigo secreto", "até R$ 30"], ["Mini mixer recarregável", "Quem cozinha", "R$ 40–70"], ["Kit 3 colônias Cebolinha", "Crianças", "R$ 50–70"],
+    ["Pisca cortina 300 LEDs", "Decoração", "até R$ 40"], ["Cascata meteoro 3 m", "Decoração", "R$ 40–70"], ["Fio de fada 100 LEDs", "Decoração", "até R$ 30"]] },
+  secoes: [
+    { h2: "Pra criança", produtos: [
+      { nome: "Boneca Reborn realista 48 cm", foto: "bf-reborn.jpg", texto: "A mais vendida em bonecos no Mercado Livre. Presente que faz a criança chorar de emoção.", link: L("2eqBgnW") },
+      { nome: "Maleta com 48 carrinhos e tapete-pista", foto: "bf-maleta.jpg", texto: "Abre e vira cidade. Guarda tudo depois, sem bagunça.", link: L("1aQo2Zk") },
+      { nome: "Carrinho de controle remoto Homem-Aranha", foto: "bf-homem-aranha.jpg", texto: "Solta fumaça e acende LED. Sucesso garantido com fãs de super-herói.", link: L("1hefZdr") },
+      { nome: "Kit 9 carrinhos Patrulha Canina", foto: "bf-patrulha.jpg", texto: "De fricção: não precisa de pilha.", link: L("1o8mCet") },
+      { nome: "Urso de pelúcia Teddy 50 cm", foto: "bf-urso.jpg", texto: "Antialérgico e grande, abraço de Natal garantido.", link: L("2eYudjn") },
+      { nome: "Kit 3 colônias Turma da Mônica (Cebolinha)", foto: "bf-colonias.jpg", texto: "Presente cheiroso pras crianças, da Jequiti.", link: L("1Jom6xp") }] },
+    { h2: "Pra ele e pra casa", produtos: [
+      { nome: "Parafusadeira de impacto The Black Tools", foto: "bf-parafusadeira.jpg", texto: "Presente útil que o pai usa o ano todo. Na Black costuma cair bastante.", link: L("1bbJSPD") },
+      { nome: "Kit de ferramentas 11 peças", foto: "bf-ferramentas.jpg", texto: "O mais vendido em ferramentas. Ótimo pra amigo secreto masculino.", link: L("2HEya35") },
+      { nome: "Mini mixer portátil recarregável 2 em 1", foto: "bf-mixer.jpg", texto: "Bate café, ovos e cremes. Cabe na gaveta.", link: L("23Gxxi8") }] },
+    { h2: "Pra decorar a casa pro Natal", produtos: [
+      { nome: "Pisca cortina 300 LEDs 3 x 3 m (USB)", foto: "bf-pisca-cortina.jpg", texto: "Transforma janela ou parede em 5 minutos.", link: L("1Cyps3D") },
+      { nome: "Cascata LED meteoro 3 m", foto: "bf-cascata.jpg", texto: "Efeito de neve caindo na fachada ou na varanda.", link: L("14ZdynC") },
+      { nome: "Fio de fada 100 LEDs 10 m (pilha)", foto: "bf-fio-fada.jpg", texto: "Segundo mais vendido de Natal. Vai em pote, árvore e mesa da ceia.", link: L("11cUkKN") }] },
+    { h2: "Como não cair em desconto falso na Black Friday", dicas: [
+      ["📈", "Olhe o preço antes", "Desconfie de \"-70%\" em preço que subiu na semana. Salve o link agora e compare no dia 27."],
+      ["⭐", "Veja a nota e as vendas", "Prefira produto com nota 4,5+ e muitas vendas. Nota 5,0 com 1 avaliação não prova nada."],
+      ["⚡", "Prefira FULL", "Chega mais rápido e com a garantia do Mercado Livre. Importante pra chegar antes do Natal."],
+      ["🎟️", "Ative o cupom antes", "Cupom só vale se for ativado no app ANTES de colocar no carrinho."]] },
+    { h2: "Antes de comprar, pegue o cupom", texto: ["Na Black Friday aparecem cupons novos quase todo dia. <a href=\"../cupom-mercado-livre-11-11-black-friday/\">Veja o passo a passo de como ativar e usar o cupom do Mercado Livre</a>. Quer mais ideias? <a href=\"../presentes-de-natal-ate-50-reais/\">Presentes de Natal até R$ 50</a> e <a href=\"../presentes-de-natal-para-criancas/\">presentes pra crianças</a>."] }],
+  faq: [["Quando é a Black Friday 2026?", "Sexta-feira, 27 de novembro de 2026. No Mercado Livre as ofertas começam antes, no \"esquenta\", e algumas seguem pelo fim de semana."],
+        ["Vale a pena comprar presente de Natal na Black Friday?", "Sim: os preços costumam ser os mais baixos antes do Natal e dá tempo de chegar. Só confira se o desconto é real comparando com o preço de antes."],
+        ["Esses presentes chegam antes do Natal?", "Comprando na Black Friday, sim, com folga. Prefira os anúncios FULL; o prazo exato depende do CEP."]]
+},
+{
   // 03/11: como usar o ID do produto (o código que aparece fixo nos vídeos) no nosso site e na busca do Mercado Livre
   slug: "como-usar-o-codigo-do-video",
   titulo: "Viu o código no vídeo? Como achar o produto no site e no Mercado Livre (passo a passo)",
