@@ -571,6 +571,10 @@
     { id: "sacolas-100", cod: 101, secao: "sacolas", nome: "Kit 100 · para empresas", etiqueta: "Grande · 100 un.", foto: "img/sacolas-empresa.jpg",
       texto: "Brinde de fim de ano para empresa, condomínio ou igreja.", ml: "https://meli.la/2M9vsqw" }
   ];
+  // 06/11 faxina (autorizado pelo João): fora do site até conferir. Pra voltar, é só tirar o id daqui.
+  // almofadas-noel, pisca, noel-ceramica, pisca200 = anúncio pode ter saído do ar; patinete-luppy = preço subiu 216%
+  const TIRADOS = ["almofadas-noel", "pisca", "noel-ceramica", "pisca200", "patinete-luppy"];
+  for (let i = produtos.length - 1; i >= 0; i--) if (TIRADOS.includes(produtos[i].id)) produtos.splice(i, 1);
 
   // Categorias do site (ordem do menu). Ofertas 11/11 e Black Friday só aparecem na época.
   const params = new URLSearchParams(location.search);
