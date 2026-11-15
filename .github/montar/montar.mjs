@@ -35,6 +35,7 @@ for (const v of fila.slice(0, POR_VEZ)) {
     const arq = await dl.path();
     await page.waitForTimeout(500);
     const status = (await page.textContent("#status")) || "";
+    const mapaSons = await page.evaluate(() => window.MAPA_SONS || null);
     const mp4 = await readFile(arq);
     console.log(`${v.id}: MP4 ${(mp4.length / 1e6).toFixed(1)} MB em ${Math.round((Date.now() - inicio) / 1000)} s`);
     if (!/COM A VOZ/.test(status)) {
@@ -46,7 +47,7 @@ for (const v of fila.slice(0, POR_VEZ)) {
     }
     const up = await (await fetch(`${BASE}/api/foto`, { method: "POST", headers: { ...H, "content-type": "video/mp4" }, body: mp4 })).json();
     if (!up.url) throw new Error("upload: " + JSON.stringify(up));
-    await salvar(v.id, { videoPronto: up.url, videoProntoEm: new Date().toISOString(), montarErros: 0, montarErro: "", montarAviso: "" });
+    await salvar(v.id, { videoPronto: up.url, videoProntoEm: new Date().toISOString(), mapaSons, montarErros: 0, montarErro: "", montarAviso: "" });
     console.log(`${v.id}: ✅ ${up.url}`);
   } catch (e) {
     console.error(`${v.id}: erro`, e.message);
