@@ -1,0 +1,28 @@
+name: Montar vídeos das historinhas
+# 15/11: monta o MP4 das historinhas com todos os frames (editor do Worker num Chrome sem tela) e entrega no admin.
+on:
+  schedule:
+    - cron: "20 * * * *" # de hora em hora (minuto 20)
+  workflow_dispatch: {}
+concurrency:
+  group: montar-videos
+  cancel-in-progress: false
+jobs:
+  montar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/montar
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Instalar
+        working-directory: .github/montar
+        run: npm install --no-audit --no-fund
+      - name: Montar
+        working-directory: .github/montar
+        env:
+          ADMIN_KEY: ${{ secrets.ADMIN_KEY }}
+        run: node montar.mjs

@@ -1,0 +1,58 @@
+// Robô que MONTA o MP4 das historinhas (15/11). Roda no GitHub Actions (grátis), de hora em hora.
+// Abre o editor do Worker (/editor?v=admin:<id>&baixar=1) num Chrome sem tela: o próprio editor monta
+// frames + textos + selo + voz (/ia/voz) e baixa o MP4. O script sobe o MP4 no B2 (/api/foto) e grava
+// videoPronto na revisão. A chave do admin vem do secret ADMIN_KEY (nunca fica no código).
+import { chromium } from "playwright-core";
+import { readFile } from "node:fs/promises";
+
+const BASE = "https://china-em-casa.paulojao151.workers.dev";
+const K = (process.env.ADMIN_KEY || "").trim();
+if (!K) { console.error("falta ADMIN_KEY"); process.exit(1); }
+const H = { "x-admin-key": K, cookie: "adm=" + K };
+const POR_VEZ = Number(process.env.POR_VEZ || 2);
+
+const salvar = (id, dados) => fetch(`${BASE}/api/db/revisoes/${id}`, { method: "POST", headers: { ...H, "content-type": "application/json" }, body: JSON.stringify(dados) });
+
+const fila = await (await fetch(`${BASE}/api/montar/fila`, { headers: H })).json();
+if (!Array.isArray(fila)) { console.error("fila:", fila); process.exit(1); }
+console.log(`fila: ${fila.length} vídeo(s) pronto(s) pra montar`);
+if (!fila.length) process.exit(0);
+
+const browser = await chromium.launch({ channel: process.env.CHROME_CANAL || "chrome", headless: true, args: ["--autoplay-policy=no-user-gesture-required"] });
+const ctx = await browser.newContext({ acceptDownloads: true, viewport: { width: 1200, height: 900 } });
+await ctx.addCookies([{ name: "adm", value: K, domain: "china-em-casa.paulojao151.workers.dev", path: "/", secure: true, httpOnly: true, sameSite: "Lax" }]);
+
+for (const v of fila.slice(0, POR_VEZ)) {
+  const page = await ctx.newPage();
+  const inicio = Date.now();
+  try {
+    const baixou = page.waitForEvent("download", { timeout: 15 * 60e3 });
+    await page.goto(`${BASE}/editor?v=admin:${encodeURIComponent(v.id)}&baixar=1`, { waitUntil: "load" });
+    // se o editor mostrar "Erro:", para na hora (não espera os 15 min)
+    const deuErro = page.waitForFunction(() => /^Erro:/.test(document.getElementById("status")?.textContent || ""), null, { timeout: 15 * 60e3, polling: 2000 })
+      .then(async () => { throw new Error(await page.textContent("#status")); });
+    const dl = await Promise.race([baixou, deuErro]);
+    const arq = await dl.path();
+    await page.waitForTimeout(500);
+    const status = (await page.textContent("#status")) || "";
+    const mp4 = await readFile(arq);
+    console.log(`${v.id}: MP4 ${(mp4.length / 1e6).toFixed(1)} MB em ${Math.round((Date.now() - inicio) / 1000)} s`);
+    if (!/COM A VOZ/.test(status)) {
+      // a voz grátis tem cota diária: sem voz, tenta de novo na próxima hora (até 24 vezes) em vez de entregar mudo
+      const n = (v.semVoz || 0) + 1;
+      await salvar(v.id, n >= 24 ? { videoPronto: "", montarErro: "sem voz há 24 tentativas (cota do TTS?)", montarSemVoz: n } : { montarSemVoz: n, montarAviso: "esperando a voz (cota do TTS)" });
+      console.log(`${v.id}: saiu SEM VOZ, tento de novo depois`);
+      continue;
+    }
+    const up = await (await fetch(`${BASE}/api/foto`, { method: "POST", headers: { ...H, "content-type": "video/mp4" }, body: mp4 })).json();
+    if (!up.url) throw new Error("upload: " + JSON.stringify(up));
+    await salvar(v.id, { videoPronto: up.url, videoProntoEm: new Date().toISOString(), montarErros: 0, montarErro: "", montarAviso: "" });
+    console.log(`${v.id}: ✅ ${up.url}`);
+  } catch (e) {
+    console.error(`${v.id}: erro`, e.message);
+    await salvar(v.id, { montarErros: (v.montarErros || 0) + 1, montarErro: String(e.message).slice(0, 300) });
+  } finally {
+    await page.close();
+  }
+}
+await browser.close();
