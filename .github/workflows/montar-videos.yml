@@ -25,4 +25,5 @@ jobs:
         working-directory: .github/montar
         env:
           ADMIN_KEY: ${{ secrets.ADMIN_KEY }}
+          POR_VEZ: "4"
         run: node montar.mjs
