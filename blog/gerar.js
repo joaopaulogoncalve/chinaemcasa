@@ -2,7 +2,7 @@
 // Cada artigo vira blog/<slug>/index.html + entra no índice do blog e no sitemap.
 // Visual (31/10): mesmo topo, fontes e cores da loja; índice com destaque + grade; artigo com capa, índice lateral e chamada pro canal.
 const fs = require("fs"), path = require("path");
-const BASE = "https://joaopaulogoncalve.github.io/chinaemcasa";
+const BASE = "https://chinaemcasa.com.br";
 const ZAP = "https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n";
 const artigos = require("./artigos.js");
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -13,7 +13,7 @@ const css = fs.readFileSync(path.join(__dirname, "estilo.css"), "utf8");
 // raiz = caminho até a pasta do site ("../" no índice, "../../" no artigo)
 const cabeca = (titulo, descricao, canonico, extra = "") => `<!doctype html>
 <html lang="pt-BR"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>if(location.hostname.endsWith("github.io"))location.replace("https://chinaemcasa.com.br"+location.pathname.replace("/chinaemcasa","")+location.search+location.hash)</script>
 <title>${esc(titulo)}</title>
 <meta property="og:site_name" content="China em Casa Achadinhos">
 <meta name="description" content="${esc(descricao)}">

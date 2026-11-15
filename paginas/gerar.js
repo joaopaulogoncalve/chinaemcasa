@@ -1,7 +1,7 @@
 // Gera as páginas institucionais: sobre/, contato/, privacidade/ (rodar: node site/paginas/gerar.js)
 const fs = require("fs"), path = require("path");
 const RAIZ = path.join(__dirname, "..");
-const BASE = "https://joaopaulogoncalve.github.io/chinaemcasa";
+const BASE = "https://chinaemcasa.com.br";
 const ZAP = "https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n";
 
 const paginas = [
@@ -96,7 +96,7 @@ const paginas = [
 const html = p => `<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8"><script>if(location.hostname.endsWith("github.io"))location.replace("https://chinaemcasa.com.br"+location.pathname.replace("/chinaemcasa","")+location.search+location.hash)</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${p.titulo} · China em Casa Achadinhos</title>
 <meta property="og:site_name" content="China em Casa Achadinhos">
