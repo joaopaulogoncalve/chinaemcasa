@@ -4,7 +4,11 @@
 const fs = require("fs"), path = require("path");
 const BASE = "https://chinaemcasa.com.br";
 const ZAP = "https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n";
-const artigos = require("./artigos.js");
+// 15/11: artigo com `publicar: "AAAA-MM-DD"` só entra no dia (horário de Brasília). O GitHub Actions roda isto todo dia às 6h.
+const HOJE = process.env.HOJE || new Date(Date.now() - 3 * 36e5).toISOString().slice(0, 10);
+const artigos = require("./artigos-agendados.js").concat(require("./artigos.js")).filter(a => !a.publicar || a.publicar <= HOJE);
+// foto pode ser do site (img/) ou link completo (fotos do admin no B2)
+const im = (f, raiz) => /^https?:/.test(f || "") ? f : raiz + "img/" + f;
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const semTags = s => String(s).replace(/<[^>]+>/g, "");
 const ancora = s => semTags(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -35,7 +39,7 @@ const rodape = raiz => `<footer><div class="wrap"><span>🎄 China em Casa · ac
 
 function card(p) {
   return `<div class="prod">
-  <img src="../../img/${p.foto}" alt="${esc(p.alt || p.nome)}" width="360" height="480" loading="lazy">
+  <img src="${im(p.foto, "../../")}" alt="${esc(p.alt || p.nome)}" width="360" height="480" loading="lazy">
   <div><h3>${esc(p.nome)}</h3>
   <p>${p.texto}</p>
   ${p.pros ? `<ul>${p.pros.map(x => `<li>✅ ${x}</li>`).join("")}${(p.contras || []).map(x => `<li>⚠️ ${x}</li>`).join("")}</ul>` : ""}
@@ -46,14 +50,14 @@ const minutos = a => Math.max(2, Math.round(JSON.stringify(a).split(/\s+/).lengt
 // 03/11: blocos visuais opcionais da seção: passo a passo com telinha de celular, dicas em cartões e vitrine de fotos (leva pro site)
 const passos = s => s.passos ? `<ol class="passos">${s.passos.map((p, i) => `<li><div class="cel"><div class="tela"><span class="barra"></span><span class="ico">${p.icone}</span><span class="bt">${esc(p.tela)}</span></div></div><div><span class="n">${i + 1}</span><h3>${esc(p.tit)}</h3><p>${p.txt}</p></div></li>`).join("")}</ol>` : "";
 const dicas = s => s.dicas ? `<div class="dicas">${s.dicas.map(([ic, t, txt]) => `<div><span>${ic}</span><b>${esc(t)}</b><p>${esc(txt)}</p></div>`).join("")}</div>` : "";
-const vitrine = s => s.vitrine ? `<div class="vitrine">${s.vitrine.map(v => `<a href="../../${v.link || ""}"><img src="../../img/${v.foto}" alt="" loading="lazy"><span>${esc(v.nome)}</span></a>`).join("")}</div><p class="ver-mais"><a href="../../">Ver todos os achadinhos no site →</a></p>` : "";
-const cardArtigo =(x, raiz) => `<a class="card" href="${raiz}blog/${x.slug}/"><img src="${raiz}img/${x.capa}" alt="" loading="lazy"><div><span class="tag">Guia de compra · ${minutos(x)} min</span><h3>${esc(x.h1 || x.titulo)}</h3><p>${esc(x.descricao)}</p></div></a>`;
+const vitrine = s => s.vitrine ? `<div class="vitrine">${s.vitrine.map(v => `<a href="../../${v.link || ""}"><img src="${im(v.foto, "../../")}" alt="" loading="lazy"><span>${esc(v.nome)}</span></a>`).join("")}</div><p class="ver-mais"><a href="../../">Ver todos os achadinhos no site →</a></p>` : "";
+const cardArtigo =(x, raiz) => `<a class="card" href="${raiz}blog/${x.slug}/"><img src="${im(x.capa, raiz)}" alt="" loading="lazy"><div><span class="tag">Guia de compra · ${minutos(x)} min</span><h3>${esc(x.h1 || x.titulo)}</h3><p>${esc(x.descricao)}</p></div></a>`;
 
 function pagina(a) {
   const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: a.faq.map(([q, r]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: r } })) };
   const h2s = [...(a.tabela ? [a.tabela.titulo] : []), ...a.secoes.map(s => s.h2), "Perguntas frequentes"];
   return `${cabeca(a.titulo, a.descricao, `${BASE}/blog/${a.slug}/`, `
-<meta property="og:title" content="${esc(a.titulo)}"><meta property="og:image" content="${BASE}/img/${a.capa}">
+<meta property="og:title" content="${esc(a.titulo)}"><meta property="og:image" content="${im(a.capa, BASE + "/")}">
 <script type="application/ld+json">${JSON.stringify(faqLd)}</script>`)}
 ${topo("../../")}
 <main class="wrap">
@@ -63,14 +67,14 @@ ${topo("../../")}
 <h1>${esc(a.h1 || a.titulo)}</h1>
 <p class="lead">${esc(a.descricao)}</p>
 <p class="meta"><span>🗓️ Atualizado em ${a.atualizado}</span><span>⏱️ ${minutos(a)} min de leitura</span><span>✍️ China em Casa</span></p>
-</div><img src="../../img/${a.capa}" alt="" width="300" height="400"></div>
+</div><img src="${im(a.capa, "../../")}" alt="" width="300" height="400"></div>
 <div class="corpo"><article>
 <p class="publi">#publi — Os botões são links de afiliado do Mercado Livre: posso ganhar uma comissão, sem custo extra pra você. Preço e prazo mudam: confira no anúncio.</p>
 ${a.faixa ? `<div class="faixa-art" style="background:${a.faixa.cor}"><img src="../../icone.jpg" alt="China em Casa"><div><small>${esc(a.faixa.sobre)}</small><b>${esc(a.faixa.tit)}</b><span>${esc(a.faixa.txt)}</span>${a.faixa.conta ? `<i class="conta" data-datas="${esc(JSON.stringify(a.faixa.conta))}"></i>` : ""}</div><em>${a.faixa.grande}</em></div>` : ""}
 ${a.intro.map(p => `<p>${p}</p>`).join("\n")}
 <div class="resumo"><strong>Resumo rápido:</strong><br>${a.resumo.join("<br>")}</div>
 ${a.tabela ? `<h2 id="${ancora(a.tabela.titulo)}">${esc(a.tabela.titulo)}</h2><div class="tabela"><table><tr>${a.tabela.cab.map(c => `<th>${esc(c)}</th>`).join("")}</tr>${a.tabela.linhas.map(l => `<tr>${l.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</table></div>` : ""}
-${a.secoes.map(s => `<h2 id="${ancora(s.h2)}">${esc(s.h2)}</h2>${s.img ? `<img class="sec-img" src="../../img/${s.img}" alt="" loading="lazy">` : ""}${(s.texto || []).map(p => `<p>${p}</p>`).join("")}${passos(s)}${dicas(s)}${(s.produtos || []).map(card).join("")}${vitrine(s)}`).join("\n")}
+${a.secoes.map(s => `<h2 id="${ancora(s.h2)}">${esc(s.h2)}</h2>${s.img ? `<img class="sec-img" src="${im(s.img, "../../")}" alt="" loading="lazy">` : ""}${(s.texto || []).map(p => `<p>${p}</p>`).join("")}${passos(s)}${dicas(s)}${(s.produtos || []).map(card).join("")}${vitrine(s)}`).join("\n")}
 <h2 id="perguntas-frequentes">Perguntas frequentes</h2><div class="faq">${a.faq.map(([q, r]) => `<details><summary>${esc(q)}</summary><p>${esc(r)}</p></details>`).join("")}</div>
 <div class="chamada"><h2>Quer receber os achadinhos do dia?</h2><p>Mando as melhores ofertas de Natal no canal do WhatsApp, sem spam.</p>
 <a class="btn zap" href="${ZAP}" target="_blank" rel="noopener">Entrar no canal</a> <a class="btn" href="../../">Ver todas as ofertas</a></div>
@@ -96,7 +100,7 @@ fs.writeFileSync(path.join(__dirname, "index.html"), `${cabeca("Blog China em Ca
 ${topo("../")}
 <section class="hero-blog"><div class="wrap"><span class="chip">🎄 GUIAS DE NATAL 2026</span><h1>Ideias de Natal que cabem no bolso</h1><p>Comparativos e listas de presentes e decoração, com o que vale a pena e o que chega a tempo.</p></div></section>
 <main class="wrap">
-<a class="destaque" href="${primeiro.slug}/"><img src="../img/${primeiro.capa}" alt=""><div><span class="tag">Em destaque · ${minutos(primeiro)} min</span><h2>${esc(primeiro.h1 || primeiro.titulo)}</h2><p>${esc(primeiro.descricao)}</p><span class="ler">Ler o guia →</span></div></a>
+<a class="destaque" href="${primeiro.slug}/"><img src="${im(primeiro.capa, "../")}" alt=""><div><span class="tag">Em destaque · ${minutos(primeiro)} min</span><h2>${esc(primeiro.h1 || primeiro.titulo)}</h2><p>${esc(primeiro.descricao)}</p><span class="ler">Ler o guia →</span></div></a>
 <div class="grade">${outros.map(x => cardArtigo(x, "../")).join("")}</div>
 <div class="chamada"><h2>Achadinhos novos todo dia</h2><p>Entre no canal do WhatsApp ou veja a vitrine completa.</p><a class="btn zap" href="${ZAP}" target="_blank" rel="noopener">Entrar no canal</a> <a class="btn" href="../">Ver as ofertas</a></div>
 </main>
