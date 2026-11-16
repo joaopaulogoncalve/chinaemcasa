@@ -16,7 +16,7 @@ const salvar = (id, dados) => fetch(`${BASE}/api/db/revisoes/${id}`, { method: "
 const fila = await (await fetch(`${BASE}/api/montar/fila`, { headers: H })).json();
 if (!Array.isArray(fila)) { console.error("fila:", fila); process.exit(1); }
 console.log(`fila: ${fila.length} vídeo(s) pronto(s) pra montar`);
-if (!fila.length) process.exit(0);
+// (não sai aqui: depois das historinhas vem a fila dos vídeos longos)
 
 const browser = await chromium.launch({ channel: process.env.CHROME_CANAL || "chrome", headless: true, args: ["--autoplay-policy=no-user-gesture-required"] });
 const ctx = await browser.newContext({ acceptDownloads: true, viewport: { width: 1200, height: 900 } });
@@ -52,6 +52,34 @@ for (const v of fila.slice(0, POR_VEZ)) {
   } catch (e) {
     console.error(`${v.id}: erro`, e.message);
     await salvar(v.id, { montarErros: (v.montarErros || 0) + 1, montarErro: String(e.message).slice(0, 300) });
+  } finally {
+    await page.close();
+  }
+}
+// 16/11: VÍDEOS LONGOS (deitados, YouTube). Abre /longo?l=<id>&baixar=1 (o Short toca em tempo real e é gravado),
+// sobe o MP4 e chama /api/longo/<id>/pronto: o Worker monta a descrição com capítulos e agenda no YouTube.
+const longos = await (await fetch(`${BASE}/api/longos/fila`, { headers: H })).json().catch(() => []);
+console.log(`longos: ${Array.isArray(longos) ? longos.length : 0} na fila`);
+for (const l of Array.isArray(longos) ? longos.slice(0, 1) : []) {
+  const page = await ctx.newPage();
+  const inicio = Date.now();
+  try {
+    const baixou = page.waitForEvent("download", { timeout: 25 * 60e3 });
+    await page.goto(`${BASE}/longo?l=${encodeURIComponent(l.id)}&baixar=1`, { waitUntil: "load" });
+    const deuErro = page.waitForFunction(() => /^Erro:/.test(document.getElementById("status")?.textContent || ""), null, { timeout: 25 * 60e3, polling: 2000 })
+      .then(async () => { throw new Error(await page.textContent("#status")); });
+    const dl = await Promise.race([baixou, deuErro]);
+    const mp4 = await readFile(await dl.path());
+    const info = await page.evaluate(() => ({ capitulos: window.CAPITULOS || [], duracao: window.DURACAO || 0, status: window.STATUS || "" }));
+    console.log(`${l.id}: MP4 ${(mp4.length / 1e6).toFixed(1)} MB em ${Math.round((Date.now() - inicio) / 1000)} s (${info.status})`);
+    if (/SEM SOM/.test(info.status)) throw new Error("saiu sem som");
+    const up = await (await fetch(`${BASE}/api/foto`, { method: "POST", headers: { ...H, "content-type": "video/mp4" }, body: mp4 })).json();
+    if (!up.url) throw new Error("upload: " + JSON.stringify(up));
+    const r = await (await fetch(`${BASE}/api/longo/${l.id}/pronto`, { method: "POST", headers: { ...H, "content-type": "application/json" }, body: JSON.stringify({ video: up.url, capitulos: info.capitulos, duracao: info.duracao }) })).json();
+    console.log(`${l.id}:`, JSON.stringify(r));
+  } catch (e) {
+    console.error(`${l.id}: erro`, e.message);
+    await fetch(`${BASE}/api/longo/${l.id}`, { method: "POST", headers: { ...H, "content-type": "application/json" }, body: JSON.stringify({ montarErros: (l.montarErros || 0) + 1, montarErro: String(e.message).slice(0, 300) }) });
   } finally {
     await page.close();
   }
