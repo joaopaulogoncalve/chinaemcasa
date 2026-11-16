@@ -5,9 +5,10 @@
 <meta property="og:site_name" content="China em Casa Achadinhos">
 <meta name="description" content="Passo a passo pra ativar e usar cupom do Mercado Livre no 11.11 e na Black Friday 2026, o que fazer se o cupom não entra e quais presentes de Natal aproveitar.">
 <link rel="canonical" href="https://chinaemcasa.com.br/blog/cupom-mercado-livre-11-11-black-friday/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
+<link rel="icon" href="/icone.jpg">
+<meta name="theme-color" content="#c8102e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Nunito+Sans:wght@400;600;800;900&display=swap" rel="stylesheet">
 <style>/* Blog com o mesmo visual da loja (fontes, cores e topo do site). Gerado por gerar.js. */
 :root{--fundo:#fbf6ef;--card:#fff;--texto:#2a1d17;--muted:#6e5d52;--linha:#ecdfcd;--vermelho:#c8102e;--verde:#145a32;--verde2:#1f7a45;--dourado:#e0a526;--ml:#ffe600;--ml-texto:#2d3277;--zap:#25d366;
   --f-tit:"Fraunces",Georgia,serif;--f-txt:"Nunito Sans",system-ui,sans-serif}
@@ -135,63 +136,243 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 16px}
 @media (max-width: 420px) { .faixa-art em { display: none; } .vitrine { grid-template-columns: repeat(2, 1fr); } }
 .faixa-art .conta { font-style: normal; display: inline-block; margin-top: 6px; background: rgba(255,255,255,.22); border-radius: 999px; padding: 3px 10px; font-weight: 800; font-size: .85rem; width: fit-content; }
 .sec-img { width: 100%; max-height: 420px; object-fit: cover; border-radius: 18px; margin: 6px 0 14px; box-shadow: 0 8px 22px rgba(0,0,0,.15); }
+
+/* ===================== BLOG v2 (16/11): topo igual ao site, busca/filtros, Nossas escolhas, cartões de produto ===================== */
+:root{--sombra:0 1px 2px rgba(42,29,23,.06),0 6px 18px rgba(42,29,23,.08);--sombra2:0 14px 34px rgba(42,29,23,.16);--raio:18px}
+body{background:#f7f3ed}
+.faixa{display:none}
+.faixa-top{background:var(--verde);color:#e9f3ec;font-size:.78rem;font-weight:600;text-align:center;padding:7px 12px;line-height:1.3}
+.faixa-top b{color:#fff}
+.topo{background:#fff;color:var(--texto);box-shadow:0 1px 0 var(--linha),0 6px 20px rgba(42,29,23,.06)}
+.topo .wrap{height:68px;gap:18px}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;flex:none}
+.marca img{width:46px;height:46px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.marca b{display:block;font:800 1.25rem/1 var(--f-tit);color:var(--vermelho)}
+.marca small{display:block;font-size:.74rem;color:var(--muted);font-weight:700;margin-top:3px}
+.topo nav{margin-left:auto}
+.topo nav a{color:var(--texto);background:#f4efe7}
+.topo nav a.ativo,.topo nav a:hover{background:var(--vermelho)!important;color:#fff}
+.zap-top{background:var(--zap);color:#0b3d1f;text-decoration:none;font-weight:800;font-size:.85rem;padding:9px 14px;border-radius:99px;flex:none}
+@media(max-width:700px){.topo nav{display:none}.zap-top{margin-left:auto}.zap-top span{display:none}.marca small{display:block}}
+
+/* índice */
+.hero-blog{background:radial-gradient(1200px 400px at 85% -10%,rgba(255,214,90,.25),transparent),linear-gradient(135deg,#0f4a29,#0b3d22 55%,#9e0d25);padding:42px 0 70px}
+.hero-blog h1{font-size:clamp(2rem,5vw,3rem);letter-spacing:-.5px}
+.busca-blog{display:block;width:100%;max-width:560px;margin:20px 0 14px;border:0;border-radius:99px;padding:15px 20px 15px 48px;font:600 1rem var(--f-txt);box-shadow:0 10px 30px rgba(0,0,0,.25);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236e5d52' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") no-repeat 18px 50%}
+.busca-blog:focus{outline:3px solid var(--dourado)}
+.filtros{display:flex;flex-wrap:wrap;gap:8px}
+.filtros button{border:0;cursor:pointer;font:800 .85rem var(--f-txt);padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.14);color:#fff;transition:background .15s}
+.filtros button:hover{background:rgba(255,255,255,.26)}
+.filtros button.on{background:#fff;color:var(--vermelho)}
+.destaque{grid-template-columns:1.2fr 1fr;border-radius:24px;box-shadow:var(--sombra2);margin:-40px 0 30px}
+.d-img{position:relative;min-height:300px}
+.d-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%}
+.d-txt{padding:28px;display:flex;flex-direction:column;justify-content:center}
+.d-txt h2{font-size:clamp(1.4rem,3vw,1.9rem);margin:8px 0 10px}
+@media(max-width:700px){.d-img{min-height:220px}}
+.grade{grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.card{border:0;border-radius:var(--raio);box-shadow:var(--sombra)}
+.card-img{position:relative;overflow:hidden}
+.card-img img{aspect-ratio:16/11;transition:transform .35s}
+.card:hover .card-img img{transform:scale(1.05)}
+.card-txt{padding:14px 16px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card-txt h3{margin:0;font-size:1.1rem}
+.card-txt p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cat{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.95);color:var(--texto);font:800 .74rem var(--f-txt);padding:5px 10px;border-radius:99px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.info{font-size:.8rem;font-weight:800;color:var(--muted);margin-top:auto}
+.vazio{text-align:center;color:var(--muted);font-weight:700;padding:20px}
+[hidden]{display:none!important}
+
+/* artigo */
+.leitura{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--vermelho),var(--dourado));z-index:20}
+.hero-art{background:linear-gradient(180deg,#fff 0,#fff 62%,transparent 62%);padding-bottom:6px}
+.hero-art .wrap{max-width:860px;text-align:center;padding-top:6px}
+.hero-art h1{font-size:clamp(1.9rem,4.6vw,2.9rem);letter-spacing:-.5px;margin:6px 0 12px}
+.hero-art .lead{max-width:680px;margin:0 auto 16px;font-size:1.08rem}
+.hero-art .migalha{margin:16px 0 6px}
+.autor{display:inline-flex;align-items:center;gap:10px;text-align:left;background:#fbf6ef;border-radius:99px;padding:6px 16px 6px 6px;margin-bottom:22px}
+.autor img{width:40px;height:40px;border-radius:50%}
+.autor b{display:block;font-size:.9rem}
+.autor small{display:block;font-size:.78rem;color:var(--muted)}
+.capa-wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.capa{width:100%;aspect-ratio:21/9;object-fit:cover;border-radius:24px;box-shadow:var(--sombra2)}
+@media(max-width:700px){.capa{aspect-ratio:4/3}}
+.corpo{margin-top:26px}
+.resumo{display:grid;gap:6px;background:#fff7d6;border:0;border-left:5px solid var(--dourado)}
+.resumo strong{font-family:var(--f-tit);font-size:1.05rem}
+
+/* Nossas escolhas */
+.escolhas{background:#fff;border-radius:22px;box-shadow:var(--sombra);padding:18px 18px 8px;margin:22px 0}
+.escolhas h2{margin:0 0 12px;font-size:1.3rem}
+.trilho{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(170px,1fr);gap:12px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory}
+.mini{scroll-snap-align:start;display:flex;flex-direction:column;gap:6px;background:#faf6f0;border-radius:16px;padding:10px}
+.mini-foto{position:relative;display:block}
+.mini-foto img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px}
+.mini b{font-size:.9rem;line-height:1.25}
+.mini .btn-ml{margin-top:auto;justify-content:center;padding:9px 10px;font-size:.85rem}
+.rank{position:absolute;left:8px;top:8px;width:30px;height:30px;border-radius:50%;background:var(--vermelho);color:#fff;font:900 .95rem/30px var(--f-txt);text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.25);z-index:1}
+.selo{display:inline-block;width:fit-content;background:#fff1c2;color:#7a4b00;font:800 .74rem var(--f-txt);padding:4px 10px;border-radius:99px}
+
+/* cartão de produto */
+.pcard{display:grid;grid-template-columns:240px 1fr;gap:20px;background:#fff;border-radius:22px;box-shadow:var(--sombra);padding:16px;margin:18px 0;scroll-margin-top:90px;transition:box-shadow .2s}
+.pcard:hover{box-shadow:var(--sombra2)}
+.pcard:target{outline:3px solid var(--dourado)}
+.pfoto{position:relative}
+.pfoto img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px}
+.pinfo{display:flex;flex-direction:column;gap:8px;min-width:0}
+.pinfo h3{font-size:1.3rem;margin:0}
+.pinfo p{margin:0;font-size:.98rem}
+.pros{list-style:none;padding:0;margin:0;display:grid;gap:4px;font-size:.92rem}
+.pros li{padding-left:24px;position:relative}
+.pros li.sim::before{content:"✓";position:absolute;left:0;color:var(--verde2);font-weight:900}
+.pros li.nao::before{content:"!";position:absolute;left:4px;color:#c27c00;font-weight:900}
+.preco{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px}
+.preco b{font:900 1.5rem var(--f-txt);color:var(--texto)}
+.preco span{font-size:.8rem;color:var(--muted);font-weight:700}
+.mini .preco b{font-size:1.1rem}
+.mini .preco span{font-size:.7rem}
+.acoes{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:4px}
+.btn-ml{display:inline-flex;align-items:center;gap:8px;background:var(--ml);color:var(--ml-texto);font:900 1rem var(--f-txt);padding:13px 20px;border-radius:14px;text-decoration:none;box-shadow:0 4px 0 #d6c200;transition:transform .1s}
+.btn-ml:hover{transform:translateY(-1px)}
+.btn-ml:active{transform:translateY(2px);box-shadow:0 2px 0 #d6c200}
+.btn-ml.sec{background:#fff;border:2px solid var(--ml-texto);box-shadow:none;padding:11px 16px}
+.cod{border:1.5px dashed #c9b9a3;background:#fbf6ef;border-radius:12px;padding:9px 12px;font:700 .85rem var(--f-txt);cursor:pointer;color:var(--texto)}
+.cod code{font:800 .9rem ui-monospace,monospace;color:var(--vermelho)}
+.cod i{font-style:normal;color:var(--muted);font-size:.75rem}
+.cod.ok i::after{content:" ✓ copiado"}
+.aviso-off{color:#a15c00;font-weight:800;font-size:.85rem}
+.pcard.off{opacity:.75}
+@media(max-width:640px){.pcard{grid-template-columns:1fr;padding:12px}.pfoto img{aspect-ratio:4/3}.acoes{flex-direction:column;align-items:stretch}.acoes .btn-ml,.acoes .cod{justify-content:center;text-align:center;white-space:nowrap}}
+
+.quem{display:flex;gap:14px;align-items:center;background:#fff;border-radius:18px;box-shadow:var(--sombra);padding:16px;margin:28px 0}
+.quem img{width:64px;height:64px;border-radius:16px;flex:none}
+.quem b{font-family:var(--f-tit);font-size:1.1rem}
+.quem p{margin:4px 0 0;font-size:.92rem;color:var(--muted)}
+.tit-leia{margin-top:40px}
+.leia{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.compra-fixa{position:fixed;left:12px;right:12px;bottom:12px;z-index:15;display:none;align-items:center;justify-content:space-between;gap:10px;background:var(--vermelho);color:#fff;text-decoration:none;font-weight:900;padding:14px 18px;border-radius:16px;box-shadow:0 10px 30px rgba(200,16,46,.4);transform:translateY(130%);transition:transform .25s}
+.compra-fixa span{font-size:.78rem;background:rgba(255,255,255,.2);padding:3px 8px;border-radius:99px}
+.compra-fixa.on{transform:none}
+@media(max-width:900px){.compra-fixa{display:flex}}
+
+/* rodapé novo */
+footer{background:#1d140f;padding:36px 0 28px}
+footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px}
+footer nav{display:flex;flex-direction:column;gap:6px}
+footer nav b{color:#fff;margin-bottom:4px}
+.rod-marca img{width:220px;border-radius:12px;margin-bottom:10px}
+.rod-marca p{margin:0 0 8px;line-height:1.5}
+.rod-marca .pq{font-size:.8rem;opacity:.75}
+@media(max-width:700px){footer .wrap{grid-template-columns:1fr 1fr}.rod-marca{grid-column:1/-1}}
 </style>
-<meta property="og:title" content="Cupom Mercado Livre no 11.11 e na Black Friday: como usar e economizar nos presentes (2026)"><meta property="og:image" content="https://chinaemcasa.com.br/img/cupom-capa.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quando é o 11.11 do Mercado Livre?","acceptedAnswer":{"@type":"Answer","text":"No dia 11 de novembro. A temporada de promoções segue até a Black Friday, em 27 de novembro de 2026."}},{"@type":"Question","name":"Onde ficam os cupons do Mercado Livre?","acceptedAnswer":{"@type":"Answer","text":"No app, na área Cupons. Os que você ativou ficam em Meus cupons."}},{"@type":"Question","name":"Dá pra usar cupom e parcelar?","acceptedAnswer":{"@type":"Answer","text":"Na maioria das compras, sim: o desconto entra antes e você escolhe as parcelas na hora de pagar. As condições mudam por produto, então confira na tela de pagamento."}},{"@type":"Question","name":"O China em Casa vende os produtos?","acceptedAnswer":{"@type":"Answer","text":"Não. Indicamos produtos do Mercado Livre por links de afiliado (#publi): podemos ganhar uma comissão, sem custo extra pra você. Preço, cupom e entrega são do Mercado Livre."}}]}</script>
+<meta property="og:title" content="Cupom Mercado Livre no 11.11 e na Black Friday: como usar e economizar nos presentes (2026)"><meta property="og:image" content="https://chinaemcasa.com.br/img/cupom-capa.jpg"><meta property="og:type" content="article">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quando é o 11.11 do Mercado Livre?","acceptedAnswer":{"@type":"Answer","text":"No dia 11 de novembro. A temporada de promoções segue até a Black Friday, em 27 de novembro de 2026."}},{"@type":"Question","name":"Onde ficam os cupons do Mercado Livre?","acceptedAnswer":{"@type":"Answer","text":"No app, na área Cupons. Os que você ativou ficam em Meus cupons."}},{"@type":"Question","name":"Dá pra usar cupom e parcelar?","acceptedAnswer":{"@type":"Answer","text":"Na maioria das compras, sim: o desconto entra antes e você escolhe as parcelas na hora de pagar. As condições mudam por produto, então confira na tela de pagamento."}},{"@type":"Question","name":"O China em Casa vende os produtos?","acceptedAnswer":{"@type":"Answer","text":"Não. Indicamos produtos do Mercado Livre por links de afiliado (#publi): podemos ganhar uma comissão, sem custo extra pra você. Preço, cupom e entrega são do Mercado Livre."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Cupom Mercado Livre no 11.11 e na Black Friday: como usar e economizar no Natal","description":"Passo a passo pra ativar e usar cupom do Mercado Livre no 11.11 e na Black Friday 2026, o que fazer se o cupom não entra e quais presentes de Natal aproveitar.","image":"https://chinaemcasa.com.br/img/cupom-capa.jpg","author":{"@type":"Organization","name":"China em Casa Achadinhos","url":"https://chinaemcasa.com.br"},"publisher":{"@type":"Organization","name":"China em Casa Achadinhos","logo":{"@type":"ImageObject","url":"https://chinaemcasa.com.br/icone-512.jpg"}},"mainEntityOfPage":"https://chinaemcasa.com.br/blog/cupom-mercado-livre-11-11-black-friday/"}</script>
 </head><body>
-<div class="faixa"></div><header class="topo"><div class="wrap">
-<a class="logo" href="../../"><i>🎄</i><span><b>China em Casa</b><small>achadinhos de Natal</small></span></a>
-<nav><a href="../../">Ofertas</a><a href="../../blog/">Blog</a><a class="zap" href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener">Canal no WhatsApp</a></nav>
+<div class="leitura"></div>
+<div class="faixa-top">💬 <b>Ofertas todo dia</b> no canal do WhatsApp · <b>#publi</b> links de afiliado do Mercado Livre</div>
+<header class="topo"><div class="wrap">
+<a class="marca" href="../../"><img src="../../icone.jpg" alt="China em Casa" width="46" height="46"><span><b>China em Casa</b><small>achadinhos de Natal</small></span></a>
+<nav><a href="../../">Ofertas</a><a href="../../blog/" class="ativo">Blog</a><a href="../../blog/black-friday-presentes-de-natal/">Black Friday</a></nav>
+<a class="zap-top" href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener">📲 <span>Canal no WhatsApp</span></a>
 </div></header>
-<main class="wrap">
-<p class="migalha"><a href="../../">Início</a> › <a href="../">Blog</a> › Cupom Mercado Livre no 11.11 e na Black Friday: como usar e </p>
-<div class="cab-artigo"><div>
-<span class="tag">Guia de compra de Natal</span>
+<header class="hero-art"><div class="wrap">
+<p class="migalha"><a href="../../">Início</a> › <a href="../">Blog</a> › 🏷️ Ofertas e cupons</p>
 <h1>Cupom Mercado Livre no 11.11 e na Black Friday: como usar e economizar no Natal</h1>
 <p class="lead">Passo a passo pra ativar e usar cupom do Mercado Livre no 11.11 e na Black Friday 2026, o que fazer se o cupom não entra e quais presentes de Natal aproveitar.</p>
-<p class="meta"><span>🗓️ Atualizado em novembro de 2026</span><span>⏱️ 3 min de leitura</span><span>✍️ China em Casa</span></p>
-</div><img src="../../img/cupom-capa.jpg" alt="" width="300" height="400"></div>
+<div class="autor"><img src="../../icone.jpg" alt="" width="40" height="40"><span><b>Equipe China em Casa</b><small>Atualizado em novembro de 2026 · 3 min de leitura · 3 produtos</small></span></div>
+</div><div class="capa-wrap"><img class="capa" src="../../img/cupom-capa.jpg" alt="" width="1100" height="500"></div></header>
+<main class="wrap">
 <div class="corpo"><article>
-<p class="publi">#publi — Os botões são links de afiliado do Mercado Livre: posso ganhar uma comissão, sem custo extra pra você. Preço e prazo mudam: confira no anúncio.</p>
+<p class="publi"><b>#publi</b> Os botões levam ao Mercado Livre por link de afiliado: se você comprar, ganhamos uma pequena comissão, sem custo extra pra você. Preço e prazo mudam: confira no anúncio.</p>
 <div class="faixa-art" style="background:linear-gradient(120deg,#ff6a00,#c8102e)"><img src="../../icone.jpg" alt="China em Casa"><div><small>Temporada de cupons</small><b>11.11 → Black Friday (27/11)</b><span>Ative o cupom antes de comprar 🎟️</span><i class="conta" data-datas="[[&quot;11.11&quot;,&quot;2026-11-11&quot;],[&quot;Black Friday&quot;,&quot;2026-11-27&quot;]]"></i></div><em>11.11</em></div>
 <p>O <strong>11.11</strong> abre a temporada de promoções que vai até a <strong>Black Friday (27/11)</strong>. O Mercado Livre anunciou mais de R$ 100 milhões em cupons pra esse período. Ou seja: dá pra comprar os presentes de Natal pagando menos, desde que você <strong>ative o cupom antes de comprar</strong>.</p>
 <p>Abaixo, o passo a passo, os erros mais comuns e os achadinhos de Natal que valem a pena olhar nessas datas.</p>
-<div class="resumo"><strong>Resumo rápido:</strong><br>🎟️ <strong>Regra de ouro:</strong> ative o cupom no app ANTES de colocar no carrinho.<br>📅 <strong>Datas:</strong> 11.11 (11/11) e Black Friday (27/11); cupom novo aparece quase todo dia.<br>💳 <strong>Pagamento:</strong> veja as opções de parcelar pelo Mercado Pago na hora de pagar.</div>
+<div class="resumo"><strong>⚡ Resumo rápido</strong><span>🎟️ <strong>Regra de ouro:</strong> ative o cupom no app ANTES de colocar no carrinho.</span><span>📅 <strong>Datas:</strong> 11.11 (11/11) e Black Friday (27/11); cupom novo aparece quase todo dia.</span><span>💳 <strong>Pagamento:</strong> veja as opções de parcelar pelo Mercado Pago na hora de pagar.</span></div>
+<section class="escolhas" id="escolhas"><h2>🏆 Nossas escolhas</h2><div class="trilho"><div class="mini" data-ml="1GbERNw">
+  <a class="mini-foto" href="#p-1"><span class="rank">1</span><img src="../../img/projetor-natal.jpg" alt="" loading="lazy"></a>
+  <b>Projetor de Natal com 16 desenhos</b><div class="preco" hidden></div>
+  <a class="btn-ml" href="https://meli.la/1GbERNw" target="_blank" rel="sponsored nofollow noopener">Ver oferta <span>→</span></a></div><div class="mini" data-ml="2Vj2S25">
+  <a class="mini-foto" href="#p-2"><span class="rank">2</span><img src="../../img/copo-termico.jpg" alt="" loading="lazy"></a>
+  <b>Copo térmico 1,2 L</b><div class="preco" hidden></div>
+  <a class="btn-ml" href="https://meli.la/2Vj2S25" target="_blank" rel="sponsored nofollow noopener">Ver oferta <span>→</span></a></div><div class="mini" data-ml="1poFz8Z">
+  <a class="mini-foto" href="#p-3"><span class="rank">3</span><img src="../../img/sacola-noel-pequena.jpg" alt="" loading="lazy"></a>
+  <b>Kit 10 sacolinhas térmicas Papai Noel</b><div class="preco" hidden></div>
+  <a class="btn-ml" href="https://meli.la/1poFz8Z" target="_blank" rel="sponsored nofollow noopener">Ver oferta <span>→</span></a></div></div></section>
 
 <h2 id="como-ativar-e-usar-o-cupom-passo-a-passo">Como ativar e usar o cupom (passo a passo)</h2><img class="sec-img" src="../../img/cupom-celular.jpg" alt="" loading="lazy"><ol class="passos"><li><div class="cel"><div class="tela"><span class="barra"></span><span class="ico">📱</span><span class="bt">Mercado Livre</span></div></div><div><span class="n">1</span><h3>Abra o app</h3><p>Entre no app do Mercado Livre (ou no site) com a sua conta.</p></div></li><li><div class="cel"><div class="tela"><span class="barra"></span><span class="ico">🎟️</span><span class="bt">Cupons</span></div></div><div><span class="n">2</span><h3>Toque em Cupons</h3><p>Fica no menu ou na tela inicial. Ali aparecem os cupons disponíveis pra você.</p></div></li><li><div class="cel"><div class="tela"><span class="barra"></span><span class="ico">✅</span><span class="bt">Ativar</span></div></div><div><span class="n">3</span><h3>Ative os que servirem</h3><p>Toque em <strong>Ativar</strong>. Recebeu um código? Use <strong>Inserir código</strong> e digite igualzinho.</p></div></li><li><div class="cel"><div class="tela"><span class="barra"></span><span class="ico">🎁</span><span class="bt">Ver no ML</span></div></div><div><span class="n">4</span><h3>Escolha o presente</h3><p>Pelos links desta página ou do <a href="../../">site</a>, e coloque no carrinho.</p></div></li><li><div class="cel"><div class="tela"><span class="barra"></span><span class="ico">💸</span><span class="bt">Desconto</span></div></div><div><span class="n">5</span><h3>Confira o desconto</h3><p>Antes de pagar, veja se o cupom entrou. Os ativos ficam em <strong>Meus cupons</strong>.</p></div></li><li><div class="cel"><div class="tela"><span class="barra"></span><span class="ico">💳</span><span class="bt">Parcelas</span></div></div><div><span class="n">6</span><h3>Escolha como pagar</h3><p>Veja as opções de parcelamento pelo Mercado Pago na tela de pagamento.</p></div></li></ol>
 <h2 id="o-cupom-nao-entrou-veja-o-que-pode-ser">O cupom não entrou? Veja o que pode ser</h2><div class="dicas"><div><span>🧾</span><b>Valor mínimo</b><p>Quase todo cupom pede um mínimo de compra. Junte 2 presentes no mesmo carrinho.</p></div><div><span>🏷️</span><b>Produto participante</b><p>O cupom vale só pra alguns produtos ou categorias: leia as condições.</p></div><div><span>⏰</span><b>Acabou</b><p>Cupom de data especial esgota rápido. Ative e compre no mesmo dia.</p></div><div><span>🔁</span><b>Outro vendedor</b><p>O mesmo produto às vezes tem outro anúncio que aceita o cupom.</p></div></div>
 <h2 id="cupom-relampago-tem-hora-pra-comecar-e-pra-acabar">Cupom relâmpago: tem hora pra começar e pra acabar</h2><div class="dicas"><div><span>⏰</span><b>Tem horário</b><p>Alguns cupons são liberados num horário marcado (ex.: 17h ou 18h) e somem quando o contador zera. Na página de cupons aparece &quot;Encerra em&quot; e &quot;Disponível às&quot;.</p></div><div><span>🧮</span><b>Tem limite</b><p>Cupom de porcentagem costuma ter limite de desconto (ex.: 15% OFF com limite de R$ 20). Leia o &quot;Limite de desconto&quot; embaixo de cada um.</p></div><div><span>🎯</span><b>Tem categoria</b><p>Cada cupom vale numa área: queima de estoque, casa e construção, celular e tech, lojas oficiais ou o site todo.</p></div><div><span>➕</span><b>Dá pra combinar</b><p>O Mercado Livre mostra que dá pra somar cupom relâmpago com cupom Mercado Pago e desconto no Pix ou no cartão.</p></div></div>
-<h2 id="presentes-de-natal-pra-aproveitar-no-11-11">Presentes de Natal pra aproveitar no 11.11</h2><div class="prod">
-  <img src="../../img/projetor-natal.jpg" alt="Projetor de Natal com 16 desenhos" width="360" height="480" loading="lazy">
-  <div><h3>Projetor de Natal com 16 desenhos</h3>
+<h2 id="presentes-de-natal-pra-aproveitar-no-11-11">Presentes de Natal pra aproveitar no 11.11</h2><div class="pcard" id="p-1" data-ml="1GbERNw">
+  <div class="pfoto"><span class="rank">1</span><img src="../../img/projetor-natal.jpg" alt="Projetor de Natal com 16 desenhos" width="360" height="360" loading="lazy"></div>
+  <div class="pinfo">
+  
+  <h3>Projetor de Natal com 16 desenhos</h3>
   <p>Decora a parede inteira sem subir em escada: um dos que mais chamam atenção nos nossos vídeos.</p>
   
-  <a class="btn" href="https://meli.la/1GbERNw" target="_blank" rel="sponsored nofollow noopener">Ver preço no Mercado Livre</a>
-  </div></div><div class="prod">
-  <img src="../../img/copo-termico.jpg" alt="Copo térmico 1,2 L" width="360" height="480" loading="lazy">
-  <div><h3>Copo térmico 1,2 L</h3>
+  <div class="preco" hidden></div>
+  <p class="aviso-off" hidden>⚠️ Pode estar esgotado agora: confira no link.</p>
+  <div class="acoes"><a class="btn-ml" href="https://meli.la/1GbERNw" target="_blank" rel="sponsored nofollow noopener">Ver no Mercado Livre <span>→</span></a>
+  <button class="cod" type="button" hidden title="Copiar o código pra buscar no Mercado Livre">🔎 <code></code> <i>copiar</i></button></div>
+  </div></div><div class="pcard" id="p-2" data-ml="2Vj2S25">
+  <div class="pfoto"><span class="rank">2</span><img src="../../img/copo-termico.jpg" alt="Copo térmico 1,2 L" width="360" height="360" loading="lazy"></div>
+  <div class="pinfo">
+  
+  <h3>Copo térmico 1,2 L</h3>
   <p>Presente seguro pra amigo secreto: serve pra qualquer pessoa.</p>
   
-  <a class="btn" href="https://meli.la/2Vj2S25" target="_blank" rel="sponsored nofollow noopener">Ver preço no Mercado Livre</a>
-  </div></div><div class="prod">
-  <img src="../../img/sacola-noel-pequena.jpg" alt="Kit 10 sacolinhas térmicas Papai Noel" width="360" height="480" loading="lazy">
-  <div><h3>Kit 10 sacolinhas térmicas Papai Noel</h3>
+  <div class="preco" hidden></div>
+  <p class="aviso-off" hidden>⚠️ Pode estar esgotado agora: confira no link.</p>
+  <div class="acoes"><a class="btn-ml" href="https://meli.la/2Vj2S25" target="_blank" rel="sponsored nofollow noopener">Ver no Mercado Livre <span>→</span></a>
+  <button class="cod" type="button" hidden title="Copiar o código pra buscar no Mercado Livre">🔎 <code></code> <i>copiar</i></button></div>
+  </div></div><div class="pcard" id="p-3" data-ml="1poFz8Z">
+  <div class="pfoto"><span class="rank">3</span><img src="../../img/sacola-noel-pequena.jpg" alt="Kit 10 sacolinhas térmicas Papai Noel" width="360" height="360" loading="lazy"></div>
+  <div class="pinfo">
+  
+  <h3>Kit 10 sacolinhas térmicas Papai Noel</h3>
   <p>Presente que já vem embrulhado; bom pra lembrancinha da firma.</p>
   
-  <a class="btn" href="https://meli.la/1poFz8Z" target="_blank" rel="sponsored nofollow noopener">Ver preço no Mercado Livre</a>
+  <div class="preco" hidden></div>
+  <p class="aviso-off" hidden>⚠️ Pode estar esgotado agora: confira no link.</p>
+  <div class="acoes"><a class="btn-ml" href="https://meli.la/1poFz8Z" target="_blank" rel="sponsored nofollow noopener">Ver no Mercado Livre <span>→</span></a>
+  <button class="cod" type="button" hidden title="Copiar o código pra buscar no Mercado Livre">🔎 <code></code> <i>copiar</i></button></div>
   </div></div>
 <h2 id="mais-achadinhos-de-natal-pra-aproveitar-o-cupom">Mais achadinhos de Natal pra aproveitar o cupom</h2><div class="vitrine"><a href="../../#arvore"><img src="../../img/arvore-economica.jpg" alt="" loading="lazy"><span>Árvore completa</span></a><a href="../../#decoracao"><img src="../../img/guirlanda.jpg" alt="" loading="lazy"><span>Guirlanda de porta</span></a><a href="../../#feminino"><img src="../../img/kit-relogio.jpg" alt="" loading="lazy"><span>Kit relógio pra ela</span></a><a href="../../#beleza"><img src="../../img/loccitane-roma.jpg" alt="" loading="lazy"><span>Kit L'Occitane</span></a><a href="../../#criancas"><img src="../../img/caminhao-dino.jpg" alt="" loading="lazy"><span>Caminhão dinossauro</span></a><a href="../../#decoracao"><img src="../../img/cortina-led.jpg" alt="" loading="lazy"><span>Cortina de LED</span></a></div><p class="ver-mais"><a href="../../">Ver todos os achadinhos no site →</a></p>
 <h2 id="11-11-ou-black-friday-quando-comprar">11.11 ou Black Friday: quando comprar?</h2><p>Se o produto é <strong>presente de Natal</strong>, não deixe tudo pra Black Friday: os mais vendidos podem esgotar e a entrega fica mais disputada perto do fim do ano.</p><p>Uma estratégia simples: compre no <strong>11.11</strong> o que você já sabe que quer e deixe pra <strong>Black Friday</strong> o que ainda está pesquisando. A partir de 15/12, prefira entrega FULL (chega mais rápido).</p>
 <h2 id="perguntas-frequentes">Perguntas frequentes</h2><div class="faq"><details><summary>Quando é o 11.11 do Mercado Livre?</summary><p>No dia 11 de novembro. A temporada de promoções segue até a Black Friday, em 27 de novembro de 2026.</p></details><details><summary>Onde ficam os cupons do Mercado Livre?</summary><p>No app, na área Cupons. Os que você ativou ficam em Meus cupons.</p></details><details><summary>Dá pra usar cupom e parcelar?</summary><p>Na maioria das compras, sim: o desconto entra antes e você escolhe as parcelas na hora de pagar. As condições mudam por produto, então confira na tela de pagamento.</p></details><details><summary>O China em Casa vende os produtos?</summary><p>Não. Indicamos produtos do Mercado Livre por links de afiliado (#publi): podemos ganhar uma comissão, sem custo extra pra você. Preço, cupom e entrega são do Mercado Livre.</p></details></div>
-<div class="chamada"><h2>Quer receber os achadinhos do dia?</h2><p>Mando as melhores ofertas de Natal no canal do WhatsApp, sem spam.</p>
+<div class="quem"><img src="../../icone-512.jpg" alt="" width="64" height="64" loading="lazy"><div><b>Como a gente escolhe</b><p>Olhamos os mais vendidos e bem avaliados do Mercado Livre, preferimos anúncios com entrega FULL e conferimos o preço toda semana. Produto que sai do ar ou sobe muito de preço sai da lista.</p></div></div>
+<div class="chamada"><h2>Quer receber os achadinhos do dia?</h2><p>As melhores ofertas de Natal no canal do WhatsApp, sem spam.</p>
 <a class="btn zap" href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener">Entrar no canal</a> <a class="btn" href="../../">Ver todas as ofertas</a></div>
 </article>
 <aside class="lateral">
-<nav class="indice"><b>Neste guia</b><a href="#como-ativar-e-usar-o-cupom-passo-a-passo">Como ativar e usar o cupom (passo a passo)</a><a href="#o-cupom-nao-entrou-veja-o-que-pode-ser">O cupom não entrou? Veja o que pode ser</a><a href="#cupom-relampago-tem-hora-pra-comecar-e-pra-acabar">Cupom relâmpago: tem hora pra começar e pra acabar</a><a href="#presentes-de-natal-pra-aproveitar-no-11-11">Presentes de Natal pra aproveitar no 11.11</a><a href="#mais-achadinhos-de-natal-pra-aproveitar-o-cupom">Mais achadinhos de Natal pra aproveitar o cupom</a><a href="#11-11-ou-black-friday-quando-comprar">11.11 ou Black Friday: quando comprar?</a><a href="#perguntas-frequentes">Perguntas frequentes</a></nav>
-<div class="caixa zap"><b>📲 Ofertas no WhatsApp</b><p style="margin:6px 0 10px">Achadinhos novos todo dia.</p><a class="btn zap" href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener">Entrar no canal</a></div>
+<nav class="indice"><b>Neste guia</b><a href="#nossas-escolhas">🏆 Nossas escolhas</a><a href="#como-ativar-e-usar-o-cupom-passo-a-passo">Como ativar e usar o cupom (passo a passo)</a><a href="#o-cupom-nao-entrou-veja-o-que-pode-ser">O cupom não entrou? Veja o que pode ser</a><a href="#cupom-relampago-tem-hora-pra-comecar-e-pra-acabar">Cupom relâmpago: tem hora pra começar e pra acabar</a><a href="#presentes-de-natal-pra-aproveitar-no-11-11">Presentes de Natal pra aproveitar no 11.11</a><a href="#mais-achadinhos-de-natal-pra-aproveitar-o-cupom">Mais achadinhos de Natal pra aproveitar o cupom</a><a href="#11-11-ou-black-friday-quando-comprar">11.11 ou Black Friday: quando comprar?</a><a href="#perguntas-frequentes">Perguntas frequentes</a></nav>
+<div class="caixa zap"><b>📲 Ofertas no WhatsApp</b><p>Achadinhos novos todo dia.</p><a class="btn zap" href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener">Entrar no canal</a></div>
 </aside></div>
-<h2>Leia também</h2><div class="leia"><a class="card" href="../../blog/presente-amigo-secreto-ate-30-reais/"><img src="https://china-em-casa.paulojao151.workers.dev/foto/2026-11-15/90ded9c4.jpg" alt="" loading="lazy"><div><span class="tag">Guia de compra · 2 min</span><h3>Amigo secreto até R$ 30: 8 presentes que não parecem baratos</h3><p>Ideias de presente de amigo secreto até R$ 30 no Mercado Livre: maquiagem, ferramentas, brinquedos e decoração, pra homem, mulher e criança.</p></div></a><a class="card" href="../../blog/black-friday-presentes-de-natal/"><img src="../../img/bf-reborn.jpg" alt="" loading="lazy"><div><span class="tag">Guia de compra · 3 min</span><h3>Black Friday 2026: 12 presentes de Natal pra comprar mais barato</h3><p>Black Friday 2026 (27/11) no Mercado Livre: 12 presentes de Natal bem avaliados pra criança, pra ele, pra casa e decoração, com dicas pra fugir de desconto falso e garantir a entrega antes do Natal.</p></div></a><a class="card" href="../../blog/como-usar-o-codigo-do-video/"><img src="../../img/guirlanda.jpg" alt="" loading="lazy"><div><span class="tag">Guia de compra · 3 min</span><h3>Viu o código no vídeo? Veja como achar o produto em 10 segundos</h3><p>Nos vídeos do China em Casa aparece um código (ex.: HNABFC-PE14). Veja como usar esse ID pra achar o produto no nosso site ou direto na busca do Mercado Livre.</p></div></a><a class="card" href="../../blog/arvore-de-natal-completa-barata/"><img src="../../img/arvore-economica.jpg" alt="" loading="lazy"><div><span class="tag">Guia de compra · 2 min</span><h3>Árvore de Natal completa barata: 3 opções que chegam rápido</h3><p>Comparei árvores de Natal completas e baratas no Mercado Livre: tamanho, o que vem junto e entrega FULL. Veja qual vale mais a pena em 2026.</p></div></a></div>
+<h2 class="tit-leia">Leia também</h2><div class="grade leia"><a class="card" href="../../blog/presente-amigo-secreto-ate-30-reais/" data-cat="presentes" data-txt="amigo secreto até r$ 30: 8 presentes que não parecem baratos ideias de presente de amigo secreto até r$ 30 no mercado livre: maquiagem, ferramentas, brinquedos e decoração, pra homem, mulher e criança."><div class="card-img"><img src="https://china-em-casa.paulojao151.workers.dev/foto/2026-11-15/90ded9c4.jpg" alt="" loading="lazy"><span class="cat">🎁 Presentes</span></div><div class="card-txt"><h3>Amigo secreto até R$ 30: 8 presentes que não parecem baratos</h3><p>Ideias de presente de amigo secreto até R$ 30 no Mercado Livre: maquiagem, ferramentas, brinquedos e decoração, pra homem, mulher e criança.</p><span class="info">🛍️ 8 produtos · ⏱️ 2 min</span></div></a><a class="card" href="../../blog/black-friday-presentes-de-natal/" data-cat="ofertas" data-txt="black friday 2026: 12 presentes de natal pra comprar mais barato black friday 2026 (27/11) no mercado livre: 12 presentes de natal bem avaliados pra criança, pra ele, pra casa e decoração, com dicas pra fugir de desconto falso e garantir a entrega antes do natal."><div class="card-img"><img src="../../img/bf-reborn.jpg" alt="" loading="lazy"><span class="cat">🏷️ Ofertas e cupons</span></div><div class="card-txt"><h3>Black Friday 2026: 12 presentes de Natal pra comprar mais barato</h3><p>Black Friday 2026 (27/11) no Mercado Livre: 12 presentes de Natal bem avaliados pra criança, pra ele, pra casa e decoração, com dicas pra fugir de desconto falso e garantir a entrega antes do Natal.</p><span class="info">🛍️ 12 produtos · ⏱️ 3 min</span></div></a><a class="card" href="../../blog/como-usar-o-codigo-do-video/" data-cat="dicas" data-txt="viu o código no vídeo? veja como achar o produto em 10 segundos nos vídeos do china em casa aparece um código (ex.: hnabfc-pe14). veja como usar esse id pra achar o produto no nosso site ou direto na busca do mercado livre."><div class="card-img"><img src="../../img/guirlanda.jpg" alt="" loading="lazy"><span class="cat">💡 Dicas</span></div><div class="card-txt"><h3>Viu o código no vídeo? Veja como achar o produto em 10 segundos</h3><p>Nos vídeos do China em Casa aparece um código (ex.: HNABFC-PE14). Veja como usar esse ID pra achar o produto no nosso site ou direto na busca do Mercado Livre.</p><span class="info">⏱️ 3 min</span></div></a></div>
 </main>
-<footer><div class="wrap"><span>🎄 China em Casa · achadinhos que cabem no bolso · #publi links de afiliado</span>
-<nav><a href="../../">Ofertas</a><a href="../../blog/">Blog</a><a href="../../sobre/">Sobre</a><a href="../../contato/">Contato</a><a href="../../privacidade/">Privacidade</a><a href="https://www.tiktok.com/@china.em.casa">TikTok</a><a href="https://br.pinterest.com/chinaemcasa">Pinterest</a></nav>
+<a class="compra-fixa" href="#escolhas">🛒 Ver as escolhas <span>3 produtos</span></a>
+<script>
+(function(){
+  var fmt=function(v){return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})};
+  var dia=function(s){var p=s.split("-");return p[2]+"/"+p[1]};
+  fetch("https://chinaemcasa.com.br/api/links").then(function(r){return r.json()}).then(function(L){
+    document.querySelectorAll("[data-ml]").forEach(function(el){
+      var d=L[el.dataset.ml]; if(!d) return;
+      var pr=el.querySelector(".preco"); if(pr&&d.v&&!d.off){pr.innerHTML="<b>"+fmt(d.v)+"</b><span>visto em "+dia(d.em)+" · pode mudar</span>";pr.hidden=false;}
+      var cd=el.querySelector(".cod"); var id=el.dataset.id||d.id; if(cd&&id){cd.querySelector("code").textContent=id;cd.hidden=false;}
+      if(d.off){el.classList.add("off");var a=el.querySelector(".aviso-off");if(a)a.hidden=false;}
+    });
+  }).catch(function(){});
+  document.addEventListener("click",function(e){
+    var b=e.target.closest(".cod"); if(!b) return;
+    var t=b.querySelector("code").textContent; (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.classList.add("ok");setTimeout(function(){b.classList.remove("ok")},1500)}).catch(function(){});
+  });
+  var barra=document.querySelector(".leitura"); if(barra) addEventListener("scroll",function(){var h=document.documentElement;barra.style.width=Math.min(100,100*h.scrollTop/(h.scrollHeight-h.clientHeight))+"%"},{passive:true});
+  var fixa=document.querySelector(".compra-fixa"), alvo=document.getElementById("escolhas");
+  if(fixa&&alvo&&"IntersectionObserver" in window){new IntersectionObserver(function(es){fixa.classList.toggle("on",!es[0].isIntersecting&&scrollY>alvo.offsetTop)}).observe(alvo);}
+})();
+</script>
+<footer><div class="wrap">
+<div class="rod-marca"><img src="../../logo-horizontal.jpg" alt="China em Casa · achadinhos de Natal" loading="lazy"><p>A gente garimpa os mais vendidos e bem avaliados do Mercado Livre e mostra só o que vale a pena. Você compra direto no Mercado Livre, com entrega, garantia e devolução da própria loja.</p><p class="pq">#publi: os botões são links de afiliado. Se você comprar por eles, ganhamos uma pequena comissão, sem custo extra pra você.</p></div>
+<nav><b>Navegar</b><a href="../../">Ofertas</a><a href="../../blog/">Blog</a><a href="../../sobre/">Sobre</a><a href="../../contato/">Contato</a><a href="../../privacidade/">Privacidade</a></nav>
+<nav><b>Siga</b><a href="https://www.youtube.com/@ChinaemCasa" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/chin_aemcasa/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@china.em.casa" target="_blank" rel="noopener">TikTok</a><a href="https://br.pinterest.com/chinaemcasa" target="_blank" rel="noopener">Pinterest</a><a href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener">WhatsApp</a></nav>
 </div></footer><script>document.querySelectorAll(".conta").forEach(e=>{const h=new Date();h.setHours(0,0,0,0);const d=JSON.parse(e.dataset.datas).map(([n,dt])=>[n,Math.round((new Date(dt+"T00:00:00")-h)/864e5)]).find(([,x])=>x>=0);e.textContent=d?(d[1]===0?"⏰ É HOJE: "+d[0]+"!":"⏳ Faltam "+d[1]+(d[1]===1?" dia":" dias")+" pro "+d[0]):"";if(!d)e.remove();});</script></body></html>
