@@ -47,7 +47,10 @@ for (const v of fila.slice(0, POR_VEZ)) {
     }
     const up = await (await fetch(`${BASE}/api/foto`, { method: "POST", headers: { ...H, "content-type": "video/mp4" }, body: mp4 })).json();
     if (!up.url) throw new Error("upload: " + JSON.stringify(up));
-    await salvar(v.id, { videoPronto: up.url, videoProntoEm: new Date().toISOString(), mapaSons, montarErros: 0, montarErro: "", montarAviso: "" });
+    await salvar(v.id, { videoPronto: up.url, videoProntoEm: new Date().toISOString(), mapaSons, montarErros: 0, montarErro: "", montarAviso: "", videoSemVoz: false });
+    // 16/11: se esse vídeo já estava na fila do robô do Instagram (versão antiga), troca pelo novo e reativa
+    const ig = (await (await fetch(`${BASE}/api/db/insta`, { headers: H })).json().catch(() => [])).find(i => i.tarefa === "t-zap-" + v.id && i.status !== "publicado");
+    if (ig) await fetch(`${BASE}/api/db/insta/${ig.id}`, { method: "POST", headers: { ...H, "content-type": "application/json" }, body: JSON.stringify({ video: up.url, status: "agendado", erro: "", container: null }) });
     console.log(`${v.id}: ✅ ${up.url}`);
   } catch (e) {
     console.error(`${v.id}: erro`, e.message);
