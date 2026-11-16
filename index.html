@@ -304,6 +304,11 @@
   .trilho-wrap .seta.esq { left: -6px; } .trilho-wrap .seta.dir { right: -6px; }
   .trilho-wrap .seta[hidden] { display: none; }
   @media (max-width: 600px) { .trilho-wrap .seta { width: 36px; height: 36px; font-size: 22px; } .trilho-wrap .seta.esq { left: 2px; } .trilho-wrap .seta.dir { right: 2px; } }
+  /* 16/11: preço "visto em" nos cartões */
+  .preco-visto { margin: 2px 0 8px; line-height: 1.25; }
+  .preco-visto b { color: #c8102e; font-size: 1.05em; }
+  .preco-visto small { display: block; color: #8a7a6e; font-size: .72em; }
+  .secao .ver { margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -638,6 +643,9 @@
   const casa = (p, t) => { const a = achaCodigo(t); if (a) return a === p; return !t || (p.nome + " " + (p.texto || "") + " " + (p.etiqueta || "")).toLowerCase().includes(t); };
 
   const novo = p => p.desde && (new Date(HOJE) - new Date(p.desde)) / 864e5 <= 7;
+  // 16/11: preço "visto em" (Worker /api/precos: faxina e olheiro, só dos últimos 7 dias). Sem preço recente, não mostra nada.
+  const PRECOS = {};
+  const precoTxt = p => { const x = PRECOS[p.id]; return x ? `<p class="preco-visto"><b>R$ ${x.v.toFixed(2).replace(".", ",")}</b> <small>visto em ${x.em.slice(8, 10)}/${x.em.slice(5, 7)} · pode mudar</small></p>` : ""; };
   function cartao(p) {
     // oferta com desconto: foto (ou emoji grande) + adesivo do desconto no canto
     const selo = p.selo ? `<div class="selo ${p.foto ? "com-foto" : ""}"><b>${esc(p.selo)}</b><small>${esc(p.categoria || "oferta")}</small></div>` : "";
@@ -648,7 +656,7 @@
     const botoes = (p.links || [p.ml && { rotulo: "Ver no Mercado Livre", url: p.ml }, p.shopee && { rotulo: "Ver na Shopee", url: p.shopee, cls: "shopee" }].filter(Boolean))
       .map(b => `<a class="btn ${b.cls || ""}" href="${esc(b.url)}" target="_blank" rel="noopener sponsored">${b.cls === "shopee" ? "" : `<img class="logo-btn" src="img/ml-icone.png" alt="">`}${esc(b.rotulo)}</a>`).join("");
     return `<article data-id="${esc(p.id)}" class="prod${p.foto && p.foto2 ? " tem2" : ""}"><div class="img">${img}${et && !p.selo ? `<span class="tag ${full ? "full" : ""}">${esc(full ? "⚡ FULL · chega rápido" : et)}</span>` : ""}${idsHoje.has(p.id) ? `<span class="tag hoje">HOJE</span>` : novo(p) ? `<span class="tag hoje">NOVO</span>` : ""}</div>
-      <div class="corpo">${p.idml ? `<span class="cod">ID ${esc(p.idml)}</span>` : p.cod ? `<span class="cod">Cód. ${p.cod}</span>` : ""}<h3>${esc(p.nome.replace(/^Ou: |^\d+\. |^\+ /, ""))}</h3><p>${esc(p.texto || "")}</p><div class="botoes">${botoes}</div></div></article>`;
+      <div class="corpo">${p.idml ? `<span class="cod">ID ${esc(p.idml)}</span>` : p.cod ? `<span class="cod">Cód. ${p.cod}</span>` : ""}<h3>${esc(p.nome.replace(/^Ou: |^\d+\. |^\+ /, ""))}</h3><p>${esc(p.texto || "")}</p>${precoTxt(p)}<div class="botoes">${botoes}</div></div></article>`;
   }
 
   // Menu e quadrados de categoria (foto = 1º produto com foto nossa)
@@ -670,8 +678,10 @@
       let corpo;
       if (c.trilho) corpo = `<div class="trilho-wrap"><button class="seta esq" aria-label="Voltar">‹</button><div class="trilho">${its.map(cartao).join("")}</div><button class="seta dir" aria-label="Mais produtos">›</button></div>`;
       else if (c.secoes) corpo = c.secoes.map(([s, nome]) => { const g = its.filter(p => p.secao === s); return g.length ? `<p class="sub2">${nome}</p><div class="trilho-wrap"><button class="seta esq" aria-label="Voltar">‹</button><div class="trilho">${g.map(cartao).join("")}</div><button class="seta dir" aria-label="Mais produtos">›</button></div>` : ""; }).join("");
-      else corpo = `<div class="grade">${(abertas.has(c.id) || t ? its : its.slice(0, LIMITE)).map(cartao).join("")}</div>`
-        + (its.length > LIMITE && !t ? `<button class="ver" data-c="${c.id}">${abertas.has(c.id) ? "Ver menos ▴" : `Ver mais produtos (+${its.length - LIMITE}) ▾`}</button>` : "");
+      // 16/11: fechada = fileira que rola pro lado (até 12; a página fica 1/3 do tamanho no celular); "Ver todos" abre a grade
+      else if (abertas.has(c.id) || t) corpo = `<div class="grade">${its.map(cartao).join("")}</div>` + (!t && its.length > 4 ? `<button class="ver" data-c="${c.id}">Fechar ▴</button>` : "");
+      else corpo = `<div class="trilho-wrap"><button class="seta esq" aria-label="Voltar">‹</button><div class="trilho">${its.slice(0, 12).map(cartao).join("")}</div><button class="seta dir" aria-label="Mais produtos">›</button></div>`
+        + (its.length > 4 ? `<button class="ver" data-c="${c.id}">Ver todos os ${its.length} ▾</button>` : "");
       html += `<section class="secao" id="${c.id}">${cab}${corpo}</section>`;
     }
     document.getElementById("conteudo").innerHTML = html;
@@ -721,7 +731,9 @@
       ? { cor: "linear-gradient(120deg,#ee4d2d,#ff7337)", sobre: "Shopee", tit: "Ofertas Shopee", txt: "Achadinhos com envio nacional, escolhidos a dedo", cta: "Ver ofertas ›", link: "#shopee", grande: "S" }
       : { breve: true, cor: "linear-gradient(120deg,#ee4d2d,#ff7337)", sobre: "Shopee", tit: "Ofertas Shopee", txt: "Achadinhos da Shopee com cupom", cta: "Em breve", grande: "S" },
     { breve: true, cor: "linear-gradient(120deg,#010101,#25f4ee 140%)", sobre: "TikTok Shop", tit: "Ofertas TikTok Shop", txt: "Compre direto pelo TikTok", cta: "Em breve", grande: "♪" }
-  ].filter(b => (!b.de || HOJE >= b.de) && (!b.ate || HOJE <= b.ate) && (!b.cat || produtos.some(p => p.secao === b.cat)));
+  ].filter(b => !b.breve && (!b.de || HOJE >= b.de) && (!b.ate || HOJE <= b.ate) && (!b.cat || produtos.some(p => p.secao === b.cat)));
+  // 16/11: o banner de confiança (afiliado) vai pro 4º lugar: primeiro o que dá vontade de comprar
+  { const i = BANNERS.findIndex(b => b.logos); if (i === 0 && BANNERS.length > 3) BANNERS.splice(3, 0, BANNERS.shift()); }
   const trilha = document.getElementById("trilha"), pontos = document.getElementById("pontos");
   trilha.innerHTML = BANNERS.map(b => `<a class="banner${b.logos ? " ban-logos" : ""}" ${b.link ? `href="${b.link}"${b.link.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}` : ""} style="background:${b.cor}"><span class="grande" aria-hidden="true">${b.grande || ""}</span>
     <div class="txt"><small>${esc(b.sobre)}</small><h2>${esc(b.tit)}</h2><p>${esc(b.txt)}</p><span class="cta ${b.breve ? "breve" : ""}">${esc(b.cta)}</span></div>
@@ -761,7 +773,7 @@
     { nome: "Casa", itens: CATS.filter(c => ["casa", "ferramentas", "bebe", "fitness", "reveillon", "verao", "escola"].includes(c.id) && itensDe(c).length).map(c => lk(c.id, `${c.ic} ${c.nome}`)) },
     { nome: "Presentes", itens: [lk("feminino", "Pra ela", "mãe, esposa, namorada"), lk("beleza", "Beleza e cuidados", "perfume, kit de banho, skincare"), lk("presentes", "Pra ele e família", "pai, amigo secreto"), lk("criancas", "Crianças", "brinquedos e pelúcias")] },
     { nome: "Ofertas", itens: [lk("ofertas-dia", "Promoções do dia", "dos vídeos de hoje"), ...CATS.filter(c => c.id === "ofertas" || c.id === "blackfriday").map(c => lk(c.id, c.nome))] },
-    { nome: "Lojas", itens: [lk("inicio", "Mercado Livre", "todos os links do site"), (produtos.some(p => p.secao === "shopee") ? lk("shopee", "Shopee", "ofertas com envio nacional") : lk("", "Shopee", "em breve")), lk("", "TikTok Shop", "em breve")] },
+    { nome: "Lojas", itens: [lk("inicio", "Mercado Livre", "todos os links do site"), ...(produtos.some(p => p.secao === "shopee") ? [lk("shopee", "Shopee", "ofertas com envio nacional")] : [])] },
     { nome: "Blog", href: "blog/" }
   ];
   for (let i = NAV.length - 1; i >= 0; i--) if (NAV[i].itens && !NAV[i].itens.length) NAV.splice(i, 1);
@@ -779,7 +791,8 @@
   // só mostra a data se for de hoje ou ontem (03/11: aparecia "30/10" dias depois)
   const ontemPromo = new Date(Date.parse(HOJE) - 864e5).toISOString().slice(0, 10);
   const faixa = () => {
-  document.getElementById("dia-data").textContent = diasPromo.some(d => d >= ontemPromo) ? diasPromo.filter(d => d >= ontemPromo).map(d => d.split("-").reverse().slice(0, 2).join("/")).join(" e ") : "";
+  // 16/11: sem data fixa ("15/11" parecia parado): diz se é dos vídeos de hoje ou dos últimos
+  document.getElementById("dia-data").textContent = diasPromo.includes(HOJE) ? "· dos vídeos de hoje" : diasPromo.length ? "· dos últimos vídeos" : "";
   // hoje/ontem primeiro; depois os outros produtos dos vídeos da agenda, pra faixa girar
   const promoFaixa = [...new Set([...promo, ...Object.keys(AGENDA).sort().reverse().flatMap(d => AGENDA[d]).map(id => porId[id]).filter(Boolean)])];
   document.getElementById("dia-trilho").innerHTML = promoFaixa.map(p => `<a class="dmini" href="${esc((p.links && p.links[0].url) || p.ml)}" target="_blank" rel="noopener sponsored">${p.foto ? `<img src="${esc(p.foto)}" alt="">` : `<i>${esc(p.icone || "🎄")}</i>`}<span><b>${esc(p.nome)}</b><small>${esc(p.texto || p.etiqueta || "")}</small><em><img class="logo-btn" src="img/ml-icone.png" alt="">${idsHoje.has(p.id) ? "HOJE · " : ""}Ver no ML</em></span></a>`).join("") || "<span class=\"dia-cab\"><span>Sem promoção hoje</span></span>";
@@ -810,7 +823,10 @@
   fetch("https://china-em-casa.paulojao151.workers.dev/api/novos").then(r => r.json()).then(novos => {
     const ja = new Set(produtos.map(p => p.id));
     novos.filter(p => !ja.has(p.id)).forEach(p => { produtos.push(p); porId[p.id] = p; });
-    return fetch("https://china-em-casa.paulojao151.workers.dev/api/agenda").then(r => r.json()).then(ag => { Object.assign(AGENDA, ag); calcPromo(); faixa(); }).catch(() => {});
+    return Promise.all([
+      fetch("https://china-em-casa.paulojao151.workers.dev/api/agenda").then(r => r.json()).then(ag => { Object.assign(AGENDA, ag); calcPromo(); faixa(); }).catch(() => {}),
+      fetch("https://china-em-casa.paulojao151.workers.dev/api/precos").then(r => r.json()).then(pr => Object.assign(PRECOS, pr)).catch(() => {})
+    ]);
   }).then(() => {
     montarMenu();
     if (!achou && !irAlvo()) desenhar(document.getElementById("busca").value);
