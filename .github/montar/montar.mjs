@@ -39,9 +39,9 @@ for (const v of fila.slice(0, POR_VEZ)) {
     const mp4 = await readFile(arq);
     console.log(`${v.id}: MP4 ${(mp4.length / 1e6).toFixed(1)} MB em ${Math.round((Date.now() - inicio) / 1000)} s`);
     if (!/COM A VOZ/.test(status)) {
-      // a voz grátis tem cota diária: sem voz, tenta de novo na próxima hora (até 24 vezes) em vez de entregar mudo
+      // a voz grátis tem cota diária: sem voz, tenta de novo na próxima hora (até 96 vezes = 4 dias; 18/11: o robô roda de hora em hora) em vez de entregar mudo
       const n = (v.semVoz || 0) + 1;
-      await salvar(v.id, n >= 24 ? { videoPronto: "", montarErro: "sem voz há 24 tentativas (cota do TTS?)", montarSemVoz: n } : { montarSemVoz: n, montarAviso: "esperando a voz (cota do TTS)" });
+      await salvar(v.id, n >= 96 ? { videoPronto: "", montarErro: "sem voz há 96 tentativas (cota do TTS?)", montarSemVoz: n } : { montarSemVoz: n, montarAviso: "esperando a voz (cota do TTS)" });
       console.log(`${v.id}: saiu SEM VOZ, tento de novo depois`);
       continue;
     }
