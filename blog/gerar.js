@@ -18,7 +18,7 @@ const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").re
 const semTags = s => String(s).replace(/<[^>]+>/g, "");
 const ancora = s => semTags(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const meli = l => (String(l || "").match(/meli\.la\/([A-Za-z0-9]+)/) || [])[1] || "";
-const css = fs.readFileSync(path.join(__dirname, "estilo.css"), "utf8") + fs.readFileSync(path.join(__dirname, "estilo-v2.css"), "utf8");
+const css = fs.readFileSync(path.join(__dirname, "estilo.css"), "utf8") + fs.readFileSync(path.join(__dirname, "estilo-v2.css"), "utf8") + fs.readFileSync(path.join(__dirname, "estilo-v3.css"), "utf8");
 
 const CATS = { presentes: "🎁 Presentes", criancas: "🧸 Crianças", decoracao: "🎄 Decoração", ofertas: "🏷️ Ofertas e cupons", dicas: "💡 Dicas" };
 const catDe = a => a.cat || (/black|cupom|11-11/.test(a.slug) ? "ofertas" : /crianca|menino|menina/.test(a.slug) ? "criancas" : /arvore|decora|enfeite|luz/.test(a.slug) ? "decoracao" : /codigo|como-/.test(a.slug) ? "dicas" : "presentes");
@@ -93,6 +93,22 @@ function card(p) {
   <button class="cod" type="button" hidden title="Copiar o código pra buscar no Mercado Livre">🔎 <code></code> <i>copiar</i></button></div>
   </div></div>`;
 }
+// 22/11 (João: "o blog é feio" → CARA DE LOJA): logo depois do título, a VITRINE com todos os produtos (foto, nome, preço do dia,
+// botão do ML), com a Tia Cida apresentando. O texto (por que escolhemos, dicas, FAQ) vem depois, pra quem quiser ler.
+function vitrineLoja(a) {
+  const ps = produtosDe(a).map((p, i) => ({ ...p, n: i + 1, link: p.link || (p.links || [])[0]?.u || "" }));
+  if (ps.length < 2) return "";
+  return `<section class="loja" id="escolhas">
+  <div class="apresenta"><span class="ava"><img src="../../img/tia-cida-aponta.jpg" alt="Tia Cida, da China em Casa" width="120" height="120"></span><p><b>A Tia Cida separou ${ps.length} achados 👇</b><span>Toque no produto pra ver o preço de hoje no Mercado Livre.</span></p></div>
+  <div class="loja-grade">${ps.map(p => `<div class="item" data-ml="${meli(p.link)}"${p.idml ? ` data-id="${esc(p.idml)}"` : ""}>
+  <a class="item-foto" href="${p.link}" target="_blank" rel="sponsored nofollow noopener"><span class="rank">${p.n}</span>${p.selo ? `<span class="selo">${esc(p.selo)}</span>` : ""}<img src="${im(p.foto, "../../")}" alt="${esc(p.alt || p.nome)}" loading="lazy" width="300" height="300"></a>
+  <b class="item-nome">${esc(p.nome)}</b>
+  <div class="preco" hidden></div>
+  <a class="btn-ml" href="${p.link}" target="_blank" rel="sponsored nofollow noopener">Ver oferta <span>→</span></a>
+  <a class="item-mais" href="#p-${p.n}">Por que escolhemos ↓</a></div>`).join("")}</div>
+  <p class="publi"><b>#publi</b> Links de afiliado do Mercado Livre: se você comprar, ganhamos uma pequena comissão, sem custo extra pra você. Preço e prazo mudam: confira no anúncio.</p>
+  </section>`;
+}
 // escolhas do topo: produtos com selo primeiro, depois a ordem do artigo (máx. 4)
 function escolhas(a) {
   const ps = produtosDe(a).map((p, i) => ({ ...p, n: i + 1, link: p.link || (p.links || [])[0]?.u || "" }));
@@ -113,26 +129,26 @@ function pagina(a) {
   numProd = 0;
   const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: a.faq.map(([q, r]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: r } })) };
   const artLd = { "@context": "https://schema.org", "@type": "Article", headline: semTags(a.h1 || a.titulo).slice(0, 110), description: a.descricao, image: im(a.capa, BASE + "/"), author: { "@type": "Organization", name: "China em Casa Achadinhos", url: BASE }, publisher: { "@type": "Organization", name: "China em Casa Achadinhos", logo: { "@type": "ImageObject", url: BASE + "/icone-512.jpg" } }, mainEntityOfPage: `${BASE}/blog/${a.slug}/` };
-  const h2s = [...(produtosDe(a).length >= 3 ? ["🏆 Nossas escolhas"] : []), ...(a.tabela ? [a.tabela.titulo] : []), ...a.secoes.map(s => s.h2), "Perguntas frequentes"];
+  const h2s = [...(a.tabela ? [a.tabela.titulo] : []), ...a.secoes.map(s => s.h2), "Perguntas frequentes"];
   const np = produtosDe(a).length;
   return `${cabeca(a.titulo, a.descricao, `${BASE}/blog/${a.slug}/`, `
 <meta property="og:title" content="${esc(a.titulo)}"><meta property="og:image" content="${im(a.capa, BASE + "/")}"><meta property="og:type" content="article">
 <script type="application/ld+json">${JSON.stringify(faqLd)}</script><script type="application/ld+json">${JSON.stringify(artLd)}</script>`)}
 <div class="leitura"></div>
 ${topo("../../")}
-<header class="hero-art"><div class="wrap">
+<header class="hero-art hero-loja"><div class="wrap">
 <p class="migalha"><a href="../../">Início</a> › <a href="../">Blog</a> › ${CATS[catDe(a)]}</p>
 <h1>${esc(a.h1 || a.titulo)}</h1>
 <p class="lead">${esc(a.descricao)}</p>
-<div class="autor"><img src="../../icone.jpg" alt="" width="40" height="40"><span><b>Equipe China em Casa</b><small>Atualizado em ${a.atualizado} · ${minutos(a)} min de leitura${np ? ` · ${np} produtos` : ""}</small></span></div>
-</div><div class="capa-wrap"><img class="capa" src="${im(a.capa, "../../")}" alt="" width="1100" height="500"></div></header>
+<p class="mini-autor">Atualizado em ${a.atualizado}${np ? ` · ${np} produtos` : ""} · Equipe China em Casa</p>
+${a.faixa && a.faixa.conta ? `<i class="conta faixa-conta" data-datas="${esc(JSON.stringify(a.faixa.conta))}"></i>` : ""}
+</div></header>
 <main class="wrap">
+${np >= 2 ? vitrineLoja(a) : `<div class="capa-wrap"><img class="capa" src="${im(a.capa, "../../")}" alt="" width="1100" height="500"></div>`}
 <div class="corpo"><article>
-<p class="publi"><b>#publi</b> Os botões levam ao Mercado Livre por link de afiliado: se você comprar, ganhamos uma pequena comissão, sem custo extra pra você. Preço e prazo mudam: confira no anúncio.</p>
-${a.faixa ? `<div class="faixa-art" style="background:${a.faixa.cor}"><img src="../../icone.jpg" alt="China em Casa"><div><small>${esc(a.faixa.sobre)}</small><b>${esc(a.faixa.tit)}</b><span>${esc(a.faixa.txt)}</span>${a.faixa.conta ? `<i class="conta" data-datas="${esc(JSON.stringify(a.faixa.conta))}"></i>` : ""}</div><em>${a.faixa.grande}</em></div>` : ""}
+<h2 class="tit-guia">📖 O guia: por que escolhemos cada um</h2>
 ${a.intro.map(p => `<p>${p}</p>`).join("\n")}
 <div class="resumo"><strong>⚡ Resumo rápido</strong>${a.resumo.map(r => `<span>${r}</span>`).join("")}</div>
-${escolhas(a)}
 ${a.tabela ? `<h2 id="${ancora(a.tabela.titulo)}">${esc(a.tabela.titulo)}</h2><div class="tabela"><table><tr>${a.tabela.cab.map(c => `<th>${esc(c)}</th>`).join("")}</tr>${a.tabela.linhas.map(l => `<tr>${l.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</table></div>` : ""}
 ${a.secoes.map(s => `<h2 id="${ancora(s.h2)}">${esc(s.h2)}</h2>${s.img ? `<img class="sec-img" src="${im(s.img, "../../")}" alt="" loading="lazy">` : ""}${(s.texto || []).map(p => `<p>${p}</p>`).join("")}${passos(s)}${dicas(s)}${(s.produtos || []).map(card).join("")}${vitrine(s)}`).join("\n")}
 <h2 id="perguntas-frequentes">Perguntas frequentes</h2><div class="faq">${a.faq.map(([q, r]) => `<details><summary>${esc(q)}</summary><p>${esc(r)}</p></details>`).join("")}</div>

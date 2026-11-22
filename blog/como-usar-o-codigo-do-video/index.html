@@ -264,6 +264,48 @@ footer nav b{color:#fff;margin-bottom:4px}
 .rod-marca p{margin:0 0 8px;line-height:1.5}
 .rod-marca .pq{font-size:.8rem;opacity:.75}
 @media(max-width:700px){footer .wrap{grid-template-columns:1fr 1fr}.rod-marca{grid-column:1/-1}}
+
+/* ===================== BLOG v3 (22/11): CARA DE LOJA — produtos primeiro, Tia Cida apresentando ===================== */
+.hero-loja{background:#fff;padding-bottom:4px;box-shadow:0 1px 0 var(--linha)}
+.hero-loja .wrap{max-width:900px;text-align:left;padding-top:2px}
+.hero-loja h1{font-size:clamp(1.45rem,3.6vw,2.2rem);line-height:1.15;margin:4px 0 8px}
+.hero-loja .lead{margin:0 0 6px;font-size:.98rem;max-width:760px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hero-loja .migalha{margin:10px 0 2px;font-size:.8rem}
+.mini-autor{margin:0 0 12px;font-size:.78rem;color:var(--muted);font-weight:700}
+.faixa-conta{display:inline-block;font-style:normal;background:var(--vermelho);color:#fff;font-weight:900;font-size:.85rem;padding:6px 12px;border-radius:99px;margin-bottom:12px}
+
+.loja{margin:18px 0 8px}
+.apresenta{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.ava{width:88px;height:88px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 4px 14px rgba(42,29,23,.18);flex:none;border:3px solid #fff;display:block}
+.ava img{width:100%;height:100%;object-fit:cover;transform:scale(1.55) translateY(8%);display:block}
+.apresenta p{margin:0;background:#fff;border-radius:18px 18px 18px 4px;padding:10px 14px;box-shadow:var(--sombra);position:relative}
+.apresenta b{display:block;font:800 1.05rem/1.25 var(--f-tit);color:var(--texto)}
+.apresenta span{display:block;font-size:.85rem;color:var(--muted);margin-top:2px}
+
+.loja-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+@media(max-width:560px){.loja-grade{grid-template-columns:1fr 1fr;gap:10px}}
+.item{background:#fff;border-radius:18px;box-shadow:var(--sombra);padding:10px;display:flex;flex-direction:column;gap:6px;transition:box-shadow .2s,transform .2s}
+.item:hover{box-shadow:var(--sombra2);transform:translateY(-2px)}
+.item-foto{position:relative;display:block;border-radius:14px;overflow:hidden;background:#f4efe7}
+.loja-grade .item-foto img{width:100%;height:auto;aspect-ratio:1/1!important;object-fit:cover;display:block;transition:transform .3s}
+.item .btn-ml{white-space:nowrap}
+.item:hover .item-foto img{transform:scale(1.04)}
+.item-foto .selo{position:absolute;right:8px;top:8px;z-index:1;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.item-nome{font-size:.92rem;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.5em}
+.item .preco b{font-size:1.2rem}
+.item .preco span{font-size:.68rem}
+.item .btn-ml{justify-content:center;padding:11px 8px;font-size:.88rem;margin-top:auto}
+.item-mais{font-size:.78rem;font-weight:800;color:var(--muted);text-align:center;text-decoration:none}
+.item-mais:hover{color:var(--vermelho)}
+.item.off{opacity:.6}
+@media(max-width:560px){.item{padding:8px;border-radius:14px}.item .btn-ml{font-size:.8rem;padding:10px 6px}.item-nome{font-size:.85rem}}
+.loja .publi{margin:14px 0 0;font-size:.78rem}
+
+.tit-guia{margin-top:34px;padding-top:22px;border-top:2px dashed var(--linha)}
+.pcard{grid-template-columns:180px 1fr;padding:14px}
+@media(max-width:640px){.pcard{grid-template-columns:110px 1fr;gap:12px}.pfoto img{aspect-ratio:1}.pinfo h3{font-size:1.05rem}.acoes{flex-direction:row}}
+.compra-fixa{background:var(--ml);color:var(--ml-texto);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.compra-fixa span{background:rgba(0,0,0,.08)}
 </style>
 <meta property="og:title" content="Viu o código no vídeo? Como achar o produto no site e no Mercado Livre (passo a passo)"><meta property="og:image" content="https://chinaemcasa.com.br/img/guirlanda.jpg"><meta property="og:type" content="article">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"O que é o código que aparece no vídeo?","acceptedAnswer":{"@type":"Answer","text":"É o ID do produto no nosso programa de afiliados do Mercado Livre. Ele leva direto ao produto mostrado no vídeo."}},{"@type":"Question","name":"O código funciona no app do Mercado Livre?","acceptedAnswer":{"@type":"Answer","text":"Sim: digite o código na busca do app, com o traço."}},{"@type":"Question","name":"Paga mais caro comprando pelo código?","acceptedAnswer":{"@type":"Answer","text":"Não. O preço é o mesmo do anúncio; a comissão de afiliado é paga pelo Mercado Livre."}}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Viu o código no vídeo? Veja como achar o produto em 10 segundos","description":"Nos vídeos do China em Casa aparece um código (ex.: HNABFC-PE14). Veja como usar esse ID pra achar o produto no nosso site ou direto na busca do Mercado Livre.","image":"https://chinaemcasa.com.br/img/guirlanda.jpg","author":{"@type":"Organization","name":"China em Casa Achadinhos","url":"https://chinaemcasa.com.br"},"publisher":{"@type":"Organization","name":"China em Casa Achadinhos","logo":{"@type":"ImageObject","url":"https://chinaemcasa.com.br/icone-512.jpg"}},"mainEntityOfPage":"https://chinaemcasa.com.br/blog/como-usar-o-codigo-do-video/"}</script>
@@ -275,20 +317,20 @@ footer nav b{color:#fff;margin-bottom:4px}
 <nav><a href="../../">Ofertas</a><a href="../../blog/" class="ativo">Blog</a><a href="../../blog/black-friday-presentes-de-natal/">Black Friday</a></nav>
 <a class="zap-top" href="https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n" target="_blank" rel="noopener">📲 <span>Canal no WhatsApp</span></a>
 </div></header>
-<header class="hero-art"><div class="wrap">
+<header class="hero-art hero-loja"><div class="wrap">
 <p class="migalha"><a href="../../">Início</a> › <a href="../">Blog</a> › 💡 Dicas</p>
 <h1>Viu o código no vídeo? Veja como achar o produto em 10 segundos</h1>
 <p class="lead">Nos vídeos do China em Casa aparece um código (ex.: HNABFC-PE14). Veja como usar esse ID pra achar o produto no nosso site ou direto na busca do Mercado Livre.</p>
-<div class="autor"><img src="../../icone.jpg" alt="" width="40" height="40"><span><b>Equipe China em Casa</b><small>Atualizado em novembro de 2026 · 3 min de leitura</small></span></div>
-</div><div class="capa-wrap"><img class="capa" src="../../img/guirlanda.jpg" alt="" width="1100" height="500"></div></header>
+<p class="mini-autor">Atualizado em novembro de 2026 · Equipe China em Casa</p>
+
+</div></header>
 <main class="wrap">
+<div class="capa-wrap"><img class="capa" src="../../img/guirlanda.jpg" alt="" width="1100" height="500"></div>
 <div class="corpo"><article>
-<p class="publi"><b>#publi</b> Os botões levam ao Mercado Livre por link de afiliado: se você comprar, ganhamos uma pequena comissão, sem custo extra pra você. Preço e prazo mudam: confira no anúncio.</p>
-<div class="faixa-art" style="background:linear-gradient(120deg,#145a32,#2e9e5b)"><img src="../../icone.jpg" alt="China em Casa"><div><small>Passo a passo</small><b>Achou no vídeo? Busca o código 🔎</b><span>Funciona no nosso site e no Mercado Livre</span></div><em>ID</em></div>
+<h2 class="tit-guia">📖 O guia: por que escolhemos cada um</h2>
 <p>Nos nossos vídeos aparece, o tempo todo, uma faixa assim: <strong>🔎 Busque no Mercado Livre: HNABFC-PE14</strong>. Esse é o <strong>código (ID) do produto</strong>. Com ele você acha exatamente o produto do vídeo, sem precisar procurar entre centenas de parecidos.</p>
 <p>Dá pra usar de dois jeitos: no <strong>nosso site</strong> ou direto na <strong>busca do Mercado Livre</strong>.</p>
 <div class="resumo"><strong>⚡ Resumo rápido</strong><span>🔎 <strong>O código</strong> fica fixo na parte de cima do vídeo (ex.: HNABFC-PE14).</span><span>🛍️ <strong>No site:</strong> digite o código na busca do China em Casa.</span><span>🤝 <strong>No Mercado Livre:</strong> digite o mesmo código na busca do app.</span></div>
-
 
 <h2 id="onde-fica-o-codigo-no-video">Onde fica o código no vídeo</h2><img class="sec-img" src="../../img/cupom-celular.jpg" alt="" loading="lazy"><p>Ele aparece numa faixa escura, na parte de cima da tela, durante o vídeo todo. Começa com letras e tem um traço no meio, tipo <strong>HNABFC-PE14</strong>.</p><p>Dica: pause o vídeo ou tire um print da tela pra não esquecer o código.</p>
 <h2 id="jeito-1-no-site-do-china-em-casa">Jeito 1: no site do China em Casa</h2><ol class="passos"><li><div class="cel"><div class="tela"><span class="barra"></span><span class="ico">🌐</span><span class="bt">Link na bio</span></div></div><div><span class="n">1</span><h3>Abra o site</h3><p>Toque no <strong>link da bio</strong> do perfil (TikTok, Instagram, YouTube ou Pinterest).</p></div></li><li><div class="cel"><div class="tela"><span class="barra"></span><span class="ico">🔎</span><span class="bt">Buscar</span></div></div><div><span class="n">2</span><h3>Digite o código</h3><p>Na busca do topo, digite o código do vídeo. Pode ser com ou sem o traço: <strong>HNABFC-PE14</strong> ou <strong>HNABFCPE14</strong>.</p></div></li><li><div class="cel"><div class="tela"><span class="barra"></span><span class="ico">🎁</span><span class="bt">Ver no ML</span></div></div><div><span class="n">3</span><h3>Toque no produto</h3><p>O produto aparece destacado. Toque em <strong>Ver no Mercado Livre</strong> pra ver preço, frete e comprar.</p></div></li></ol>

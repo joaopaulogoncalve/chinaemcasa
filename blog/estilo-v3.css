@@ -1,0 +1,42 @@
+
+/* ===================== BLOG v3 (22/11): CARA DE LOJA — produtos primeiro, Tia Cida apresentando ===================== */
+.hero-loja{background:#fff;padding-bottom:4px;box-shadow:0 1px 0 var(--linha)}
+.hero-loja .wrap{max-width:900px;text-align:left;padding-top:2px}
+.hero-loja h1{font-size:clamp(1.45rem,3.6vw,2.2rem);line-height:1.15;margin:4px 0 8px}
+.hero-loja .lead{margin:0 0 6px;font-size:.98rem;max-width:760px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hero-loja .migalha{margin:10px 0 2px;font-size:.8rem}
+.mini-autor{margin:0 0 12px;font-size:.78rem;color:var(--muted);font-weight:700}
+.faixa-conta{display:inline-block;font-style:normal;background:var(--vermelho);color:#fff;font-weight:900;font-size:.85rem;padding:6px 12px;border-radius:99px;margin-bottom:12px}
+
+.loja{margin:18px 0 8px}
+.apresenta{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.ava{width:88px;height:88px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 4px 14px rgba(42,29,23,.18);flex:none;border:3px solid #fff;display:block}
+.ava img{width:100%;height:100%;object-fit:cover;transform:scale(1.55) translateY(8%);display:block}
+.apresenta p{margin:0;background:#fff;border-radius:18px 18px 18px 4px;padding:10px 14px;box-shadow:var(--sombra);position:relative}
+.apresenta b{display:block;font:800 1.05rem/1.25 var(--f-tit);color:var(--texto)}
+.apresenta span{display:block;font-size:.85rem;color:var(--muted);margin-top:2px}
+
+.loja-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+@media(max-width:560px){.loja-grade{grid-template-columns:1fr 1fr;gap:10px}}
+.item{background:#fff;border-radius:18px;box-shadow:var(--sombra);padding:10px;display:flex;flex-direction:column;gap:6px;transition:box-shadow .2s,transform .2s}
+.item:hover{box-shadow:var(--sombra2);transform:translateY(-2px)}
+.item-foto{position:relative;display:block;border-radius:14px;overflow:hidden;background:#f4efe7}
+.loja-grade .item-foto img{width:100%;height:auto;aspect-ratio:1/1!important;object-fit:cover;display:block;transition:transform .3s}
+.item .btn-ml{white-space:nowrap}
+.item:hover .item-foto img{transform:scale(1.04)}
+.item-foto .selo{position:absolute;right:8px;top:8px;z-index:1;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.item-nome{font-size:.92rem;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.5em}
+.item .preco b{font-size:1.2rem}
+.item .preco span{font-size:.68rem}
+.item .btn-ml{justify-content:center;padding:11px 8px;font-size:.88rem;margin-top:auto}
+.item-mais{font-size:.78rem;font-weight:800;color:var(--muted);text-align:center;text-decoration:none}
+.item-mais:hover{color:var(--vermelho)}
+.item.off{opacity:.6}
+@media(max-width:560px){.item{padding:8px;border-radius:14px}.item .btn-ml{font-size:.8rem;padding:10px 6px}.item-nome{font-size:.85rem}}
+.loja .publi{margin:14px 0 0;font-size:.78rem}
+
+.tit-guia{margin-top:34px;padding-top:22px;border-top:2px dashed var(--linha)}
+.pcard{grid-template-columns:180px 1fr;padding:14px}
+@media(max-width:640px){.pcard{grid-template-columns:110px 1fr;gap:12px}.pfoto img{aspect-ratio:1}.pinfo h3{font-size:1.05rem}.acoes{flex-direction:row}}
+.compra-fixa{background:var(--ml);color:var(--ml-texto);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.compra-fixa span{background:rgba(0,0,0,.08)}
