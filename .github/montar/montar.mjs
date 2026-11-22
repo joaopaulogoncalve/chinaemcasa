@@ -56,6 +56,17 @@ for (const v of fila.slice(0, POR_VEZ)) {
     const ig = (await (await fetch(`${BASE}/api/db/insta`, { headers: H })).json().catch(() => [])).find(i => i.tarefa === "t-zap-" + v.id && i.status !== "publicado");
     if (ig) await fetch(`${BASE}/api/db/insta/${ig.id}`, { method: "POST", headers: { ...H, "content-type": "application/json" }, body: JSON.stringify({ video: up.url, status: "agendado", erro: "", container: null }) });
     console.log(`${v.id}: ✅ ${up.url}`);
+    // 22/11 (João: "põe tudo pra moer"): o robô dá o "OK, já editei" sozinho → o admin agenda YouTube, TikTok B e Instagram
+    // (antes os vídeos prontos ficavam parados esperando o clique do João)
+    try {
+      const adm = await ctx.newPage();
+      await adm.goto(`${BASE}/admin`, { waitUntil: "load" });
+      await adm.waitForTimeout(9000);
+      const ok = await adm.evaluate(id => { const b = document.querySelector(`[data-editado="${id}"]`); if (!b) return "sem botão"; if (b.disabled) return "desabilitado"; b.click(); return "clicado"; }, v.id);
+      await adm.waitForTimeout(6000);
+      console.log(`${v.id}: OK automático: ${ok}`);
+      await adm.close();
+    } catch (e) { console.log(`${v.id}: OK automático falhou: ${e.message}`); }
   } catch (e) {
     console.error(`${v.id}: erro`, e.message);
     await salvar(v.id, { montarErros: (v.montarErros || 0) + 1, montarErro: String(e.message).slice(0, 300) });
