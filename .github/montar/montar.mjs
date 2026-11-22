@@ -25,6 +25,9 @@ await ctx.addCookies([{ name: "adm", value: K, domain: "china-em-casa.paulojao15
 for (const v of fila.slice(0, POR_VEZ)) {
   const page = await ctx.newPage();
   const inicio = Date.now();
+  // 22/11: diagnóstico da voz (no PC sai com voz, aqui saía "sem voz" sem dizer por quê)
+  page.on("response", r => { if (r.url().includes("/ia/voz")) console.log(`${v.id}: /ia/voz ${r.status()} ${r.headers()["content-type"] || ""} ${r.headers()["x-voz"] || ""}`); });
+  page.on("console", m => { const t = m.text(); if (/voz|Voz|erro|Erro|decode/i.test(t)) console.log(`${v.id}: console: ${t.slice(0, 200)}`); });
   try {
     const baixou = page.waitForEvent("download", { timeout: 15 * 60e3 });
     await page.goto(`${BASE}/editor?v=admin:${encodeURIComponent(v.id)}&baixar=1`, { waitUntil: "load" });
@@ -38,6 +41,7 @@ for (const v of fila.slice(0, POR_VEZ)) {
     const mapaSons = await page.evaluate(() => window.MAPA_SONS || null);
     const mp4 = await readFile(arq);
     console.log(`${v.id}: MP4 ${(mp4.length / 1e6).toFixed(1)} MB em ${Math.round((Date.now() - inicio) / 1000)} s`);
+    console.log(`${v.id}: status: ${status.slice(0, 160)} | voz: ${await page.evaluate(() => window.VOZ_CONFERIDA || "-")}`);
     if (!/COM A VOZ/.test(status)) {
       // a voz grátis tem cota diária: sem voz, tenta de novo na próxima hora (até 96 vezes = 4 dias; 18/11: o robô roda de hora em hora) em vez de entregar mudo
       const n = (v.semVoz || 0) + 1;
