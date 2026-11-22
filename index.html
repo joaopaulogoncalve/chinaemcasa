@@ -309,6 +309,12 @@
   .preco-visto b { color: #c8102e; font-size: 1.05em; }
   .preco-visto small { display: block; color: #8a7a6e; font-size: .72em; }
   .secao .ver { margin-top: 10px; }
+  /* 22/11 (João): a Tia Cida, personagem dos vídeos, apresenta as Promoções do dia */
+  .dia-cab { display: flex; align-items: center; gap: 10px; }
+  .dia-ava { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; background: #fff; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.2); flex: none; display: block; }
+  .dia-ava img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.6) translateY(10%); display: block; }
+  .dia-fala { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; line-height: 1.2; }
+  .dia-fala small { flex-basis: 100%; font-weight: 600; opacity: .85; font-size: .78em; }
 </style>
 </head>
 <body>
@@ -340,7 +346,7 @@
   <div class="pontos" id="pontos"></div>
 </section>
 <section class="dia" id="ofertas-dia" aria-label="Promoções do dia">
-  <div class="dia-in"><p class="dia-cab">🔥 Promoções do dia <span id="dia-data"></span></p><div class="dia-trilho" id="dia-trilho"></div></div>
+  <div class="dia-in"><p class="dia-cab"><span class="dia-ava"><img src="img/tia-cida-acena.jpg" alt="Tia Cida" width="44" height="44"></span><span class="dia-fala"><b>🔥 Promoções do dia</b> <span id="dia-data"></span><small>A Tia Cida separou os achados dos vídeos 👇</small></span></p><div class="dia-trilho" id="dia-trilho"></div></div>
 </section>
 
 <main class="wrap" id="inicio">
