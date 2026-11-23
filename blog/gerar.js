@@ -11,7 +11,7 @@ const BASE = "https://chinaemcasa.com.br";
 const ZAP = "https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n";
 // 15/11: artigo com `publicar: "AAAA-MM-DD"` só entra no dia (horário de Brasília). O GitHub Actions roda isto todo dia às 6h.
 const HOJE = process.env.HOJE || new Date(Date.now() - 3 * 36e5).toISOString().slice(0, 10);
-const artigos = require("./artigos-agendados.js").concat(require("./artigos.js")).filter(a => !a.publicar || a.publicar <= HOJE);
+const artigos = require("./artigos-dezembro.js").concat(require("./artigos-agendados.js"), require("./artigos.js")).filter(a => !a.publicar || a.publicar <= HOJE);
 // foto pode ser do site (img/) ou link completo (fotos do admin no B2)
 const im = (f, raiz) => /^https?:/.test(f || "") ? f : raiz + "img/" + f;
 const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
