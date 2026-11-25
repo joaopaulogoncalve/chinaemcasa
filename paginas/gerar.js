@@ -2,7 +2,6 @@
 const fs = require("fs"), path = require("path");
 const RAIZ = path.join(__dirname, "..");
 const BASE = "https://chinaemcasa.com.br";
-const ZAP = "https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n";
 
 const paginas = [
   {
@@ -24,16 +23,15 @@ const paginas = [
 <h2>Nosso compromisso</h2>
 <p>Parte do nosso lucro tem destino certo: <b>10% vão para uma igreja</b>, e esse valor <b>aumenta 1% a cada ano</b>. Cada compra feita pelos nossos links ajuda a manter esse compromisso, sem você pagar nada a mais.</p>
 <h2>Onde a gente está</h2>
-<p>Vídeos curtos no <a href="https://www.tiktok.com/@china.em.casa">TikTok</a>, <a href="https://www.instagram.com/chin_aemcasa">Instagram</a> e <a href="https://www.youtube.com/@ChinaemCasa">YouTube</a>, ideias no <a href="https://br.pinterest.com/chinaemcasa">Pinterest</a>, guias no <a href="../blog/">blog</a> e ofertas todo dia no <a href="${ZAP}">canal do WhatsApp</a>.</p>
+<p>Vídeos curtos no <a href="https://www.tiktok.com/@china.em.casa">TikTok</a>, <a href="https://www.instagram.com/chin_aemcasa">Instagram</a> e <a href="https://www.youtube.com/@ChinaemCasa">YouTube</a>, ideias no <a href="https://br.pinterest.com/chinaemcasa">Pinterest</a> e guias no <a href="../blog/">blog</a>.</p>
 <p class="nota">#publi — os botões do site são links de afiliado do Mercado Livre: podemos ganhar uma comissão quando você compra, <b>sem nenhum custo extra pra você</b>. É assim que o China em Casa se mantém.</p>`
   },
   {
-    slug: "contato", titulo: "Contato", desc: "Fale com o China em Casa: canal do WhatsApp e redes sociais.",
+    slug: "contato", titulo: "Contato", desc: "Fale com o China em Casa: redes sociais e e-mail.",
     corpo: `
 <h1>Contato</h1>
 <p class="lead">Quer sugerir um produto, avisar de um link quebrado ou mandar uma dúvida? Chama a gente.</p>
 <div class="cards">
-  <a class="card zap" href="${ZAP}"><b>💬 Canal do WhatsApp</b><span>Ofertas todo dia e novidades</span></a>
   <a class="card" href="https://www.instagram.com/chin_aemcasa"><b>📸 Instagram</b><span>Mensagem direta no @chin_aemcasa</span></a>
   <a class="card" href="https://www.tiktok.com/@china.em.casa"><b>🎵 TikTok</b><span>Comenta nos vídeos do @china.em.casa</span></a>
 </div>

@@ -8,7 +8,6 @@
 // Artigo (opcional): cat: "presentes" | "criancas" | "decoracao" | "ofertas" | "dicas" (senão é deduzido do slug).
 const fs = require("fs"), path = require("path");
 const BASE = "https://chinaemcasa.com.br";
-const ZAP = "https://whatsapp.com/channel/0029VbE3bM49hXFAMF7r5i1n";
 // 15/11: artigo com `publicar: "AAAA-MM-DD"` só entra no dia (horário de Brasília). O GitHub Actions roda isto todo dia às 6h.
 const HOJE = process.env.HOJE || new Date(Date.now() - 3 * 36e5).toISOString().slice(0, 10);
 const artigos = require("./artigos-dezembro.js").concat(require("./artigos-agendados.js"), require("./artigos.js")).filter(a => !a.publicar || a.publicar <= HOJE);
@@ -39,18 +38,17 @@ const cabeca = (titulo, descricao, canonico, extra = "") => `<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Nunito+Sans:wght@400;600;800;900&display=swap" rel="stylesheet">
 <style>${css}</style>${extra}
 </head><body>`;
-const topo = raiz => `<div class="faixa-top">💬 <b>Ofertas todo dia</b> no canal do WhatsApp · <b>#publi</b> links de afiliado do Mercado Livre</div>
+const topo = raiz => `<div class="faixa-top">🎁 <b>Achadinhos de Natal</b> escolhidos a dedo · <b>#publi</b> links de afiliado do Mercado Livre</div>
 <header class="topo"><div class="wrap">
 <a class="marca" href="${raiz}"><img src="${raiz}icone.jpg" alt="China em Casa" width="46" height="46"><span><b>China em Casa</b><small>achadinhos de Natal</small></span></a>
 <nav><a href="${raiz}">Ofertas</a><a href="${raiz}blog/" class="ativo">Blog</a><a href="${raiz}blog/black-friday-presentes-de-natal/">Black Friday</a></nav>
-<a class="zap-top" href="${ZAP}" target="_blank" rel="noopener">📲 <span>Canal no WhatsApp</span></a>
 </div></header>`;
 // mini contador da faixa do artigo ("faltam 8 dias pro 11.11"); some sozinho depois da última data
 const CONTA = `<script>document.querySelectorAll(".conta").forEach(e=>{const h=new Date();h.setHours(0,0,0,0);const d=JSON.parse(e.dataset.datas).map(([n,dt])=>[n,Math.round((new Date(dt+"T00:00:00")-h)/864e5)]).find(([,x])=>x>=0);e.textContent=d?(d[1]===0?"⏰ É HOJE: "+d[0]+"!":"⏳ Faltam "+d[1]+(d[1]===1?" dia":" dias")+" pro "+d[0]):"";if(!d)e.remove();});</script>`;
 const rodape = raiz => `<footer><div class="wrap">
 <div class="rod-marca"><img src="${raiz}logo-horizontal.jpg" alt="China em Casa · achadinhos de Natal" loading="lazy"><p>A gente garimpa os mais vendidos e bem avaliados do Mercado Livre e mostra só o que vale a pena. Você compra direto no Mercado Livre, com entrega, garantia e devolução da própria loja.</p><p class="pq">#publi: os botões são links de afiliado. Se você comprar por eles, ganhamos uma pequena comissão, sem custo extra pra você.</p></div>
 <nav><b>Navegar</b><a href="${raiz}">Ofertas</a><a href="${raiz}blog/">Blog</a><a href="${raiz}sobre/">Sobre</a><a href="${raiz}contato/">Contato</a><a href="${raiz}privacidade/">Privacidade</a></nav>
-<nav><b>Siga</b><a href="https://www.youtube.com/@ChinaemCasa" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/chin_aemcasa/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@china.em.casa" target="_blank" rel="noopener">TikTok</a><a href="https://br.pinterest.com/chinaemcasa" target="_blank" rel="noopener">Pinterest</a><a href="${ZAP}" target="_blank" rel="noopener">WhatsApp</a></nav>
+<nav><b>Siga</b><a href="https://www.youtube.com/@ChinaemCasa" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/chin_aemcasa/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@china.em.casa" target="_blank" rel="noopener">TikTok</a><a href="https://br.pinterest.com/chinaemcasa" target="_blank" rel="noopener">Pinterest</a></nav>
 </div></footer>${CONTA}</body></html>`;
 
 // preço do dia, código do ML e "indisponível" vêm do Worker (/api/links), pelo código do meli.la de cada botão
@@ -153,12 +151,12 @@ ${a.tabela ? `<h2 id="${ancora(a.tabela.titulo)}">${esc(a.tabela.titulo)}</h2><d
 ${a.secoes.map(s => `<h2 id="${ancora(s.h2)}">${esc(s.h2)}</h2>${s.img ? `<img class="sec-img" src="${im(s.img, "../../")}" alt="" loading="lazy">` : ""}${(s.texto || []).map(p => `<p>${p}</p>`).join("")}${passos(s)}${dicas(s)}${(s.produtos || []).map(card).join("")}${vitrine(s)}`).join("\n")}
 <h2 id="perguntas-frequentes">Perguntas frequentes</h2><div class="faq">${a.faq.map(([q, r]) => `<details><summary>${esc(q)}</summary><p>${esc(r)}</p></details>`).join("")}</div>
 <div class="quem"><img src="../../icone-512.jpg" alt="" width="64" height="64" loading="lazy"><div><b>Como a gente escolhe</b><p>Olhamos os mais vendidos e bem avaliados do Mercado Livre, preferimos anúncios com entrega FULL e conferimos o preço toda semana. Produto que sai do ar ou sobe muito de preço sai da lista.</p></div></div>
-<div class="chamada"><h2>Quer receber os achadinhos do dia?</h2><p>As melhores ofertas de Natal no canal do WhatsApp, sem spam.</p>
-<a class="btn zap" href="${ZAP}" target="_blank" rel="noopener">Entrar no canal</a> <a class="btn" href="../../">Ver todas as ofertas</a></div>
+<div class="chamada"><h2>Quer ver mais achadinhos?</h2><p>A vitrine completa tem os preços do dia.</p>
+<a class="btn" href="../../">Ver todas as ofertas</a></div>
 </article>
 <aside class="lateral">
 <nav class="indice"><b>Neste guia</b>${h2s.map(t => `<a href="#${ancora(t)}">${esc(semTags(t))}</a>`).join("")}</nav>
-<div class="caixa zap"><b>📲 Ofertas no WhatsApp</b><p>Achadinhos novos todo dia.</p><a class="btn zap" href="${ZAP}" target="_blank" rel="noopener">Entrar no canal</a></div>
+
 </aside></div>
 <h2 class="tit-leia">Leia também</h2><div class="grade leia">${artigos.filter(x => x.slug !== a.slug).slice(0, 3).map(x => cardArtigo(x, "../../")).join("")}</div>
 </main>
@@ -185,7 +183,7 @@ ${topo("../")}
 <a class="destaque" href="${primeiro.slug}/" data-cat="${catDe(primeiro)}" data-txt="${esc((primeiro.h1 || primeiro.titulo) + " " + primeiro.descricao).toLowerCase()}"><div class="d-img"><img src="${im(primeiro.capa, "../")}" alt=""><span class="cat">${CATS[catDe(primeiro)]}</span></div><div class="d-txt"><span class="tag">✨ Novo</span><h2>${esc(primeiro.h1 || primeiro.titulo)}</h2><p>${esc(primeiro.descricao)}</p><span class="info">${produtosDe(primeiro).length ? `🛍️ ${produtosDe(primeiro).length} produtos · ` : ""}⏱️ ${minutos(primeiro)} min</span><span class="ler">Ler o guia →</span></div></a>
 <div class="grade" id="grade">${outros.map(x => cardArtigo(x, "../")).join("")}</div>
 <p class="vazio" id="vazio" hidden>Nada encontrado. Tenta outra palavra 🙂</p>
-<div class="chamada"><h2>Achadinhos novos todo dia</h2><p>Entre no canal do WhatsApp ou veja a vitrine completa.</p><a class="btn zap" href="${ZAP}" target="_blank" rel="noopener">Entrar no canal</a> <a class="btn" href="../">Ver as ofertas</a></div>
+<div class="chamada"><h2>Achadinhos novos todo dia</h2><p>Veja a vitrine completa com os preços do dia.</p><a class="btn" href="../">Ver as ofertas</a></div>
 </main>
 <script>
 (function(){
