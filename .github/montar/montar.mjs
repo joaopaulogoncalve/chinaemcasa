@@ -61,7 +61,10 @@ for (const v of fila.slice(0, POR_VEZ)) {
     try {
       const adm = await ctx.newPage();
       await adm.goto(`${BASE}/admin`, { waitUntil: "load" });
-      await adm.waitForTimeout(9000);
+      // 28/11: antes esperava 9 s fixos; se as tarefas ainda não tinham carregado, o painel não via os horários ocupados
+      // e marcava 2 vídeos no mesmo horário (TikTok B 29 e 30/11). Agora espera as tarefas, revisões e o botão aparecerem.
+      await adm.waitForFunction(id => typeof tarefas !== "undefined" && tarefas.length > 100 && revisoes.length > 10 && document.querySelector(`[data-editado="${id}"]`), v.id, { timeout: 90e3, polling: 1000 }).catch(() => {});
+      await adm.waitForTimeout(3000);
       const ok = await adm.evaluate(id => { const b = document.querySelector(`[data-editado="${id}"]`); if (!b) return "sem botão"; if (b.disabled) return "desabilitado"; b.click(); return "clicado"; }, v.id);
       await adm.waitForTimeout(6000);
       console.log(`${v.id}: OK automático: ${ok}`);
